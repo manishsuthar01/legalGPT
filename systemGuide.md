@@ -1,4 +1,4 @@
-Legal-GPT (Enigma) is an AI-powered contract analysis and generation tool that helps users identify legal risks in contracts and create new legal documents. README.md:1-4
+Legal-GPT  is an AI-powered contract analysis and generation tool that helps users identify legal risks in contracts and create new legal documents. README.md:1-4
 
 Core Features
 1. Contract Scanner
