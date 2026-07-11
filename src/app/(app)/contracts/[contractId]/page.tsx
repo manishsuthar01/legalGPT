@@ -49,13 +49,13 @@ export default function ContractWorkspacePage({ params }: { params: { contractId
 
       {/* State 3: Analysis Complete */}
       {uiState === 'complete' && (
-        <div className="h-full flex overflow-hidden">
+        <div className="h-full flex flex-col lg:flex-row overflow-hidden overflow-y-auto lg:overflow-y-hidden">
           
           {/* Left Column - Main Workspace (65%) */}
-          <div className="flex-[65] flex flex-col h-full p-8 overflow-y-auto">
+          <div className="flex-none lg:flex-[65] flex flex-col h-auto lg:h-full p-4 lg:p-8 overflow-y-visible lg:overflow-y-auto border-b lg:border-b-0 lg:border-r border-[#222]">
             <DocumentMetadata />
             
-            <div className="flex-1 flex flex-col min-h-0 mt-2">
+            <div className="flex-1 flex flex-col min-h-[400px] mt-2">
               <ExecutiveSummary />
               
               <div className="mb-6">
@@ -68,7 +68,7 @@ export default function ContractWorkspacePage({ params }: { params: { contractId
           </div>
 
           {/* Right Column - Chat Assistant (35%) */}
-          <div className="flex-[35] h-full min-w-[320px]">
+          <div className="flex-none lg:flex-[35] h-[500px] lg:h-full min-w-0 lg:min-w-[320px]">
             <ChatPanel />
           </div>
 
@@ -76,7 +76,7 @@ export default function ContractWorkspacePage({ params }: { params: { contractId
       )}
       
       {/* Dev Tool: State Toggle for Reviewing */}
-      <div className="fixed bottom-4 left-[280px] flex gap-2 bg-[#111] p-2 rounded-xl border border-[#222] z-50">
+      <div className="fixed bottom-4 left-4 lg:left-[280px] flex gap-2 bg-[#111] p-2 rounded-xl border border-[#222] z-50">
         <button onClick={() => setUiState('empty')} className={`px-3 py-1 text-xs rounded-lg ${uiState === 'empty' ? 'bg-[#7c5cfc] text-white' : 'text-[#999] hover:bg-[#222]'}`}>Empty</button>
         <button onClick={() => setUiState('analyzing')} className={`px-3 py-1 text-xs rounded-lg ${uiState === 'analyzing' ? 'bg-[#7c5cfc] text-white' : 'text-[#999] hover:bg-[#222]'}`}>Analyzing</button>
         <button onClick={() => setUiState('complete')} className={`px-3 py-1 text-xs rounded-lg ${uiState === 'complete' ? 'bg-[#7c5cfc] text-white' : 'text-[#999] hover:bg-[#222]'}`}>Complete</button>

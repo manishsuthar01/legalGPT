@@ -7,11 +7,15 @@ export const ChatInput = () => {
       <div className="relative flex items-end bg-[#111] border border-[#222] rounded-xl overflow-hidden focus-within:border-[#7c5cfc]/50 transition-colors">
         <textarea 
           placeholder="Ask a question about this contract..."
+          aria-label="Chat input message"
           className="w-full bg-transparent text-sm text-white placeholder-[#555] p-4 resize-none focus:outline-none min-h-[56px] max-h-[120px]"
           rows={1}
         />
-        <button className="absolute right-2 bottom-2 p-2 bg-[#7c5cfc] hover:bg-[#6a4beb] text-white rounded-lg transition-colors flex items-center justify-center">
-          <SendHorizontal size={16} />
+        <button 
+          aria-label="Send message"
+          className="absolute right-2 bottom-2 p-2 bg-[#7c5cfc] hover:bg-[#6a4beb] text-white rounded-lg transition-colors flex items-center justify-center focus-visible:ring-2 focus-visible:ring-white outline-none"
+        >
+          <SendHorizontal size={16} aria-hidden="true" />
         </button>
       </div>
       <div className="text-center mt-3">

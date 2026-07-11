@@ -14,22 +14,26 @@ export const AnalysisProgress = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full max-w-md mx-auto px-6">
-      <div className="w-full bg-[#111] border border-[#222] rounded-2xl p-10 shadow-2xl">
+      <div 
+        className="w-full bg-[#111] border border-[#222] rounded-2xl p-10 shadow-2xl"
+        role="status"
+        aria-live="polite"
+      >
         <h2 className="text-white text-xl font-semibold mb-8 text-center tracking-tight">
           Analyzing Contract
         </h2>
         
         <div className="flex flex-col gap-5">
           {steps.map((step, idx) => (
-            <div key={idx} className="flex items-center gap-4">
+            <div key={idx} className={`flex items-center gap-4 transition-opacity duration-300 ${step.status === 'pending' ? 'opacity-50' : 'opacity-100'}`}>
               {step.status === 'complete' && (
-                <CheckCircle2 size={20} className="text-[#22c55e]" />
+                <CheckCircle2 size={20} className="text-[#22c55e]" aria-hidden="true" />
               )}
               {step.status === 'current' && (
-                <CircleDashed size={20} className="text-[#7c5cfc] animate-spin" />
+                <CircleDashed size={20} className="text-[#7c5cfc] animate-spin" aria-hidden="true" />
               )}
               {step.status === 'pending' && (
-                <Circle size={20} className="text-[#333]" />
+                <Circle size={20} className="text-[#333]" aria-hidden="true" />
               )}
               <span className={`text-sm ${
                 step.status === 'complete' ? 'text-[#999]' : 
@@ -37,6 +41,7 @@ export const AnalysisProgress = () => {
                 'text-[#555]'
               }`}>
                 {step.label}
+                {step.status === 'current' && <span className="sr-only"> (in progress)</span>}
               </span>
             </div>
           ))}

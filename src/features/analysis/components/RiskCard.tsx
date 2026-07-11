@@ -52,8 +52,8 @@ export const RiskCard: React.FC<RiskCardProps> = ({ severity, clauseTitle, expla
         </div>
       </div>
 
-      <button className="flex items-center gap-2 text-xs font-semibold text-[#666] hover:text-[#7c5cfc] uppercase tracking-widest transition-colors mt-4">
-        <FileSearch size={14} />
+      <button className="flex items-center gap-2 text-xs font-semibold text-[#666] hover:text-[#7c5cfc] uppercase tracking-widest transition-colors mt-4 focus-visible:ring-2 focus-visible:ring-[#7c5cfc] outline-none rounded p-1 -ml-1">
+        <FileSearch size={14} aria-hidden="true" />
         View Clause
       </button>
     </div>
