@@ -33,7 +33,7 @@ export function Header() {
             Sign In
           </Link>
           <Link 
-            href="/dashboard"
+            href="/contracts/mock-id"
             className="bg-accent hover:bg-accent/90 text-white px-5 py-2.5 rounded-full text-sm font-medium transition-all hover:shadow-[0_0_20px_rgba(124,92,252,0.4)]"
           >
             Get Started

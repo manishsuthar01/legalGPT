@@ -27,7 +27,7 @@ export const Hero = () => {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link 
-              href="/dashboard"
+              href="/contracts/mock-id"
               className="px-8 py-4 rounded-xl bg-accent text-white font-semibold hover:scale-[1.02] hover:bg-accent/90 transition-all duration-300 w-full sm:w-auto"
             >
               Get Started Free
