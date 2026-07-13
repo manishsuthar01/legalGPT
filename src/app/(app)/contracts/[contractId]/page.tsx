@@ -25,6 +25,9 @@ export default function ContractWorkspacePage({ params }: { params: { contractId
     if (!error) {
       setUiState('analyzing');
     }
+    if (!isAnalysing) {
+      setUiState('complete');
+    }
   };
 
   return (

@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 
 export default function useContractAnalysis() {
     const [isAnalysing, setIsAnalysing] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
-    const router = useRouter();
+    const params = useParams();
 
     const startAnalysis = async (supabaseFilePath: string) => {
         setIsAnalysing(true);
@@ -18,7 +18,7 @@ export default function useContractAnalysis() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    contractId: router.query.contractId,
+                    contractId: params.contractId,
                     userId: "user-123",
                     filePath: supabaseFilePath
                 })
