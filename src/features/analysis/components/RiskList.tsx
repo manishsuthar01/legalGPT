@@ -5,7 +5,7 @@ import { mockAnalysisData } from '../mock/analysisData';
 export const RiskList = () => {
   const risks = mockAnalysisData.risks;
 
-  if (!risks || risks.length === 0) {
+  if (!risks || (risks as unknown as any[]).length === 0) {
     return (
       <div className="bg-[#111] border border-[#222] border-dashed rounded-2xl p-8 text-center">
         <p className="text-[#999] text-sm">No significant risks were identified in this document.</p>

@@ -28,7 +28,7 @@ export default function useContractAnalysis() {
             const data = await res.json()
 
             if (data.success) {
-                console.log("Analysis triggered", data);
+                console.log("Analysis api called", data);
             } else {
                 setError(data.error || "Failed to trigger analysis")
             }
