@@ -18,7 +18,8 @@ export const cleanTextNode = async (state: AnalysisState): Promise<Partial<Analy
 
         console.log(`[cleanTextNode] Text cleaned successfully. Length: ${cleanedText.length}`);
         return {
-            cleanedText: cleanedText
+            cleanedText: cleanedText,
+            status: "processing"
         };
 
     } catch (error) {

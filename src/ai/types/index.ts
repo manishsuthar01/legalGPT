@@ -3,7 +3,7 @@ export interface AnalysisState {
     uploadedFile: any; // file reference/buffer
     extractedText: string;
     cleanedText: string;
-    clauses: string[];
+    clauses: { text: string; source: string, chunk_index: number }[];
     embeddings: number[][];
     analysis: any;
     summary: string;
