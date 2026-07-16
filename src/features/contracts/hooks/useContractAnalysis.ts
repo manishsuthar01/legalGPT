@@ -7,7 +7,7 @@ export default function useContractAnalysis() {
     const [error, setError] = useState<string | null>(null);
     const params = useParams();
 
-    const startAnalysis = async (supabaseFilePath: string) => {
+    const startAnalysis = async (supabaseFilePath: string, country: string) => {
         setIsAnalysing(true);
         setError(null);
         try {
@@ -20,7 +20,8 @@ export default function useContractAnalysis() {
                 body: JSON.stringify({
                     contractId: params.contractId,
                     userId: "user-123",
-                    filePath: supabaseFilePath
+                    filePath: supabaseFilePath,
+                    country
                 })
 
             });
@@ -34,7 +35,7 @@ export default function useContractAnalysis() {
             }
 
         } catch (error) {
-            console.error("Analysis failed:", error);
+            console.error("useContractAnalysis hook failed:", error);
             setError("Network error. Try again.")
         } finally {
             setIsAnalysing(false)

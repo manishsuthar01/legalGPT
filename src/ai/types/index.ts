@@ -1,5 +1,6 @@
 export interface AnalysisState {
     contractId: string;
+    country: string;
     uploadedFile: any; // file reference/buffer
     extractedText: string;
     cleanedText: string;
@@ -9,6 +10,12 @@ export interface AnalysisState {
     summary: string;
     vectorIds: string[];
     status: 'pending' | 'processing' | 'completed' | 'failed';
+    flaggedClauses: any[];
+    researchResults: any[];
+    verifiedSources: any[];
+    reviewerFeedback: any[];
+    advisorFeedback: any[];
+    riskCards: any[];
 }
 
 export interface ChatState {

@@ -3,12 +3,13 @@ import { analysisGraph } from "@/ai/graph/analysis.graph";
 // this service is a wrapper around the langGraph
 
 export class AnalysisService {
-    static async runAnalysis(contractId: string, userId: string, filePath: string) {
+    static async runAnalysis(contractId: string, userId: string, filePath: string, country: string) {
         try {
-            console.log(`Starting LangGraph analysis for contract: ${contractId}`);
+            console.log(`Starting LangGraph analysis for contract: ${contractId} (${country})`);
 
             const initialState = {
                 contractId,
+                country,
                 uploadedFile: filePath,
                 extractedText: "",
                 cleanedText: "",
@@ -17,7 +18,13 @@ export class AnalysisService {
                 analysis: null,
                 summary: "",
                 vectorIds: [],
-                status: "pending" as const
+                status: "pending" as const,
+                flaggedClauses: [],
+                researchResults: [],
+                verifiedSources: [],
+                reviewerFeedback: [],
+                advisorFeedback: [],
+                riskCards: []
             };
 
             // invoke fhe graph with initial state that return the final state

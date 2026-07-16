@@ -6,19 +6,20 @@ export async function POST(req: NextRequest) {
 
     try {
         const body = await req.json();
-        const { contractId, userId, filePath } = body;
+        const { contractId, userId, filePath, country } = body;
 
         const validateBody = analyzeContractBodySchema.parse({
             contractId,
             userId,
-            filePath
+            filePath,
+            country
         });
 
         if (!validateBody) {
             return NextResponse.json({ success: false, error: "Invalid request body" }, { status: 400 })
         }
         // service to invoke the graph
-        const result = await AnalysisService.runAnalysis(contractId, userId, filePath);
+        const result = await AnalysisService.runAnalysis(contractId, userId, filePath, country);
         if (!result.success) {
             return NextResponse.json({ success: false, error: "Failed to trigger analysis service" }, { status: 500 })
         }

@@ -398,31 +398,39 @@ Retrieve Contract
 
 ↓
 
-Retrieve Embeddings
+Retrieve Embeddings / User Contract (Vectorized)
 
 ↓
 
-Retrieve Relevant Legal Knowledge
+Flag Important Clauses
 
 ↓
 
-Risk Analysis
+Research Agent (Web)
 
 ↓
 
-Generate Executive Summary
+Source Verification
 
 ↓
 
-Generate Risk Cards
+Legal Reviewer Agent
+
+↓
+
+Legal Advisor Agent
+
+↓
+
+Executive Summary + Risk Cards
+
+↓
+
+Context-Aware Chat
 
 ↓
 
 Persist Results
-
-↓
-
-Enable Chat
 
 ↓
 

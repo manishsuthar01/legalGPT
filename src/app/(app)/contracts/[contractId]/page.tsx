@@ -20,8 +20,8 @@ export default function ContractWorkspacePage({ params }: { params: { contractId
   const { startAnalysis, isAnalysing, error } = useContractAnalysis()
 
   // Temporary function to simulate the flow
-  const handleUpload = async (path: string) => {
-    await startAnalysis(path);
+  const handleUpload = async (path: string, country: string) => {
+    await startAnalysis(path, country);
     if (!error) {
       setUiState('analyzing');
     }

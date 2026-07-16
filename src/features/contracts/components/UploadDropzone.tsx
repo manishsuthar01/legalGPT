@@ -4,13 +4,14 @@ import { Loader, Loader2, UploadCloud } from 'lucide-react';
 import { uploadContract } from '@/utils/supabase/storage';
 
 interface UploadDropzoneProps {
-  onUpload: (path: string) => void;
+  onUpload: (path: string, country: string) => void;
 }
 
 export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUpload }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isuploading, setIsUploading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [country, setCountry] = useState<string>('US');
 
   const handleUplaodClick = async () => {
     if (!fileInputRef.current) return;
@@ -27,7 +28,7 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUpload }) => {
     const result = await uploadContract(file, mockUserId);
     setIsUploading(false);
     if (result.success && result.path) {
-      onUpload(result.path);
+      onUpload(result.path, country);
     }
     else {
       setError('Failed to upload contract');
@@ -39,6 +40,25 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUpload }) => {
 
   return (
     <div className="flex flex-col items-center justify-center h-full w-full max-w-2xl mx-auto px-6">
+      
+      <div className="mb-6 w-full max-w-xs flex flex-col items-center">
+        <label htmlFor="country-select" className="text-sm text-[#999] font-medium mb-2 uppercase tracking-wider">Target Jurisdiction</label>
+        <select
+          id="country-select"
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
+          disabled={isuploading}
+          className="w-full bg-[#111] border border-[#333] text-white rounded-lg px-4 py-2 focus:outline-none focus:border-[#7c5cfc] transition-colors"
+        >
+          <option value="US">United States (US)</option>
+          <option value="UK">United Kingdom (UK)</option>
+          <option value="EU">European Union (EU)</option>
+          <option value="IN">India (IN)</option>
+          <option value="AU">Australia (AU)</option>
+          <option value="CA">Canada (CA)</option>
+        </select>
+      </div>
+
       <button
         onClick={handleUplaodClick}
         disabled={isuploading}
