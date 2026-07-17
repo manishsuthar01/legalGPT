@@ -3,6 +3,7 @@ import { AnalysisState } from "@/ai/types";
 import { supabaseAdmin } from "@/utils/supabase/admin";
 
 export const extractTextNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {
+    const startTime = Date.now();
     console.log(`[extractTextNode] Starting extraction for contract: ${state.contractId}`);
     try {
         const { data: fileBlob, error } = await supabaseAdmin.storage.from("contracts").download(state.uploadedFile);
@@ -22,7 +23,7 @@ export const extractTextNode = async (state: AnalysisState): Promise<Partial<Ana
             throw new Error("No text extracted from the document");
         }
 
-        console.log(`[extractTextNode] Extracted ${extractedText.length} characters successfully`);
+        console.log(`[extractTextNode] Extracted ${extractedText.length} characters successfully in ${(Date.now() - startTime) / 1000}s`);
 
         return {
             extractedText: extractedText,

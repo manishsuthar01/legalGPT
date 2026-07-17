@@ -4,6 +4,7 @@ import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
 import { AnalysisState } from "../types";
 
 export const embedContracNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {
+    const startTime = Date.now();
     console.log(`[embedContracNode] Embedding clauses for contract: ${state.contractId}`);
 
     try {
@@ -37,7 +38,7 @@ export const embedContracNode = async (state: AnalysisState): Promise<Partial<An
             }
         );
 
-        console.log(`[embedClausesNode] Successfully stored embeddings in Supabase!`);
+        console.log(`[embedClausesNode] Successfully stored embeddings in Supabase! in ${(Date.now() - startTime) / 1000}s`);
 
         return {
             status: "processing"

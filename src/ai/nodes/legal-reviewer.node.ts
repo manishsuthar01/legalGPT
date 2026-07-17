@@ -7,56 +7,105 @@ import fs from "fs";
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const legalReviewerNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {
-    console.log(`[legal-reviewer.node.ts] REVIEWING ${state.clauses.length} CLAUSES FOR JURISDICTION: ${state.country}`);
+    const startTime = Date.now();
+    console.log(`[legal-reviewer.node.ts] REVIEWING ${state.flaggedClauses.length} CLAUSES FOR JURISDICTION: ${state.country}`);
     try {
         const feedback = [];
-        const { verifiedSources, country, clauses } = state;
-        const model = getLLM("gemini");
+        const { researchResults, country, clauses } = state;
+        const model = getLLM("gemini", { model: "gemini-3.5-flash" });
         const chain = prompt.pipe(model).pipe(new StringOutputParser());
 
-        for (let clause of state.flaggedClauses) {
-            //    falgged clause me se koi sa hi isme aaega kyu ki humne flaggedClauses me se hi search kra hai or usi me se verification bhi
-            //    ab yaha par hum uss clause ko reviews me add kreng
-            const source = state.verifiedSources.find((v) => (
-                v.clauseId === clause.chunk_index
-            ))
+        const clausesData = state.flaggedClauses.map(clause => {
+            const plan = state.researchPlans?.find((p) => p.clauseId === clause.chunk_index);
+            const source = state.researchResults?.find((v) => v.clauseId === clause.chunk_index);
 
-            const context = source ? source.verifiedData : "No specific legal precedent found. Rely on general contract law principles."
-
-            let review = "";
-            let retries = 3;
-            while (retries > 0) {
-                try {
-                    review = await chain.invoke({
-                        country: state.country,
-                        clause: clause.text,
-                        context: context,
-                    });
-                    break; // Success, exit retry loop
-                } catch (error: any) {
-                    if (error?.status === 429 || error?.message?.includes("429") || error?.message?.includes("Rate limit")) {
-                        console.warn(`[legal-reviewer.node.ts] Rate limited. Waiting 5 seconds before retrying... (${retries} retries left)`);
-                        await delay(5000);
-                        retries--;
-                        if (retries === 0) throw error;
-                    } else {
-                        throw error;
-                    }
-                }
-            }
-
-            // Wait 1 second between clauses to reduce token burst rate
-            await delay(1000);
-
-            feedback.push({
+            return {
                 clauseId: clause.chunk_index,
                 clauseText: clause.text,
-                strictReview: review.trim()
-            });
+                researchTopic: plan?.topic || "N/A",
+                searchQuery: plan?.searchQuery || "N/A",
+                context: source && source.sources ? source.sources : "No specific legal precedent found."
+            };
+        });
 
+        let aiResponse = "";
+        let retries = 3;
+        let attempt = 0;
+
+        while (retries > 0) {
+            try {
+                aiResponse = await chain.invoke({
+                    country: state.country,
+                    clausesData: JSON.stringify(clausesData),
+                });
+                break; // Success
+            } catch (error: any) {
+                if (error?.status === 429 || error?.message?.includes("429") || error?.message?.includes("Rate limit")) {
+                    console.warn(`[legal-reviewer.node.ts] Rate limited. Waiting before retrying... (${retries} retries left)`);
+                    await delay(2000 * Math.pow(2, attempt));
+                    attempt++;
+                    retries--;
+                    if (retries === 0) throw error;
+                } else {
+                    throw error;
+                }
+            }
         }
 
-        console.log(`[legalReviewerNode] GENERATED ${feedback.length} STRICT REVIEWS`);
+        try {
+            const cleanJson = aiResponse.replace(/```json/gi, "").replace(/```/gi, "").trim();
+            const parsedArray = JSON.parse(cleanJson);
+
+            for (const item of parsedArray) {
+                const originalData = clausesData.find(c => c.clauseId === item.clauseId);
+
+                if (originalData) {
+                    feedback.push({
+                        clauseId: item.clauseId,
+                        clauseText: originalData.clauseText,
+                        researchTopic: originalData.researchTopic,
+                        searchQuery: originalData.searchQuery,
+                        verifiedContext: typeof originalData.context === 'string' ? originalData.context : JSON.stringify(originalData.context).substring(0, 500) + "...",
+                        strictReview: {
+                            risk: item.risk,
+                            confidence: item.confidence,
+                            basedOn: item.basedOn,
+                            summary: item.summary,
+                            observations: item.observations,
+                            evidence: item.evidence,
+                            applicableLaw: item.applicableLaw,
+                            citations: item.citations,
+                            internalReasoning: item.internalReasoning
+                        }
+                    });
+                }
+            }
+        } catch (e) {
+            console.warn(`[legal-reviewer.node.ts] Failed to parse JSON array. Raw response:`, aiResponse);
+            // Fallback: create empty reviews for all clauses
+            for (const data of clausesData) {
+                feedback.push({
+                    clauseId: data.clauseId,
+                    clauseText: data.clauseText,
+                    researchTopic: data.researchTopic,
+                    searchQuery: data.searchQuery,
+                    verifiedContext: typeof data.context === 'string' ? data.context : JSON.stringify(data.context).substring(0, 500) + "...",
+                    strictReview: {
+                        risk: "CRITICAL",
+                        confidence: 0,
+                        basedOn: "Contract Only",
+                        summary: "Failed to generate review due to parsing error",
+                        observations: ["JSON parsing error"],
+                        evidence: [],
+                        applicableLaw: [],
+                        citations: [],
+                        internalReasoning: "Parsing failed"
+                    }
+                });
+            }
+        }
+
+        console.log(`[legalReviewerNode] GENERATED ${feedback.length} STRICT REVIEWS in ${(Date.now() - startTime) / 1000}s`);
 
         // Save the reviews to a file so we can view them easily
         fs.writeFileSync("reviews.json", JSON.stringify(feedback, null, 2));

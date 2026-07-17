@@ -1,6 +1,7 @@
 import { AnalysisState } from "@/ai/types";
 
 export const cleanTextNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {
+    const startTime = Date.now();
     console.log(`[cleanTextNode] Cleaning text for contract: ${state.contractId}`);
 
     try {
@@ -16,7 +17,7 @@ export const cleanTextNode = async (state: AnalysisState): Promise<Partial<Analy
             .replace(/[ \t]+/g, ' ')    // Collapse multiple spaces/tabs into single space
             .trim();
 
-        console.log(`[cleanTextNode] Text cleaned successfully. Length: ${cleanedText.length}`);
+        console.log(`[cleanTextNode] Text cleaned successfully. Length: ${cleanedText.length} in ${(Date.now() - startTime) / 1000}s`);
         return {
             cleanedText: cleanedText,
             status: "processing"

@@ -1,6 +1,7 @@
 import { AnalysisState } from "../types";
 
 export const flagImpClausesNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {
+    const startTime = Date.now();
     try {
         let clauses = state.clauses;
         const importantKeywords = ["indemni", "liabilit", "terminat", "warrant"];
@@ -11,7 +12,7 @@ export const flagImpClausesNode = async (state: AnalysisState): Promise<Partial<
             )
         })
 
-        console.log(`[flagImpClausesNode] FLAGGED ${flagged.length} IMPORTANT CLAUSES FOR ${state.contractId}`);
+        console.log(`[flagImpClausesNode] FLAGGED ${flagged.length} IMPORTANT CLAUSES FOR ${state.contractId} in ${(Date.now() - startTime) / 1000}s`);
 
 
         return {

@@ -2,6 +2,7 @@ import { AnalysisState } from "@/ai/types";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 
 export const splitClauseNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {
+    const startTime = Date.now();
     console.log(`[splitClauseNode] Splitting text for contract: ${state.contractId}`);
 
     try {
@@ -25,7 +26,7 @@ export const splitClauseNode = async (state: AnalysisState): Promise<Partial<Ana
 
         clauses = clauses.filter(clause => clause.text.length > 0);
 
-        console.log(`[splitClauseNode] Text split successfully. Number of clauses: ${clauses.length}`);
+        console.log(`[splitClauseNode] Text split successfully. Number of clauses: ${clauses.length} in ${(Date.now() - startTime) / 1000}s`);
 
         return {
             clauses: clauses,
