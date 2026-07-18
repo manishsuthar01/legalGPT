@@ -3,37 +3,39 @@
 The analysis process for a contract follows this advanced LangGraph architecture:
 
 ```text
-User Contract (Vectorized)
+Extract Text
+           │
+           ▼
+      Clean Text
+           │
+           ▼
+      Split Clauses
+           │
+           ▼
+   Embed Contract (Vectorized)
            │
            ▼
       Flag Important Clauses
            │
            ▼
-     Research Agent (Web)
+      Plan Research
            │
            ▼
-     Source Verification
+      Execute Research (Web)
            │
            ▼
-     Legal Reviewer Agent
-           │
-           ▼
-     Legal Advisor Agent
-           │
-           ▼
- Executive Summary + Risk Cards
-           │
-           ▼
-      Context-Aware Chat
+      Legal Reviewer Agent
 ```
 
 ## Description of Nodes:
 
-- **User Contract (Vectorized)**: The uploaded contract is split into chunks and embedded into the vector database.
+- **Extract Text**: Extracts the raw text from the uploaded contract document.
+- **Clean Text**: Cleans and normalizes the extracted text for further processing.
+- **Split Clauses**: Segments the cleaned text into distinct legal clauses.
+- **Embed Contract**: Generates vector embeddings for each clause and stores them for retrieval.
 - **Flag Important Clauses**: Initial node to identify high-risk or standard but crucial clauses.
-- **Research Agent (Web)**: Uses search to find relevant legal precedents, regulations, or standards.
-- **Source Verification**: Ensures the research is accurate and applicable to the contract's jurisdiction.
-- **Legal Reviewer Agent**: A first-pass agent that performs strict review against standard playbooks.
-- **Legal Advisor Agent**: A second-pass agent that provides more nuanced, advisory feedback and synthesizes risks.
-- **Executive Summary + Risk Cards**: Output generation node summarizing the findings into an actionable format.
-- **Context-Aware Chat**: Interactive node allowing the user to converse with the analyzed contract state.
+- **Plan Research**: Creates a structured plan for researching legal precedents, regulations, or standards based on flagged clauses.
+- **Execute Research**: Executes the planned research using web search tools and gathers verified legal context.
+- **Legal Reviewer Agent**: A comprehensive review agent that uses the retrieved research context to analyze the clauses and provide detailed feedback, risk assessments, and observations.
+
+The analysis executes on the backend and streams results to the client via Server-Sent Events (SSE) as each node completes, providing real-time feedback.

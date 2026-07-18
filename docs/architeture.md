@@ -379,26 +379,26 @@ Display Risk Report
 
 # Analysis Workflow
 
-LangGraph orchestrates the analysis process.
+LangGraph orchestrates the analysis process, streaming updates in real-time to the client.
 
 ```text
 START
 
 ↓
 
-Validate Upload
+Extract Text
 
 ↓
 
-Wait for Worker
+Clean Text
 
 ↓
 
-Retrieve Contract
+Split Clauses
 
 ↓
 
-Retrieve Embeddings / User Contract (Vectorized)
+Embed Contract (Vectorized)
 
 ↓
 
@@ -406,11 +406,11 @@ Flag Important Clauses
 
 ↓
 
-Research Agent (Web)
+Plan Research
 
 ↓
 
-Source Verification
+Execute Research (Web)
 
 ↓
 
@@ -418,19 +418,7 @@ Legal Reviewer Agent
 
 ↓
 
-Legal Advisor Agent
-
-↓
-
-Executive Summary + Risk Cards
-
-↓
-
-Context-Aware Chat
-
-↓
-
-Persist Results
+Stream Response to Client (SSE)
 
 ↓
 
