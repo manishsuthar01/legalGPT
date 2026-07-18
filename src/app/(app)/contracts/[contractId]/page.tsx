@@ -18,10 +18,11 @@ type UIState = 'empty' | 'analyzing' | 'complete';
 export default function ContractWorkspacePage({ params }: { params: { contractId: string } }) {
   const [uiState, setUiState] = useState<UIState>('empty');
   const { startAnalysis, isAnalysing, error } = useContractAnalysis()
+  const [streamData, setStreamData] = useState<any>(null);
 
   // Temporary function to simulate the flow
   const handleUpload = async (path: string, country: string) => {
-    await startAnalysis(path, country);
+    await startAnalysis(path, country, setStreamData);
     if (!error) {
       setUiState('analyzing');
     }

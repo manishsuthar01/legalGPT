@@ -3,7 +3,7 @@ import { analysisGraph } from "@/ai/graph/analysis.graph";
 // this service is a wrapper around the langGraph
 
 export class AnalysisService {
-    static async runAnalysis(contractId: string, userId: string, filePath: string, country: string) {
+    static async runAnalysis(contractId: string, userId: string, filePath: string, country: string, handleStream: (chunk: any) => Promise<void>): Promise<any> {
         try {
             console.log(`Starting LangGraph analysis for contract: ${contractId} (${country})`);
 
@@ -27,13 +27,23 @@ export class AnalysisService {
                 riskCards: []
             };
 
-            // invoke fhe graph with initial state that return the final state
-            const finalState = await analysisGraph.invoke(initialState);
+            const stream = await analysisGraph.stream(initialState);
+
+            let currentState: any = { ...initialState };
+
+            for await (const chunk of stream) {
+                const [nodeName] = Object.keys(chunk) as [keyof typeof chunk];
+                const stateUpdates = chunk[nodeName];
+                currentState = { ...currentState, ...stateUpdates };
+
+                await handleStream({ type: "node_complete", node: String(nodeName), state: currentState });
+            }
+
             return {
                 success: true,
                 data: {
-                    summary: finalState.summary,
-                    risks: finalState.analysis
+                    summary: currentState.summary,
+                    risks: currentState.analysis
                 }
             };
 

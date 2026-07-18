@@ -18,18 +18,40 @@ export async function POST(req: NextRequest) {
         if (!validateBody) {
             return NextResponse.json({ success: false, error: "Invalid request body" }, { status: 400 })
         }
-        // service to invoke the graph
-        const result = await AnalysisService.runAnalysis(contractId, userId, filePath, country);
-        if (!result.success) {
-            return NextResponse.json({ success: false, error: "Failed to trigger analysis service" }, { status: 500 })
-        }
+
+        const streamResponse = new ReadableStream<Uint8Array>({
+            async start(controller) {
+                const encoder = new TextEncoder();
+                const handleStream = (chunk: any): any => {
+                    // chunk: {"type":"node_complete","node":"plan-research-node","state":{}}
+                    const data = JSON.stringify(chunk);
+                    controller.enqueue(encoder.encode(`data: ${data}\n\n`));
+                }
+                try {
+                    const result = await AnalysisService.runAnalysis(contractId, userId, filePath, country, handleStream);
+
+                    // Send the final summary and risks back to the frontend
+                    const finalPayload = JSON.stringify({ status: "DONE", data: result.data });
+                    controller.enqueue(encoder.encode(`data: ${finalPayload}\n\n`));
+
+                    controller.close();
+                } catch (error) {
+                    controller.enqueue(encoder.encode(`data: {"status": "error", "message": "${error}"}\n\n`));
+                    controller.close();
+                }
+            }
+        })
+
+
         // create  contract analysis record in db
         // update the status to processing    
 
-        return NextResponse.json({
-            success: true,
-            message: "Analysis started successfully",
-            data: result.data
+        return new NextResponse(streamResponse, {
+            headers: {
+                "Content-Type": "text/event-stream",
+                "Cache-Control": "no-cache",
+                "Connection": "keep-alive",
+            },
         });
     } catch (error) {
         console.error("Analysis failed:", error);
