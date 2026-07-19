@@ -17,14 +17,20 @@ export class AnalysisService {
                 embeddings: [],
                 analysis: null,
                 summary: "",
+                overallRisk: "MEDIUM" as const,
+                riskScore: 0,
                 vectorIds: [],
                 status: "pending" as const,
                 flaggedClauses: [],
+                researchPlans: [],
                 researchResults: [],
                 verifiedSources: [],
                 reviewerFeedback: [],
                 advisorFeedback: [],
-                riskCards: []
+                riskCards: [],
+                positiveFindings: [],
+                missingClauses: [],
+                riskScoreBreakdown: { contractQuality: 50, clauseRisk: 50, jurisdictionCompliance: 50 }
             };
 
             const stream = await analysisGraph.stream(initialState);
@@ -43,7 +49,16 @@ export class AnalysisService {
                 success: true,
                 data: {
                     summary: currentState.summary,
-                    risks: currentState.analysis
+                    overallRisk: currentState.overallRisk,
+                    riskScore: currentState.riskScore,
+                    risks: currentState.analysis,
+                    riskCards: currentState.riskCards,
+                    advisorFeedback: currentState.advisorFeedback,
+                    reviewerFeedback: currentState.reviewerFeedback,
+                    clauses: currentState.clauses,
+                    positiveFindings: currentState.positiveFindings,
+                    missingClauses: currentState.missingClauses,
+                    riskScoreBreakdown: currentState.riskScoreBreakdown,
                 }
             };
 

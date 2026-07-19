@@ -8,6 +8,7 @@ import { flagImpClausesNode } from "@/ai/nodes/flag-imp-clauses.node"
 import { planResearchNode } from "@/ai/nodes/plan-research.node"
 import { executeResearchNode } from "@/ai/nodes/execute-research.node"
 import { legalReviewerNode } from "@/ai/nodes/legal-reviewer.node"
+import { legalAdvisorNode } from "@/ai/nodes/legal-advisor.node"
 
 const GraphState = Annotation.Root({
     contractId: Annotation<string>(),
@@ -30,6 +31,12 @@ const GraphState = Annotation.Root({
     }),
     summary: Annotation<string>({
         reducer: (oldState, newState) => newState || oldState,
+    }),
+    overallRisk: Annotation<"HIGH" | "MEDIUM" | "LOW">({
+        reducer: (oldState, newState) => newState || oldState,
+    }),
+    riskScore: Annotation<number>({
+        reducer: (oldState, newState) => newState ?? oldState,
     }),
     vectorIds: Annotation<string[]>({
         reducer: (oldState, newState) => newState || oldState,
@@ -57,6 +64,15 @@ const GraphState = Annotation.Root({
     }),
     riskCards: Annotation<any[]>({
         reducer: (oldState, newState) => newState || oldState,
+    }),
+    positiveFindings: Annotation<any[]>({
+        reducer: (oldState, newState) => newState || oldState,
+    }),
+    missingClauses: Annotation<any[]>({
+        reducer: (oldState, newState) => newState || oldState,
+    }),
+    riskScoreBreakdown: Annotation<any>({
+        reducer: (oldState, newState) => newState || oldState,
     })
 });
 
@@ -69,6 +85,7 @@ const builder = new StateGraph(GraphState)
     .addNode("plan-research-node", planResearchNode)
     .addNode("execute-research-node", executeResearchNode)
     .addNode("legal-reviewer-node", legalReviewerNode)
+    .addNode("legal-advisor-node", legalAdvisorNode)
     .addEdge(START, "text-extract-node")
     .addEdge("text-extract-node", "text-clean-node")
     .addEdge("text-clean-node", "clause-split-node")
@@ -77,7 +94,8 @@ const builder = new StateGraph(GraphState)
     .addEdge("flag-imp-clauses-node", "plan-research-node")
     .addEdge("plan-research-node", "execute-research-node")
     .addEdge("execute-research-node", "legal-reviewer-node")
-    .addEdge("legal-reviewer-node", END);
+    .addEdge("legal-reviewer-node", "legal-advisor-node")
+    .addEdge("legal-advisor-node", END);
 
 // stategraph is a builder class that needs to be compiled to create a graph with methods like invoke, stream etc
 export const analysisGraph = builder.compile();
