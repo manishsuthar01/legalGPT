@@ -1,15 +1,62 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { CheckCircle2, CircleDashed, Circle } from 'lucide-react';
 
-export const AnalysisProgress = () => {
+const NODE_SEQUENCE = [
+  "text-extract-node",
+  "text-clean-node",
+  "clause-split-node",
+  "contract-embed-node",
+  "flag-imp-clauses-node",
+  "plan-research-node",
+  "execute-research-node",
+  "legal-reviewer-node",
+  "legal-advisor-node"
+];
+
+const STEP_DEFINITIONS = [
+  { id: 'extract', label: 'Extracting text', nodes: ['text-extract-node'] },
+  { id: 'clean', label: 'Cleaning text', nodes: ['text-clean-node'] },
+  { id: 'split', label: 'Splitting clauses', nodes: ['clause-split-node'] },
+  { id: 'embed', label: 'Creating embeddings', nodes: ['contract-embed-node'] },
+  { id: 'analyze', label: 'Running legal analysis', nodes: ['flag-imp-clauses-node', 'plan-research-node', 'execute-research-node'] },
+  { id: 'review', label: 'Generating summary & Review', nodes: ['legal-reviewer-node'] },
+  { id: 'advise', label: 'Generating suggestions & fixes', nodes: ['legal-advisor-node'] },
+];
+
+export const AnalysisProgress = ({ streamData }: { streamData: any }) => {
+  const [completedNodes, setCompletedNodes] = useState<string[]>([]);
+  const [currentNode, setCurrentNode] = useState<string>("text-extract-node");
+
+  useEffect(() => {
+    if (streamData?.type === 'node_complete') {
+      const completedNode = streamData.node;
+      setCompletedNodes(prev => {
+        if (!prev.includes(completedNode)) {
+          return [...prev, completedNode];
+        }
+        return prev;
+      });
+      
+      const index = NODE_SEQUENCE.indexOf(completedNode);
+      if (index !== -1 && index + 1 < NODE_SEQUENCE.length) {
+        setCurrentNode(NODE_SEQUENCE[index + 1]);
+      } else {
+        setCurrentNode("");
+      }
+    }
+  }, [streamData]);
+
   const steps = [
     { label: 'Upload complete', status: 'complete' },
-    { label: 'Extracting text', status: 'complete' },
-    { label: 'Splitting clauses', status: 'complete' },
-    { label: 'Creating embeddings', status: 'complete' },
-    { label: 'Running legal analysis', status: 'current' },
-    { label: 'Generating summary', status: 'pending' },
-    { label: 'Preparing AI assistant', status: 'pending' },
+    ...STEP_DEFINITIONS.map(def => {
+      const isComplete = def.nodes.every(n => completedNodes.includes(n));
+      const isCurrent = !isComplete && def.nodes.includes(currentNode);
+      
+      return {
+        label: def.label,
+        status: isComplete ? 'complete' : isCurrent ? 'current' : 'pending'
+      };
+    })
   ];
 
   return (

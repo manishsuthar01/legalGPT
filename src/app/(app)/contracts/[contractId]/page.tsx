@@ -9,39 +9,51 @@ import { ExecutiveSummary } from '../../../../features/analysis/components/Execu
 import { RiskList } from '../../../../features/analysis/components/RiskList';
 import { ClauseViewer } from '../../../../features/contracts/components/ClauseViewer';
 import { ChatPanel } from '../../../../features/chat/components/ChatPanel';
-import { mockContractData } from '../../../../features/contracts/mock/contractData';
 
 import useContractAnalysis from '@/features/contracts/hooks/useContractAnalysis';
 
 type UIState = 'empty' | 'analyzing' | 'complete';
 
+interface AnalysisResult {
+  summary: string;
+  overallRisk: string;
+  riskScore: number;
+  riskScoreBreakdown?: { contractQuality: number; clauseRisk: number; jurisdictionCompliance: number };
+  riskCards: any[];
+  advisorFeedback: any[];
+  reviewerFeedback: any[];
+  clauses: any[];
+  positiveFindings?: any[];
+  missingClauses?: any[];
+}
+
 export default function ContractWorkspacePage({ params }: { params: { contractId: string } }) {
   const [uiState, setUiState] = useState<UIState>('empty');
-  const { startAnalysis, isAnalysing, error } = useContractAnalysis()
+  const { startAnalysis, isAnalysing, error } = useContractAnalysis();
   const [streamData, setStreamData] = useState<any>(null);
+  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
 
-  // Temporary function to simulate the flow
   const handleUpload = async (path: string, country: string) => {
+    setUiState('analyzing');
     await startAnalysis(path, country, setStreamData);
-    if (!error) {
-      setUiState('analyzing');
-    }
-    if (!isAnalysing) {
+  };
+
+  React.useEffect(() => {
+    if (streamData?.type === 'DONE' && streamData?.data) {
+      setAnalysisResult(streamData.data);
       setUiState('complete');
     }
-  };
+  }, [streamData]);
 
   return (
     <WorkspaceLayout
-      documentName={mockContractData.title}
+      documentName={analysisResult ? `Contract Analysis` : 'Upload a Contract'}
       status={uiState}
     >
       {/* State 1: Empty */}
       {uiState === 'empty' && (
         <div className="h-full w-full flex items-center justify-center relative overflow-hidden">
           <UploadDropzone onUpload={handleUpload} />
-
-          {/* Decorative Background Elements */}
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#7c5cfc]/5 rounded-full blur-[100px] pointer-events-none"></div>
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#7c5cfc]/5 rounded-full blur-[100px] pointer-events-none"></div>
         </div>
@@ -50,27 +62,40 @@ export default function ContractWorkspacePage({ params }: { params: { contractId
       {/* State 2: Analyzing */}
       {uiState === 'analyzing' && (
         <div className="h-full w-full flex items-center justify-center bg-[#050505]">
-          <AnalysisProgress />
+          <AnalysisProgress streamData={streamData} />
         </div>
       )}
 
       {/* State 3: Analysis Complete */}
-      {uiState === 'complete' && (
+      {uiState === 'complete' && analysisResult && (
         <div className="h-full flex flex-col lg:flex-row overflow-hidden overflow-y-auto lg:overflow-y-hidden">
 
           {/* Left Column - Main Workspace (65%) */}
           <div className="flex-none lg:flex-[65] flex flex-col h-auto lg:h-full p-4 lg:p-8 overflow-y-visible lg:overflow-y-auto border-b lg:border-b-0 lg:border-r border-[#222]">
-            <DocumentMetadata />
+            <DocumentMetadata 
+              clauseCount={analysisResult.clauses?.length || 0}
+              riskScore={analysisResult.riskScore}
+            />
 
             <div className="flex-1 flex flex-col min-h-[400px] mt-2">
-              <ExecutiveSummary />
+              <ExecutiveSummary 
+                summary={analysisResult.summary}
+                overallRisk={analysisResult.overallRisk}
+                riskScore={analysisResult.riskScore}
+                riskScoreBreakdown={analysisResult.riskScoreBreakdown}
+                positiveFindings={analysisResult.positiveFindings}
+                missingClauses={analysisResult.missingClauses}
+              />
 
               <div className="mb-6">
                 <h3 className="text-white font-semibold mb-4 text-lg">Identified Risks</h3>
-                <RiskList />
+                <RiskList risks={analysisResult.riskCards} />
               </div>
 
-              <ClauseViewer />
+              <ClauseViewer 
+                advisorFeedback={analysisResult.advisorFeedback || []}
+                reviewerFeedback={analysisResult.reviewerFeedback || []}
+              />
             </div>
           </div>
 

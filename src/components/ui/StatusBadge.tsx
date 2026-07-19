@@ -1,6 +1,6 @@
 import React from 'react';
 
-type RiskLevel = 'high' | 'medium' | 'low' | 'neutral';
+type RiskLevel = 'critical' | 'high' | 'medium' | 'low' | 'neutral';
 
 interface StatusBadgeProps {
   level: RiskLevel;
@@ -8,6 +8,7 @@ interface StatusBadgeProps {
 }
 
 const styles: Record<RiskLevel, string> = {
+  critical: 'bg-[#dc2626]/10 border-[#dc2626]/20 text-[#dc2626]',
   high: 'bg-[#ef4444]/10 border-[#ef4444]/20 text-[#ef4444]',
   medium: 'bg-[#f59e0b]/10 border-[#f59e0b]/20 text-[#f59e0b]',
   low: 'bg-[#22c55e]/10 border-[#22c55e]/20 text-[#22c55e]',
