@@ -1,7 +1,7 @@
 import { SupabaseVectorStore } from "@langchain/community/vectorstores/supabase";
 import { supabaseAdmin } from "@/utils/supabase/admin";
 import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
-import { AnalysisState } from "../types";
+import { AnalysisState } from "../../types";
 
 export const embedContracNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {
     const startTime = Date.now();

@@ -1,6 +1,6 @@
 import { StringOutputParser } from "@langchain/core/output_parsers";
-import { getLLM } from "../models";
-import { AnalysisState, ResearchPlan } from "../types";
+import { getLLM } from "../../models";
+import { AnalysisState, ResearchPlan } from "../../types";
 import { searchQueryPrompt } from "../../prompts/analysis/search_query_prompt";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -16,7 +16,7 @@ export const planResearchNode = async (state: AnalysisState): Promise<Partial<An
         // We'll use a JSON mode if possible, but standard prompt + StringOutputParser with JSON.parse works
         const chain = searchQueryPrompt.pipe(model).pipe(new StringOutputParser());
 
-        const clausesInput = JSON.stringify(flaggedClauses.map(c => ({
+        const clausesInput = JSON.stringify(flaggedClauses.map((c: any) => ({
             clauseId: c.chunk_index,
             text: c.text
         })));
@@ -60,7 +60,7 @@ export const planResearchNode = async (state: AnalysisState): Promise<Partial<An
                     retries--;
                     if (retries === 0) {
                         // Fallback to basic if parsing fails repeatedly
-                        flaggedClauses.forEach(clause => {
+                        flaggedClauses.forEach((clause: any) => {
                             researchPlans.push({
                                 clauseId: clause.chunk_index,
                                 topic: "Unparseable LLM output",

@@ -1,4 +1,4 @@
-import { AnalysisState } from "../types";
+import { AnalysisState } from "../../types";
 
 export const flagImpClausesNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {
     const startTime = Date.now();

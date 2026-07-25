@@ -1,7 +1,7 @@
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { prompt } from "../../prompts/analysis/legal-reviewer.prompt";
-import { getLLM } from "../models";
-import { AnalysisState } from "../types";
+import { getLLM } from "../../models";
+import { AnalysisState } from "../../types";
 import fs from "fs";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -15,9 +15,9 @@ export const legalReviewerNode = async (state: AnalysisState): Promise<Partial<A
         const model = getLLM("gemini", { model: "gemini-3.5-flash" });
         const chain = prompt.pipe(model).pipe(new StringOutputParser());
 
-        const clausesData = state.flaggedClauses.map(clause => {
-            const plan = state.researchPlans?.find((p) => p.clauseId === clause.chunk_index);
-            const source = state.researchResults?.find((v) => v.clauseId === clause.chunk_index);
+        const clausesData = state.flaggedClauses.map((clause: any) => {
+            const plan = state.researchPlans?.find((p: any) => p.clauseId === clause.chunk_index);
+            const source = state.researchResults?.find((v: any) => v.clauseId === clause.chunk_index);
 
             return {
                 clauseId: clause.chunk_index,
@@ -57,7 +57,7 @@ export const legalReviewerNode = async (state: AnalysisState): Promise<Partial<A
             const parsedArray = JSON.parse(cleanJson);
 
             for (const item of parsedArray) {
-                const originalData = clausesData.find(c => c.clauseId === item.clauseId);
+                const originalData = clausesData.find((c: any) => c.clauseId === item.clauseId);
 
                 if (originalData) {
                     feedback.push({

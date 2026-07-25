@@ -1,6 +1,6 @@
 import pLimit from "p-limit";
 import { TavilySearchService } from "@/server/services/search/tavily_search";
-import { AnalysisState, ResearchResult, TavilySource } from "../types";
+import { AnalysisState, ResearchResult, TavilySource } from "../../types";
 
 export const executeResearchNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {
     const startTime = Date.now();

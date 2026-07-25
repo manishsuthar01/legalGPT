@@ -1,7 +1,7 @@
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { advisorPrompt } from "../../prompts/analysis/legal-advisor.prompt";
-import { getLLM } from "../models";
-import { AnalysisState } from "../types";
+import { getLLM } from "../../models";
+import { AnalysisState } from "../../types";
 import fs from "fs";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -71,7 +71,7 @@ export const legalAdvisorNode = async (state: AnalysisState): Promise<Partial<An
             console.warn(`[legal-advisor.node.ts] Failed to parse JSON. Raw response:`, aiResponse);
 
             // Fallback: generate minimal output from reviewer data
-            const fallbackCards = state.reviewerFeedback.map((review, idx) => ({
+            const fallbackCards = state.reviewerFeedback.map((review: any, idx: number) => ({
                 id: `risk-${idx + 1}`,
                 severity: (review.strictReview?.risk?.toLowerCase() || "medium") as "critical" | "high" | "medium" | "low",
                 clauseTitle: review.researchTopic || `Clause ${review.clauseId}`,
