@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LegalGPT
 
-## Getting Started
+LegalGPT is an AI-powered contract analysis and review application. It automatically processes legal documents, identifies potential risks, and provides a comprehensive executive summary along with actionable legal advice. The platform also includes a conversational interface that allows users to ask specific questions about the analyzed contract using Retrieval-Augmented Generation (RAG).
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Automated Contract Analysis**: Extracts, cleans, and splits contract text into individual clauses.
+- **Risk Identification**: Flags critical clauses and evaluates them for potential business and legal risks.
+- **Deep Legal Research**: Employs autonomous AI agents to research flagged clauses and formulate professional reviews.
+- **Legal Advisor**: Generates clear, actionable advice and overall risk scores based on the aggregated reviews.
+- **Interactive Chat**: A RAG-powered assistant that retrieves specific context from the uploaded contract to accurately answer user inquiries.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technology Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Frontend**: Next.js (App Router), React, Tailwind CSS, TypeScript
+- **AI Orchestration**: LangGraph, LangChain
+- **Language Models**: Google Gemini, Groq
+- **Database & Vector Store**: Supabase (pgvector)
+- **Document Processing**: PDF parsing utilities
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Local Setup Guide
 
-## Learn More
+Follow these instructions to run the project locally on your machine.
 
-To learn more about Next.js, take a look at the following resources:
+### Prerequisites
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Ensure you have the following installed:
+- Node.js (v18 or higher)
+- npm or yarn
+- A Supabase account and project
+- API keys for your preferred LLM providers (e.g., Google Gemini, Groq)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Installation
 
-## Deploy on Vercel
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/manishsuthar01/legalGPT.git
+   cd legalGPT
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+3. **Configure environment variables**
+   Create a `.env.local` file in the root directory of the project and populate it with the necessary keys. You will need to configure your Supabase URL, Supabase service role key, and AI provider API keys.
+   
+   Example `.env.local`:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+   GEMINI_API_KEY=your_gemini_api_key
+   GROQ_API_KEY=your_groq_api_key
+   # Add any additional required keys
+   ```
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Access the application**
+   Open your browser and navigate to `http://localhost:3000`.
+
+## Architecture Overview
+
+The application relies heavily on LangGraph to manage its stateful AI workflows:
+- **Analysis Graph** (`src/ai/graph/analysis.graph.ts`): A multi-step pipeline that handles document ingestion, chunking, embedding generation, clause flagging, research, and final review.
+- **Chat Graph** (`src/ai/graph/chat.graph.ts`): An interactive RAG pipeline that embeds user questions, retrieves relevant clauses from Supabase, and generates context-aware responses.
