@@ -1,14 +1,14 @@
 import { StateGraph, START, END, Annotation } from "@langchain/langgraph";
 import { AnalysisState } from "@/ai/types";
-import { extractTextNode } from "@/ai/nodes/extract-text.node"
-import { cleanTextNode } from "@/ai/nodes/clean-text.node"
-import { splitClauseNode } from "@/ai/nodes/split-clauses.node"
-import { embedContracNode } from "@/ai/nodes/embed-contract.node"
-import { flagImpClausesNode } from "@/ai/nodes/flag-imp-clauses.node"
-import { planResearchNode } from "@/ai/nodes/plan-research.node"
-import { executeResearchNode } from "@/ai/nodes/execute-research.node"
-import { legalReviewerNode } from "@/ai/nodes/legal-reviewer.node"
-import { legalAdvisorNode } from "@/ai/nodes/legal-advisor.node"
+import { extractTextNode } from "@/ai/nodes/analysis/extract-text.node"
+import { cleanTextNode } from "@/ai/nodes/analysis/clean-text.node"
+import { splitClauseNode } from "@/ai/nodes/analysis/split-clauses.node"
+import { embedContracNode } from "@/ai/nodes/analysis/embed-contract.node"
+import { flagImpClausesNode } from "@/ai/nodes/analysis/flag-imp-clauses.node"
+import { planResearchNode } from "@/ai/nodes/analysis/plan-research.node"
+import { executeResearchNode } from "@/ai/nodes/analysis/execute-research.node"
+import { legalReviewerNode } from "@/ai/nodes/analysis/legal-reviewer.node"
+import { legalAdvisorNode } from "@/ai/nodes/analysis/legal-advisor.node"
 
 const GraphState = Annotation.Root({
     contractId: Annotation<string>(),

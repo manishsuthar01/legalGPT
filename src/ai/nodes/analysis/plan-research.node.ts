@@ -1,7 +1,7 @@
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { getLLM } from "../models";
 import { AnalysisState, ResearchPlan } from "../types";
-import { searchQueryPrompt } from "../prompts/search_query_prompt";
+import { searchQueryPrompt } from "../../prompts/analysis/search_query_prompt";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

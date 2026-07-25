@@ -1,5 +1,5 @@
 import { StringOutputParser } from "@langchain/core/output_parsers";
-import { prompt } from "../prompts/legal-reviewer.prompt";
+import { prompt } from "../../prompts/analysis/legal-reviewer.prompt";
 import { getLLM } from "../models";
 import { AnalysisState } from "../types";
 import fs from "fs";
