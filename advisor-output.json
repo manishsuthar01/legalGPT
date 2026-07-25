@@ -1,0 +1,214 @@
+{
+  "executiveSummary": "This contract presents a high-risk profile primarily due to an incomplete governing law clause and a mutual limitation of liability that lacks critical carve-outs, which effectively guts the Service Provider's indemnification obligations. While the agreement features strong intellectual property protections with a robust fallback assignment and clear termination rights, these strengths are severely undermined by the liability caps and potential worker misclassification risks. Immediate remediation of the liability, indemnification, and governing law provisions is required to protect the Client from unlimited third-party exposure.",
+  "overallRisk": "HIGH",
+  "riskScore": 55,
+  "riskScoreBreakdown": {
+    "contractQuality": 50,
+    "clauseRisk": 40,
+    "jurisdictionCompliance": 45
+  },
+  "positiveFindings": [
+    {
+      "clauseTitle": "Intellectual Property Fallback Assignment",
+      "explanation": "Clause 7 includes a highly effective fallback assignment provision ('hereby irrevocably assigns...'). This ensures that even if the deliverables do not qualify as a 'work made for hire' under the statutory definitions of the US Copyright Act, the Client still successfully acquires exclusive ownership of all intellectual property rights."
+    },
+    {
+      "clauseTitle": "Clear Termination Mechanisms",
+      "explanation": "Clause 11 provides clear, standard commercial terms for termination, including a 30-day mutual convenience notice period, a 15-day cure period for material breaches, and immediate termination rights for cause (such as dishonesty or illegal activity), ensuring operational flexibility and clear post-termination obligations."
+    }
+  ],
+  "missingClauses": [
+    {
+      "title": "Force Majeure",
+      "explanation": "The contract lacks a force majeure clause, which is standard in commercial agreements to excuse performance obligations when extraordinary, unforeseeable events beyond a party's control (such as natural disasters, acts of war, or government mandates) occur.",
+      "severity": "medium",
+      "suggestedLanguage": "Neither Party shall be liable for any delay or failure in performance under this Agreement to the extent such delay or failure is caused by fire, flood, earthquake, elements of nature, acts of God, acts of war, terrorism, riots, civil disorders, rebellions, revolutions, strikes, lockouts, or labor difficulties, or any other cause beyond the reasonable control of such Party (each a 'Force Majeure Event'). The affected Party shall provide prompt written notice to the other Party and resume performance as soon as practicable."
+    },
+    {
+      "title": "Data Protection and Security",
+      "explanation": "There are no provisions governing data security or privacy compliance. If the Service Provider accesses, processes, or stores any Client data or personally identifiable information (PII), the absence of these safeguards exposes the Client to severe regulatory and financial liabilities.",
+      "severity": "high",
+      "suggestedLanguage": "The Service Provider shall implement and maintain reasonable and appropriate administrative, physical, and technical safeguards designed to protect the security, confidentiality, and integrity of any Client data accessed or processed under this Agreement, in compliance with all applicable state and federal data protection laws."
+    }
+  ],
+  "advisorFeedback": [
+    {
+      "clauseId": 2,
+      "clauseTitle": "Term and Probation",
+      "risk": "MEDIUM",
+      "likelihood": 3,
+      "impact": 3,
+      "whyItMatters": "Using employment-related terminology like 'probation period' in an independent contractor agreement increases the risk of worker misclassification, potentially exposing you to back taxes, benefits claims, and employment law penalties.",
+      "suggestedFix": "Replace 'probation period' with 'Initial Evaluation Period' and explicitly state that the relationship is that of an independent contractor.",
+      "replacementLanguage": "This Agreement shall commence on the Effective Date and shall continue indefinitely thereafter, subject to earlier termination as provided herein. The initial three (3) months following the Effective Date shall constitute an evaluation period (the 'Initial Evaluation Period'). During the Initial Evaluation Period, either Party may terminate this Agreement for any reason upon providing fourteen (14) calendar days' written notice to the other Party. The Parties agree that the Service Provider is an independent contractor, and nothing in this Agreement, including the Initial Evaluation Period, shall be construed to create an employer-employee relationship.",
+      "rationale": "Eliminating employment-specific terminology reduces the risk of regulatory audits and worker misclassification claims under federal and state labor laws.",
+      "priority": "MEDIUM"
+    },
+    {
+      "clauseId": 6,
+      "clauseTitle": "Confidentiality Exceptions",
+      "risk": "LOW",
+      "likelihood": 2,
+      "impact": 2,
+      "whyItMatters": "Failing to include standard exceptions to confidentiality could make the clause legally unenforceable or prevent the vendor from complying with mandatory legal disclosures.",
+      "suggestedFix": "Add standard carve-outs for information that is public, independently developed, or required to be disclosed by law.",
+      "replacementLanguage": "The Service Provider agrees to keep all Confidential Information strictly confidential, not to disclose it to any third party, and not to use it for any purpose other than performing the Services. These obligations shall not apply to information that: (a) is or becomes publicly known through no breach by the Service Provider; (b) was already in the Service Provider's lawful possession prior to disclosure; (c) is independently developed without reference to the Confidential Information; or (d) is required to be disclosed by law or court order, provided the Service Provider gives the Client prompt written notice of such requirement.",
+      "rationale": "Including standard exceptions ensures the clause is commercially reasonable and legally enforceable under US trade secret laws.",
+      "priority": "LOW"
+    },
+    {
+      "clauseId": 7,
+      "clauseTitle": "Intellectual Property Moral Rights",
+      "risk": "LOW",
+      "likelihood": 1,
+      "impact": 3,
+      "whyItMatters": "Without an explicit waiver of moral rights, the creator may retain personal rights to prevent modifications or demand attribution, hindering your ability to freely use the work product.",
+      "suggestedFix": "Add an explicit waiver of moral rights to the intellectual property assignment provision.",
+      "replacementLanguage": "To the extent any Work Product is not deemed a 'work made for hire,' the Service Provider hereby irrevocably assigns to the Client all right, title, and interest in and to such Work Product. The Service Provider hereby irrevocably and unconditionally waives any and all moral rights, rights of integrity, or similar rights he may have in the Work Product under any applicable law worldwide.",
+      "rationale": "A moral rights waiver ensures the Client has unrestricted, global rights to modify, adapt, and exploit the deliverables without legal interference from the creator.",
+      "priority": "LOW"
+    },
+    {
+      "clauseId": 8,
+      "clauseTitle": "Representations and Warranties Carve-outs",
+      "risk": "HIGH",
+      "likelihood": 4,
+      "impact": 5,
+      "whyItMatters": "Applying a strict 6-month liability cap to all claims means you cannot fully recover damages if the vendor infringes third-party intellectual property or breaches confidentiality.",
+      "suggestedFix": "Carve out intellectual property infringement, confidentiality breaches, and indemnification obligations from the limitation of liability cap.",
+      "replacementLanguage": "The Service Provider represents and warrants that he has the necessary skills, experience, and qualifications to perform the Services in a professional and workmanlike manner. The Service Provider further represents that the Services will not infringe upon the intellectual property rights of any third party. Notwithstanding anything to the contrary in this Agreement, the limitations and exclusions of liability set forth in Section 9 shall not apply to breaches of Section 6 (Confidentiality) or the Service Provider's indemnification obligations under Section 10.",
+      "rationale": "Carving out critical liabilities ensures that the Service Provider remains fully accountable for high-risk breaches, preserving the value of the indemnity.",
+      "priority": "CRITICAL"
+    },
+    {
+      "clauseId": 9,
+      "clauseTitle": "Limitation of Liability Cap",
+      "risk": "HIGH",
+      "likelihood": 4,
+      "impact": 5,
+      "whyItMatters": "A mutual liability cap without carve-outs effectively guts the Service Provider's indemnification obligations, leaving you to pay for third-party lawsuits out of pocket.",
+      "suggestedFix": "Add explicit carve-outs to the limitation of liability clause for indemnification, confidentiality, and gross negligence.",
+      "replacementLanguage": "To the maximum extent permitted by applicable law, neither Party shall be liable to the other for any indirect, incidental, special, or consequential damages. The total liability of either Party under this Agreement shall not exceed the total compensation paid or payable to the Service Provider during the six (6) months preceding the event giving rise to the claim; provided, however, that this cap shall not apply to: (a) a Party's breach of Section 6 (Confidentiality), (b) the Service Provider's indemnification obligations under Section 10, or (c) a Party's gross negligence, willful misconduct, or fraud.",
+      "rationale": "This ensures that the liability cap protects standard commercial breaches but does not shield the Service Provider from catastrophic losses like IP lawsuits or data breaches.",
+      "priority": "CRITICAL"
+    },
+    {
+      "clauseId": 10,
+      "clauseTitle": "Indemnification Scope",
+      "risk": "MEDIUM",
+      "likelihood": 3,
+      "impact": 4,
+      "whyItMatters": "While the indemnity is broad, its protection is severely limited because it is subject to the 6-month liability cap, leaving you exposed to massive third-party claims.",
+      "suggestedFix": "Ensure the indemnification clause is explicitly carved out from the limitation of liability cap in Section 9.",
+      "replacementLanguage": "The Service Provider shall indemnify, defend, and hold harmless the Client, its officers, directors, employees, and agents from and against any and all claims, damages, liabilities, costs, and expenses (including reasonable attorneys' fees) arising out of or related to (a) the Service Provider's performance of the Services, (b) any breach by the Service Provider of this Agreement, or (c) any third-party claim that the Work Product or Services infringe upon any intellectual property rights of such third party. The Service Provider's obligations under this Section 10 shall not be subject to any limitation of liability set forth in this Agreement.",
+      "rationale": "Explicitly stating that the indemnity is not subject to the liability cap prevents courts from applying the cap to gut your third-party defense coverage.",
+      "priority": "HIGH"
+    },
+    {
+      "clauseId": 11,
+      "clauseTitle": "Termination Transition",
+      "risk": "LOW",
+      "likelihood": 1,
+      "impact": 2,
+      "whyItMatters": "The termination clause is generally well-drafted, but minor ambiguities regarding post-termination transition could disrupt business continuity.",
+      "suggestedFix": "Add a brief transition assistance obligation to ensure a smooth handoff upon termination.",
+      "replacementLanguage": "Upon termination, the Service Provider shall cease all work, return all Client property and Confidential Information, and the Client shall pay the Service Provider for all Services satisfactorily performed up to the date of termination. Additionally, the Service Provider shall cooperate in good faith to provide reasonable transition assistance to the Client or its designee for a period not to exceed thirty (30) days.",
+      "rationale": "Adding transition assistance prevents sudden operational disruptions when the contract ends.",
+      "priority": "LOW"
+    },
+    {
+      "clauseId": 12,
+      "clauseTitle": "Governing Law and Venue",
+      "risk": "HIGH",
+      "likelihood": 5,
+      "impact": 5,
+      "whyItMatters": "Leaving the governing law and venue blank guarantees expensive, protracted jurisdictional disputes in court before the actual merits of any contract dispute are even heard.",
+      "suggestedFix": "Designate a specific state's governing law (e.g., Delaware or New York) and establish exclusive jurisdiction and venue in that state's courts.",
+      "replacementLanguage": "This Agreement, and all claims or causes of action arising hereunder, shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict of laws principles. Each Party irrevocably and unconditionally submits to the exclusive jurisdiction of the state and federal courts located in Wilmington, Delaware, for any litigation arising out of or relating to this Agreement.",
+      "rationale": "Specifying a clear governing law and exclusive venue provides absolute predictability and avoids costly preliminary litigation over where a lawsuit must be filed.",
+      "priority": "CRITICAL"
+    }
+  ],
+  "riskCards": [
+    {
+      "id": "risk-2",
+      "severity": "medium",
+      "clauseTitle": "Term and Probation",
+      "explanation": "The use of employment-related terminology like 'probation period' in an independent contractor agreement increases the risk of worker misclassification.",
+      "suggestedFix": "Replace 'probation period' with 'Initial Evaluation Period' and explicitly state that the relationship is that of an independent contractor.",
+      "likelihood": 3,
+      "impact": 3,
+      "whyItMatters": "Using employment-related terminology like 'probation period' in an independent contractor agreement increases the risk of worker misclassification, potentially exposing you to back taxes, benefits claims, and employment law penalties."
+    },
+    {
+      "id": "risk-6",
+      "severity": "low",
+      "clauseTitle": "Confidentiality Exceptions",
+      "explanation": "The confidentiality clause lacks standard exceptions, which may affect its enforceability and commercial reasonableness.",
+      "suggestedFix": "Add standard carve-outs for information that is public, independently developed, or required to be disclosed by law.",
+      "likelihood": 2,
+      "impact": 2,
+      "whyItMatters": "Failing to include standard exceptions to confidentiality could make the clause legally unenforceable or prevent the vendor from complying with mandatory legal disclosures."
+    },
+    {
+      "id": "risk-7",
+      "severity": "low",
+      "clauseTitle": "Intellectual Property Moral Rights",
+      "explanation": "The clause does not address the waiver of moral rights, which may allow the creator to retain personal rights over the work product.",
+      "suggestedFix": "Add an explicit waiver of moral rights to the intellectual property assignment provision.",
+      "likelihood": 1,
+      "impact": 3,
+      "whyItMatters": "Without an explicit waiver of moral rights, the creator may retain personal rights to prevent modifications or demand attribution, hindering your ability to freely use the work product."
+    },
+    {
+      "id": "risk-8",
+      "severity": "high",
+      "clauseTitle": "Representations and Warranties Carve-outs",
+      "explanation": "The mutual limitation of liability cap applies to intellectual property infringement and confidentiality breaches, severely limiting your recovery options.",
+      "suggestedFix": "Carve out intellectual property infringement, confidentiality breaches, and indemnification obligations from the limitation of liability cap.",
+      "likelihood": 4,
+      "impact": 5,
+      "whyItMatters": "Applying a strict 6-month liability cap to all claims means you cannot fully recover damages if the vendor infringes third-party intellectual property or breaches confidentiality."
+    },
+    {
+      "id": "risk-9",
+      "severity": "high",
+      "clauseTitle": "Limitation of Liability Cap",
+      "explanation": "The 6-month liability cap lacks carve-outs for the Service Provider's indemnification obligations, potentially rendering the indemnity protection useless.",
+      "suggestedFix": "Add explicit carve-outs to the limitation of liability clause for indemnification, confidentiality, and gross negligence.",
+      "likelihood": 4,
+      "impact": 5,
+      "whyItMatters": "A mutual liability cap without carve-outs effectively guts the Service Provider's indemnification obligations, leaving you to pay for third-party lawsuits out of pocket."
+    },
+    {
+      "id": "risk-10",
+      "severity": "medium",
+      "clauseTitle": "Indemnification Scope",
+      "explanation": "The broad indemnification is undermined because it is subject to the contract's overall limitation of liability cap.",
+      "suggestedFix": "Ensure the indemnification clause is explicitly carved out from the limitation of liability cap in Section 9.",
+      "likelihood": 3,
+      "impact": 4,
+      "whyItMatters": "While the indemnity is broad, its protection is severely limited because it is subject to the 6-month liability cap, leaving you exposed to massive third-party claims."
+    },
+    {
+      "id": "risk-11",
+      "severity": "low",
+      "clauseTitle": "Termination Transition",
+      "explanation": "The contract lacks transition assistance provisions, which could lead to operational disruptions upon termination.",
+      "suggestedFix": "Add a brief transition assistance obligation to ensure a smooth handoff upon termination.",
+      "likelihood": 1,
+      "impact": 2,
+      "whyItMatters": "The termination clause is generally well-drafted, but minor ambiguities regarding post-termination transition could disrupt business continuity."
+    },
+    {
+      "id": "risk-12",
+      "severity": "high",
+      "clauseTitle": "Governing Law and Venue",
+      "explanation": "The governing law clause is incomplete and fails to designate a specific jurisdiction, creating severe legal uncertainty.",
+      "suggestedFix": "Designate a specific state's governing law (e.g., Delaware or New York) and establish exclusive jurisdiction and venue in that state's courts.",
+      "likelihood": 5,
+      "impact": 5,
+      "whyItMatters": "Leaving the governing law and venue blank guarantees expensive, protracted jurisdictional disputes in court before the actual merits of any contract dispute are even heard."
+    }
+  ]
+}

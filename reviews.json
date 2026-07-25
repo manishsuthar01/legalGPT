@@ -6,20 +6,19 @@
     "searchQuery": "US employment law indefinite term contract",
     "verifiedContext": "[]...",
     "strictReview": {
-      "risk": "LOW",
-      "confidence": 90,
+      "risk": "MEDIUM",
+      "confidence": 85,
       "basedOn": "Contract Only",
-      "summary": "No current legal authority was found in the provided search results. The contract text establishes an indefinite term with a clear 14-day notice period during an initial 3-month probation period.",
+      "summary": "No current legal authority was found in the provided search results. The contract wording establishes an indefinite term with a 'probation period,' which is a concept typically associated with employment and may risk worker misclassification.",
       "observations": [
-        "The agreement commences on the Effective Date and continues indefinitely.",
-        "An initial three-month probation period is established.",
-        "During the probation period, either party may terminate the agreement for any reason upon 14 calendar days' written notice.",
-        "Post-probation termination is governed by Section 11."
+        "The agreement establishes an indefinite term starting from the Effective Date.",
+        "It introduces a three-month 'probation period' during which either party can terminate with 14 days' notice.",
+        "The use of employment-related terminology like 'probation period' in a Service Provider agreement increases the risk of the relationship being recharacterized as employment."
       ],
       "evidence": [],
       "applicableLaw": [],
       "citations": [],
-      "internalReasoning": "No reliable web search results were provided in the context for this clause. Based solely on the contract text, the clause is clear, mutual, and standard for professional services, presenting low risk."
+      "internalReasoning": "The search results provided generic employment at-will information but did not directly address the risk of using 'probation' in independent contractor agreements. Therefore, I evaluated the contract text directly. The term 'probation period' is highly indicative of an employment relationship, which poses a misclassification risk under US law (e.g., FLSA, state laws). Thus, a MEDIUM risk is assigned."
     }
   },
   {
@@ -27,36 +26,21 @@
     "clauseText": "\"Confidential Information\"). The Service Provider agrees to keep all Confidential Information strictly\nconfidential, not to disclose it to any third party, and not to use it for any purpose other than\nperforming the Services for the Client. This obligation of confidentiality shall survive the termination\nof this Agreement.\n7. INTELLECTUAL PROPERTY\nAll work product, inventions, discoveries, improvements, designs, works of authorship, and\nmaterials created or developed by the Service Provider in connection with the Services (collectively,\n\"Work Product\") shall be considered \"work made for hire\" to the fullest extent permitted by law, and\nall intellectual property rights therein shall belong exclusively to the Client. To the extent any Work",
     "researchTopic": "Confidentiality",
     "searchQuery": "US trade secrets law confidential information disclosure",
-    "verifiedContext": "[{\"title\":\"Trade Secrets Law: Overview\",\"url\":\"https://libguides.law.umich.edu/c.php?g=1337978&p=10552588\",\"content\":\"# Trade Secrets Law: Overview. Trade secrets are a form of intellectual property generally comprised of confidential information. Find a helpful overview of trade secrets law at:. * **Introduction to Trade Secrets Law in the United States**  This link opens in a new window. ## Trade Secrets Overview. (i) derives independent economic value, actual or potential, from not being gene...",
+    "verifiedContext": "[{\"title\":\"United States | History, Map, Flag, & Population\",\"url\":\"https://www.britannica.com/place/United-States\",\"content\":\"*   [Land](https://www.britannica.com/place/United-States#ref77949). *   [Relief](https://www.britannica.com/place/United-States#ref77950). *   [The Atlantic Plain](https://www.britannica.com/place/United-States/The-Appalachian-Mountain-system#ref77953). *   [Drainage](https://www.britannica.com/place/United-States/The-Western-Cordillera#ref77956). *   [The Pacific syste...",
     "strictReview": {
-      "risk": "MEDIUM",
-      "confidence": 95,
-      "basedOn": "Web Search and Contract",
-      "summary": "The clause establishes a survival of confidentiality obligations, which aligns with trade secret protection standards, but lacks standard exclusions and definition boundaries.",
+      "risk": "LOW",
+      "confidence": 90,
+      "basedOn": "Contract Only",
+      "summary": "No current legal authority was found in the provided search results. The contract wording establishes a standard survival of confidentiality obligations but lacks standard exceptions such as disclosures required by law.",
       "observations": [
-        "The Service Provider is obligated to keep all Confidential Information strictly confidential.",
-        "The confidentiality obligation explicitly survives the termination of the agreement.",
-        "The clause text provided does not define 'Confidential Information' or include standard exclusions (e.g., public domain, compelled disclosure)."
+        "The clause obligates the Service Provider to keep all Confidential Information strictly confidential and restricts its use to performing the Services.",
+        "The confidentiality obligation survives the termination of the agreement indefinitely.",
+        "The clause lacks standard exceptions to confidentiality, such as information that is already public, independently developed, or required to be disclosed by legal process."
       ],
-      "evidence": [
-        "The Uniform Trade Secrets Act (UTSA) is a piece of legislation created by the Uniform Law Commission (ULC). The UTSA defines trade secrets and describes claims related to trade secrets.",
-        "Is the subject of efforts that are reasonable under the circumstances to maintain its secrecy."
-      ],
-      "applicableLaw": [
-        "Uniform Trade Secrets Act (UTSA)",
-        "Defend Trade Secrets Act (DTSA)"
-      ],
-      "citations": [
-        {
-          "title": "trade secret | Wex | US Law | LII / Legal Information Institute",
-          "url": "https://www.law.cornell.edu/wex/trade_secret"
-        },
-        {
-          "title": "Trade Secrets Law: Overview",
-          "url": "https://libguides.law.umich.edu/c.php?g=1337978&p=10552588"
-        }
-      ],
-      "internalReasoning": "The clause protects confidential information indefinitely (survival clause), which is consistent with UTSA requirements to take reasonable efforts to maintain secrecy. However, the lack of standard carve-outs (like legally compelled disclosure) in the text poses a medium risk of overbreadth or unenforceability."
+      "evidence": [],
+      "applicableLaw": [],
+      "citations": [],
+      "internalReasoning": "The search results were completely irrelevant (Britannica and a movie trailer), so I relied solely on the contract text. The clause is a standard unilateral confidentiality clause. The lack of standard exceptions is a minor issue but common in simple drafts, representing a low risk."
     }
   },
   {
@@ -64,30 +48,32 @@
     "clauseText": "all intellectual property rights therein shall belong exclusively to the Client. To the extent any Work\nProduct is not deemed a \"work made for hire,\" the Service Provider hereby irrevocably assigns to\nthe Client all right, title, and interest in and to such Work Product, including all intellectual property\nrights therein.\n8. REPRESENTATIONS AND WARRANTIES\nThe Service Provider represents and warrants that he has the necessary skills, experience, and\nqualifications to perform the Services in a professional and workmanlike manner, in accordance\nwith generally accepted industry standards. The Service Provider further represents that the\nServices will not infringe upon the intellectual property rights or other rights of any third party.\n9. LIMITATION OF LIABILITY",
     "researchTopic": "Intellectual Property",
     "searchQuery": "US copyright law work made for hire assignment",
-    "verifiedContext": "[{\"title\":\"Work Made for Hire Clauses\",\"url\":\"https://fynk.com/en/clauses/work-made-for-hire\",\"content\":\"Consultant acknowledges that all work emanating from Consultant’s performance of the Services hereunder that falls within a category of “work made for hire,” as that term is defined in the U.S. Copyright Act, shall be considered “work made for hire” (collectively, “Work Made For Hire”), with all copyrights in such Work Made For Hire being owned solely by the Company. To the extent any or all ...",
+    "verifiedContext": "[{\"title\":\"Work for hire\",\"url\":\"https://en.wikipedia.org/wiki/Work_for_hire\",\"content\":\"# Work for hire. In copyright law, a **work made for hire** (**work for hire** or **WFH**) is a work whose copyright is initially owned by an entity other than the actual creator as a result of an employment relationship or, in some cases, a commission. In the United States, United Kingdom, and several other jurisdictions, if a work is created by an employee as part of their job duties, the employer is consi...",
     "strictReview": {
       "risk": "LOW",
       "confidence": 95,
       "basedOn": "Web Search and Contract",
-      "summary": "The clause effectively secures intellectual property rights for the Client by combining a 'work made for hire' designation with a robust backup assignment clause.",
+      "summary": "The clause effectively secures intellectual property rights for the Client by utilizing a 'work made for hire' designation coupled with a robust fallback assignment provision, aligning with US copyright standards.",
       "observations": [
-        "All work product created by the Service Provider is designated as 'work made for hire' to the fullest extent permitted by law.",
-        "The clause includes an explicit, irrevocable backup assignment of all right, title, and interest in the Work Product to the Client if it does not qualify as a work made for hire."
+        "The clause designates all created Work Product as 'work made for hire' to the fullest extent permitted by law.",
+        "It includes an irrevocable fallback assignment of all right, title, and interest in the Work Product to the Client if it is not deemed a 'work made for hire'.",
+        "The clause does not address the waiver of moral rights, which may remain with the creator depending on the jurisdiction."
       ],
       "evidence": [
-        "Where the creator is an independent contractor, the work created must be commissioned for the exclusive use of the client for the works made for hire doctrine to apply.",
-        "Once a work is considered one made for hire, the authorship and copyright ownership belong to the employer or the person or entity who commissioned the work of the independent contractor."
+        "In the United States, United Kingdom, and several other jurisdictions, if a work is created by an employee as part of their job duties, the employer is considered the legal author or first owner of copyright.",
+        "a work specially ordered or commissioned... if the parties expressly agree in a written instrument signed by them that the work shall be considered a work made for hire."
       ],
       "applicableLaw": [
-        "US Copyright Act (17 U.S.C. § 101, § 201)"
+        "US Copyright Act (17 U.S.C. § 101)",
+        "US Copyright Act (17 U.S.C. § 201)"
       ],
       "citations": [
         {
-          "title": "Copyright Law: The “Works Made For Hire” Doctrine",
-          "url": "https://www.dbllawyers.com/copyright-law-the-works-made-for-hire-doctrine"
+          "title": "work made for hire | Wex | US Law | LII / Legal Information Institute",
+          "url": "https://www.law.cornell.edu/wex/work_made_for_hire"
         }
       ],
-      "internalReasoning": "Under US Copyright law, independent contractor work only qualifies as 'work made for hire' under narrow statutory categories. The inclusion of a backup assignment clause is a standard and highly effective legal mechanism to ensure the Client owns the IP regardless of the 'work made for hire' status, resulting in low risk."
+      "internalReasoning": "Cornell Law (LII) is a highly reliable source. Under US copyright law, independent contractor work is only 'work made for hire' if it falls under specific statutory categories. The contract successfully mitigates this limitation by including a fallback assignment clause ('hereby irrevocably assigns...'), which is the standard best practice under US law. Thus, the risk is LOW."
     }
   },
   {
@@ -95,21 +81,22 @@
     "clauseText": "Services will not infringe upon the intellectual property rights or other rights of any third party.\n9. LIMITATION OF LIABILITY\nTo the maximum extent permitted by applicable law, neither Party shall be liable to the other for any\nindirect, incidental, special, consequential, or punitive damages, including but not limited to lost\nprofits, arising out of or relating to this Agreement, even if advised of the possibility of such\ndamages. The total liability of either Party under this Agreement shall not exceed the total\ncompensation paid or payable to the Service Provider by the Client under this Agreement during\nthe six (6) months immediately preceding the event giving rise to the claim.\n10. INDEMNIFICATION",
     "researchTopic": "Representations and Warranties",
     "searchQuery": "US contract law professional services warranty",
-    "verifiedContext": "[{\"title\":\"Examples of services warranty clauses in contracts\",\"url\":\"https://afterpattern.com/clauses/services-warranty\",\"content\":\"Service Provider Representatives shall perform Services in accordance with good standards that are generally accepted in the United States of America on the Creation Date for the industry and profession relevant to Services. THE CORRECTIVE REPERFORMANCE OF SUBSTANDARD SERVICES SHALL BE THE EXCLUSIVE REMEDY OF LICENSEE, AND THE EXCLUSIVE LIABILITY OF SERVICE PROVIDE...",
+    "verifiedContext": "[{\"title\":\"Services Warranty: Key Contract Clause Insights\",\"url\":\"https://fynk.com/en/clauses/services-warranty\",\"content\":\"image: What AI is actually doing to contract management. What AI is actually doing to contract management. Supplier warrants to Buyer that any Services shall at the time of performance thereof and during the Services Warranty Period be (i) performed in a good and workmanlike manner and free of any fault, defect or deficiency that would preclude or impair the ability of suc...",
     "strictReview": {
-      "risk": "LOW",
-      "confidence": 90,
+      "risk": "HIGH",
+      "confidence": 85,
       "basedOn": "Contract Only",
-      "summary": "No current legal authority was found in the provided search results. The contract text contains a standard professional services warranty of non-infringement and a mutual limitation of liability.",
+      "summary": "No current legal authority was found in the provided search results. The contract wording presents a high risk because the limitation of liability cap applies mutually without carving out critical obligations such as IP infringement indemnification or confidentiality breaches.",
       "observations": [
-        "The Service Provider warrants that the Services will not infringe third-party intellectual property rights.",
-        "The clause contains a mutual waiver of indirect, incidental, special, consequential, and punitive damages.",
-        "The total liability cap is set to the compensation paid or payable in the preceding six months."
+        "The clause contains a representation that the Services will not infringe third-party intellectual property rights.",
+        "It includes a mutual waiver of indirect, incidental, special, consequential, and punitive damages.",
+        "It caps the total liability of either party to the compensation paid or payable during the six months preceding the event giving rise to the claim.",
+        "The limitation of liability does not exclude breaches of confidentiality, intellectual property infringement, or indemnification obligations from the liability cap."
       ],
       "evidence": [],
       "applicableLaw": [],
       "citations": [],
-      "internalReasoning": "The provided search results were from unreliable blog/platform sources, so the evaluation is based solely on the contract text. The warranty of non-infringement and the mutual limitation of liability are standard commercial terms, presenting low risk on their face."
+      "internalReasoning": "The search results were from fynk.com and afterpattern.com, which are not highly reliable primary or secondary legal sources. Therefore, I evaluated the contract text directly. The clause is highly risky for the Client because the 6-month liability cap applies to 'either Party' and does not carve out the Service Provider's indemnification obligations for IP infringement or confidentiality breaches. This means if the Service Provider infringes a third party's IP and the Client is sued, the Client's recovery from the Service Provider is capped at 6 months of fees, which is highly inadequate."
     }
   },
   {
@@ -117,21 +104,22 @@
     "clauseText": "compensation paid or payable to the Service Provider by the Client under this Agreement during\nthe six (6) months immediately preceding the event giving rise to the claim.\n10. INDEMNIFICATION\nThe Service Provider shall indemnify, defend, and hold harmless the Client, its officers, directors,",
     "researchTopic": "Limitation of Liability",
     "searchQuery": "US tort law limitation of liability clause",
-    "verifiedContext": "[{\"title\":\"Limitation of Liability Clause (Annotated)\",\"url\":\"https://www.bloomberglaw.com/external/document/XFAHJRRO000000/commercial-clause-limitation-of-liability-clause-annotated\",\"content\":\"A limitation of liability clause limits the amount and/or types of damages that may be attributable to a particular party under the contract for that party's future breach, misconduct while performing under the contract, or indemnification liability. **[Section #] Limitation of Liability.** Except as exp...",
+    "verifiedContext": "[{\"title\":\"Limitation of Liability Clause (Annotated)\",\"url\":\"https://www.bloomberglaw.com/external/document/XFAHJRRO000000/commercial-clause-limitation-of-liability-clause-annotated\",\"content\":\"[]( Analysis: A limitation of liability clause can offer significant value to the party whose liability for breach or nonperformance is limited. That potential benefit comes with the risk of some uncertainty about its enforcement by courts. Courts generally will enforce a limitation of liability clause b...",
     "strictReview": {
-      "risk": "MEDIUM",
+      "risk": "HIGH",
       "confidence": 95,
       "basedOn": "Web Search and Contract",
-      "summary": "The limitation of liability cap is set to a short 6-month lookback period and lacks standard exclusions for indemnification or confidentiality breaches.",
+      "summary": "Based on US legal standards, limitation of liability clauses are generally enforceable but construed narrowly. The contract wording presents a high risk as the 6-month liability cap lacks carve-outs for the Service Provider's indemnification obligations, potentially gutting the indemnity protection.",
       "observations": [
-        "The total liability cap is limited to the compensation paid or payable during the six months preceding the event giving rise to the claim.",
-        "The clause does not exclude indemnification obligations (such as third-party IP infringement claims) or breaches of confidentiality from the liability cap."
+        "The clause limits the total liability of either party to the compensation paid or payable during the six months preceding the claim.",
+        "It introduces a broad indemnification obligation for the Service Provider to defend and hold harmless the Client.",
+        "There is no explicit carve-out in the limitation of liability clause for the Service Provider's indemnification obligations, which may render the indemnification practically ineffective if the cap is low."
       ],
       "evidence": [
-        "A limitation of liability clause limits the amount and/or types of damages that may be attributable to a particular party under the contract for that party's future breach, misconduct while performing under the contract, or indemnification liability."
+        "Courts generally will enforce a limitation of liability clause but will do so narrowly. Courts are more reluctant to enforce a type of clause, known as an exculpatory clause, that completely exonerates a party from liability for its future negligent acts."
       ],
       "applicableLaw": [
-        "US Common Law / State Contract Law"
+        "US Common Law of Contracts"
       ],
       "citations": [
         {
@@ -139,7 +127,7 @@
           "url": "https://www.bloomberglaw.com/external/document/XFAHJRRO000000/commercial-clause-limitation-of-liability-clause-annotated"
         }
       ],
-      "internalReasoning": "While limitation of liability clauses are generally enforceable under US law, capping liability at only 6 months of compensation without carving out critical liabilities like IP indemnification or confidentiality breaches creates a significant financial risk for the Client, as the cap may be far lower than actual damages."
+      "internalReasoning": "Bloomberg Law is a highly reliable source. It notes that courts enforce limitation of liability clauses but construe them narrowly. In this contract, the 6-month liability cap applies to 'either Party' and does not carve out the Service Provider's indemnification obligations. Under US contract law, without an explicit carve-out, the liability cap will likely limit the indemnity, leaving the Client highly exposed. This represents a HIGH risk."
     }
   },
   {
@@ -147,30 +135,21 @@
     "clauseText": "employees, and agents from and against any and all claims, damages, liabilities, costs, and\nexpenses (including reasonable attorneys' fees) arising out of or related to (a) the Service\nProvider's performance of the Services, (b) any breach by the Service Provider of any term or\ncondition of this Agreement, or (c) any third-party claim that the Work Product or Services infringe\nupon any intellectual property rights of such third party.\n11. TERMINATION\nIn addition to the termination rights during the Probation Period as set forth in Section 2, this\nAgreement may be terminated as follows:\na. By either Party for convenience upon providing thirty (30) calendar days' written notice to the\nother Party.\nb. By either Party immediately upon written notice if the other Party materially breaches any",
     "researchTopic": "Indemnification",
     "searchQuery": "US contract law indemnification for intellectual property infringement",
-    "verifiedContext": "[{\"title\":\"Intellectual Property Indemnification: Key Contract Clause | fynk\",\"url\":\"https://fynk.com/en/clauses/intellectual-property-indemnification\",\"content\":\"Subject to terms and conditions of this Agreement, Supplier shall indemnify, defend and hold harmless Buyer and its Representatives (collectively, the “Buyer Indemnified Parties\\\") from and against all Losses awarded against any Buyer Indemnified Party in a final non-appealable judgment arising out of any Claim of a third party allegin...",
+    "verifiedContext": "[{\"title\":\"INTELLECTUAL PROPERTY INDEMNITY Sample Clauses: 2k Samples | Law Insider\",\"url\":\"https://www.lawinsider.com/clause/intellectual-property-indemnity\",\"content\":\"To the fullest extent permitted by law, Contractor shall defend, indemnify, and hold Enterprise Services and any Purchaser and their employees and agents harmless from against any and all Claims resulting from allegations of infringement of any patents, copyrights, trade secret, or similar intellectual property rights covering t...",
     "strictReview": {
-      "risk": "LOW",
-      "confidence": 95,
-      "basedOn": "Web Search and Contract",
-      "summary": "The indemnification clause is comprehensive and properly covers performance, breach, and third-party intellectual property infringement claims.",
+      "risk": "MEDIUM",
+      "confidence": 85,
+      "basedOn": "Contract Only",
+      "summary": "No current legal authority was found in the provided search results. The contract wording provides a broad, unilateral indemnification in favor of the Client, covering performance, breach, and intellectual property infringement.",
       "observations": [
-        "The Service Provider is required to indemnify, defend, and hold harmless the Client and its representatives.",
-        "The scope of indemnification covers performance of services, breach of contract, and third-party IP infringement claims.",
-        "The clause includes reasonable attorneys' fees within the indemnified costs."
+        "The clause provides a broad indemnification obligation requiring the Service Provider to defend, indemnify, and hold harmless the Client against claims arising from performance, breach, or IP infringement.",
+        "The indemnity includes 'reasonable attorneys' fees' and covers 'any and all claims, damages, liabilities, costs, and expenses.'",
+        "The clause does not contain reciprocal indemnification from the Client to the Service Provider."
       ],
-      "evidence": [
-        "Supplier shall indemnify, defend and hold Buyer and Buyer’s customers harmless from any and all claims against Buyer and/or Buyer’s customers alleging intellectual property infringement of any patent, copyright, trademark, trade secret or other intellectual property rights of any third party..."
-      ],
-      "applicableLaw": [
-        "US Common Law / State Contract Law"
-      ],
-      "citations": [
-        {
-          "title": "Intellectual Property Indemnification Clause Samples",
-          "url": "https://www.lawinsider.com/clause/intellectual-property-indemnification"
-        }
-      ],
-      "internalReasoning": "The indemnification clause is well-drafted and covers the key risk areas (performance, breach, and IP infringement) that a client would expect. It is standard under US commercial contracting practices, presenting low risk in its drafting (though its interaction with the liability cap in Clause 9 remains a commercial concern)."
+      "evidence": [],
+      "applicableLaw": [],
+      "citations": [],
+      "internalReasoning": "The search results were from Law Insider (clause database) and LawTeacher (student essay), which are not highly reliable. Therefore, I evaluated the contract text directly. The indemnification is very broad and unilateral, favoring the Client. However, because it is not carved out from the limitation of liability cap (as noted in Clause 9), its practical value is limited. This represents a MEDIUM risk."
     }
   },
   {
@@ -183,26 +162,26 @@
       "risk": "LOW",
       "confidence": 95,
       "basedOn": "Web Search and Contract",
-      "summary": "The termination provisions are clear, providing mutual rights for material breach with a 15-day cure period, and immediate termination for cause.",
+      "summary": "The termination provisions are standard and legally sound under US contract law, providing mutual convenience termination with notice and a clear mechanism for immediate termination for cause.",
       "observations": [
-        "Either party may terminate immediately upon written notice for an uncured material breach after a 15-day cure period.",
-        "The Client has the right to terminate immediately for dishonesty, gross misconduct, or illegal activity.",
-        "Upon termination, the Service Provider must return all Client property and Confidential Information.",
-        "The Client is obligated to pay only for services satisfactorily performed up to the termination date."
+        "The clause allows either party to terminate for convenience with 30 days' written notice.",
+        "It provides a 15-day cure period for material breaches before termination becomes effective.",
+        "It grants the Client the unilateral right to terminate immediately for cause (dishonesty, gross misconduct, or illegal activity).",
+        "It clearly outlines post-termination obligations, including the return of property and payment for services satisfactorily performed."
       ],
       "evidence": [
-        "A form notice governed by New York law terminating an agreement early for convenience. This notice may be used by a party to unilaterally terminate an [agreement]"
+        "A right to terminate for convenience usually requires the terminating party to provide a certain period of notice before the termination is effective."
       ],
       "applicableLaw": [
-        "US Common Law / State Contract Law"
+        "US Common Law of Contracts"
       ],
       "citations": [
         {
-          "title": "Notice of Termination for Convenience (NY) - Practical Law",
-          "url": "https://uk.practicallaw.thomsonreuters.com/w-014-3190?transitionType=Default&contextData=%28sc.Default%29"
+          "title": "Termination for convenience | Practical Law - Westlaw",
+          "url": "https://content.next.westlaw.com/practical-law/document/Ia29ff018cf2111e79bef99c0ee06c731/Termination-for-convenience?viewType=FullText&transitionType=Default&contextData=%28sc.Default%29"
         }
       ],
-      "internalReasoning": "The termination clause is balanced and standard. It provides clear mechanisms for termination for cause (with a reasonable cure period) and immediate termination for gross misconduct, while protecting the Client's assets and limiting payment to satisfactorily performed work."
+      "internalReasoning": "Practical Law (Westlaw) is a highly reliable source. It confirms that termination for convenience typically requires a notice period, which this contract provides (30 days). The cure period (15 days) and immediate termination for cause are standard commercial terms. The risk is LOW."
     }
   },
   {
@@ -210,21 +189,32 @@
     "clauseText": "performed up to the date of termination.\n12. GOVERNING LAW\nThis Agreement shall be governed by and construed in accordance with the laws of a jurisdiction to\nbe determined by the Parties, without regard to its conflict of laws principles.\n13. ENTIRE AGREEMENT\nThis Agreement, along with any mutually agreed upon statements of work, constitutes the entire\nagreement between the Parties with respect to the subject matter hereof and supersedes all prior\nand contemporaneous agreements, understandings, negotiations, and discussions, whether oral or\nwritten.\n14. SEVERABILITY\nIf any provision of this Agreement is held to be invalid or unenforceable by a court of competent\njurisdiction, such provision shall be severed from this Agreement, and the remaining provisions",
     "researchTopic": "Governing Law",
     "searchQuery": "US choice of law clause jurisdiction determination",
-    "verifiedContext": "[{\"title\":\"United States\",\"url\":\"https://en.wikipedia.org/wiki/United_States\",\"content\":\"[Jump to content](https://en.wikipedia.org/wiki/United_States#bodyContent). *   [(Top)](https://en.wikipedia.org/wiki/United_States#). *   [1 Etymology](https://en.wikipedia.org/wiki/United_States#Etymology). *   [2.2 European exploration, colonization and conflict (1513–1765)](https://en.wikipedia.org/wiki/United_States#European_exploration,_colonization_and_conflict_(1513%E2%80%931765)). *   [2.3 American ...",
+    "verifiedContext": "[{\"title\":\"Choice of Law: Understanding Jurisdiction in Legal Disputes | US Legal Forms\",\"url\":\"https://legal-resources.uslegalforms.com/c/choice-of-law\",\"content\":\"# Choice of Law: A Comprehensive Guide to Jurisdiction in Legal Matters. Choice of law refers to the legal principle that determines which jurisdiction's laws will apply in a dispute involving multiple jurisdictions. This principle is particularly important in contract disputes where the parties may be located in different states or ...",
     "strictReview": {
-      "risk": "CRITICAL",
+      "risk": "HIGH",
       "confidence": 95,
-      "basedOn": "Contract Only",
-      "summary": "No current legal authority was found in the provided search results. The governing law clause is completely unresolved, leaving the jurisdiction 'to be determined by the Parties'.",
+      "basedOn": "Web Search and Contract",
+      "summary": "The governing law clause is incomplete and fails to designate a specific jurisdiction, creating severe legal uncertainty and potential venue disputes in the event of a conflict.",
       "observations": [
-        "The clause states that the agreement shall be governed by the laws of 'a jurisdiction to be determined by the Parties'.",
-        "No specific state or country is designated as the governing law.",
-        "The clause includes standard language excluding conflict of laws principles, but it is ineffective without a designated jurisdiction."
+        "The clause fails to specify a governing law, leaving it 'to be determined by the Parties.'",
+        "It includes standard 'without regard to its conflict of laws principles' language, but this is ineffective without an actual designated jurisdiction.",
+        "The contract lacks a forum selection (jurisdiction and venue) clause, which determines where disputes must be litigated."
       ],
-      "evidence": [],
-      "applicableLaw": [],
-      "citations": [],
-      "internalReasoning": "The provided search results (Wikipedia and USA.gov) do not contain relevant legal authority on choice of law clauses. Based solely on the contract text, leaving the governing law blank or 'to be determined' creates a critical risk. In the event of a dispute, there is no agreed-upon law, which will lead to costly jurisdictional battles and the application of unpredictable default conflict-of-laws rules."
+      "evidence": [
+        "A choice of law clause in a contract specifies which jurisdiction's laws will govern in case of a disagreement, helping to provide clarity and predictability for the parties involved.",
+        "While a choice of law clause controls how a judge will decide the legal issues in a lawsuit, choice of jurisdiction and venue provisions determine where that lawsuit will proceed."
+      ],
+      "applicableLaw": [
+        "US Contract Law",
+        "Conflict of Laws Principles"
+      ],
+      "citations": [
+        {
+          "title": "Why You Should Care About Choice of Law, Jurisdiction, and Venue Provisions in Your Company's Contracts",
+          "url": "https://www.maddinnauser.com/why-you-should-care-about-choice-of-law-jurisdiction-and-venue-provisions-in-your-companys-contracts"
+        }
+      ],
+      "internalReasoning": "Maddin Hauser is a reputable law firm. The search results confirm that choice of law and venue clauses are critical for predictability. Leaving the governing law blank ('to be determined by the Parties') means there is no agreement on governing law, which will force a court to perform a complex conflict-of-laws analysis if a dispute arises. This creates a HIGH risk of litigation over where and under what law the dispute should be resolved."
     }
   }
 ]
