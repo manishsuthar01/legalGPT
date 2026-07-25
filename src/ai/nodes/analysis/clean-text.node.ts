@@ -1,4 +1,4 @@
-import { AnalysisState } from "@/ai/types";
+import { AnalysisState } from "@/ai/types/analysis";
 
 export const cleanTextNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {
     const startTime = Date.now();

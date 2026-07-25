@@ -1,5 +1,5 @@
 import { StateGraph, START, END, Annotation } from "@langchain/langgraph";
-import { AnalysisState } from "@/ai/types";
+import { AnalysisState } from "@/ai/types/analysis";
 import { extractTextNode } from "@/ai/nodes/analysis/extract-text.node"
 import { cleanTextNode } from "@/ai/nodes/analysis/clean-text.node"
 import { splitClauseNode } from "@/ai/nodes/analysis/split-clauses.node"

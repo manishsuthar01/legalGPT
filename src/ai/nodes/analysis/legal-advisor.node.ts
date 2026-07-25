@@ -1,7 +1,7 @@
 import { StringOutputParser } from "@langchain/core/output_parsers";
 import { advisorPrompt } from "../../prompts/analysis/legal-advisor.prompt";
 import { getLLM } from "../../models";
-import { AnalysisState } from "../../types";
+import { AnalysisState } from "../../types/analysis";
 import fs from "fs";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

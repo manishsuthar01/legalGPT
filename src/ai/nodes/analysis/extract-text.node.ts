@@ -1,5 +1,5 @@
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
-import { AnalysisState } from "@/ai/types";
+import { AnalysisState } from "@/ai/types/analysis";
 import { supabaseAdmin } from "@/utils/supabase/admin";
 
 export const extractTextNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {

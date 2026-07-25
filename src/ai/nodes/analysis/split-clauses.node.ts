@@ -1,4 +1,4 @@
-import { AnalysisState } from "@/ai/types";
+import { AnalysisState } from "@/ai/types/analysis";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 
 export const splitClauseNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {

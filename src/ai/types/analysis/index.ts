@@ -126,14 +126,3 @@ export interface ClauseReview {
     }[];
     internalReasoning: string;
 }
-
-export interface ChatState {
-    contractId: string;
-    sessionId: string;
-    userQuestion: string;
-    chatHistory: any[];
-    retrievedClauses: string[];
-    retrievedLaws: string[];
-    finalContext: string;
-    response: string;
-}
