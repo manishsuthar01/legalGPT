@@ -2,219 +2,175 @@
   {
     "clauseId": 2,
     "clauseText": "separate statements of work or project specifications as mutually agreed upon by the Parties from\ntime to time.\n2. TERM AND PROBATION\nThis Agreement shall commence on the Effective Date and shall continue indefinitely thereafter,\nsubject to earlier termination as provided herein. The initial three (3) months following the Effective\nDate shall constitute a probation period (the \"Probation Period\"). During the Probation Period, either\nParty may terminate this Agreement for any reason upon providing fourteen (14) calendar days'\nwritten notice to the other Party. Following the Probation Period, the termination provisions of\nSection 11 shall apply.\n3. COMPENSATION\nThe Client shall pay the Service Provider compensation for the Services rendered as separately",
-    "researchTopic": "Agreement Term",
-    "searchQuery": "US employment law indefinite term contract",
-    "verifiedContext": "[]...",
+    "researchTopic": "N/A",
+    "searchQuery": "N/A",
+    "verifiedContext": "No specific legal precedent found.",
     "strictReview": {
-      "risk": "MEDIUM",
-      "confidence": 85,
+      "risk": "LOW",
+      "confidence": 90,
       "basedOn": "Contract Only",
-      "summary": "No current legal authority was found in the provided search results. The contract wording establishes an indefinite term with a 'probation period,' which is a concept typically associated with employment and may risk worker misclassification.",
+      "summary": "The clause establishes an indefinite term with a mutual 3-month probation period and 14-day termination notice; no current legal authority was found.",
       "observations": [
-        "The agreement establishes an indefinite term starting from the Effective Date.",
-        "It introduces a three-month 'probation period' during which either party can terminate with 14 days' notice.",
-        "The use of employment-related terminology like 'probation period' in a Service Provider agreement increases the risk of the relationship being recharacterized as employment."
+        "Establishes an indefinite term starting from the Effective Date.",
+        "Provides a mutual 3-month probation period during which either party can terminate with 14 days' written notice.",
+        "References Section 11 for termination provisions after the probation period."
       ],
       "evidence": [],
       "applicableLaw": [],
       "citations": [],
-      "internalReasoning": "The search results provided generic employment at-will information but did not directly address the risk of using 'probation' in independent contractor agreements. Therefore, I evaluated the contract text directly. The term 'probation period' is highly indicative of an employment relationship, which poses a misclassification risk under US law (e.g., FLSA, state laws). Thus, a MEDIUM risk is assigned."
+      "internalReasoning": "The clause is a standard term and probation provision. Since no external legal research was provided or found, the evaluation is based solely on the contract text. The risk is low because the probation period and termination rights during it are mutual."
     }
   },
   {
     "clauseId": 6,
     "clauseText": "\"Confidential Information\"). The Service Provider agrees to keep all Confidential Information strictly\nconfidential, not to disclose it to any third party, and not to use it for any purpose other than\nperforming the Services for the Client. This obligation of confidentiality shall survive the termination\nof this Agreement.\n7. INTELLECTUAL PROPERTY\nAll work product, inventions, discoveries, improvements, designs, works of authorship, and\nmaterials created or developed by the Service Provider in connection with the Services (collectively,\n\"Work Product\") shall be considered \"work made for hire\" to the fullest extent permitted by law, and\nall intellectual property rights therein shall belong exclusively to the Client. To the extent any Work",
-    "researchTopic": "Confidentiality",
-    "searchQuery": "US trade secrets law confidential information disclosure",
-    "verifiedContext": "[{\"title\":\"United States | History, Map, Flag, & Population\",\"url\":\"https://www.britannica.com/place/United-States\",\"content\":\"*   [Land](https://www.britannica.com/place/United-States#ref77949). *   [Relief](https://www.britannica.com/place/United-States#ref77950). *   [The Atlantic Plain](https://www.britannica.com/place/United-States/The-Appalachian-Mountain-system#ref77953). *   [Drainage](https://www.britannica.com/place/United-States/The-Western-Cordillera#ref77956). *   [The Pacific syste...",
+    "researchTopic": "N/A",
+    "searchQuery": "N/A",
+    "verifiedContext": "No specific legal precedent found.",
     "strictReview": {
       "risk": "LOW",
       "confidence": 90,
       "basedOn": "Contract Only",
-      "summary": "No current legal authority was found in the provided search results. The contract wording establishes a standard survival of confidentiality obligations but lacks standard exceptions such as disclosures required by law.",
+      "summary": "The clause contains standard confidentiality obligations that survive termination and a 'work made for hire' IP assignment to the Client; no current legal authority was found.",
       "observations": [
-        "The clause obligates the Service Provider to keep all Confidential Information strictly confidential and restricts its use to performing the Services.",
-        "The confidentiality obligation survives the termination of the agreement indefinitely.",
-        "The clause lacks standard exceptions to confidentiality, such as information that is already public, independently developed, or required to be disclosed by legal process."
+        "Imposes a strict confidentiality obligation on the Service Provider that survives termination.",
+        "Defines 'Work Product' broadly and designates it as 'work made for hire' belonging exclusively to the Client.",
+        "The clause is cut off before completing the alternative assignment language."
       ],
       "evidence": [],
       "applicableLaw": [],
       "citations": [],
-      "internalReasoning": "The search results were completely irrelevant (Britannica and a movie trailer), so I relied solely on the contract text. The clause is a standard unilateral confidentiality clause. The lack of standard exceptions is a minor issue but common in simple drafts, representing a low risk."
+      "internalReasoning": "The clause contains standard confidentiality and intellectual property provisions. Since no external legal research was provided or found, the evaluation is based solely on the contract text. The risk is low as these are standard commercial terms."
     }
   },
   {
     "clauseId": 7,
     "clauseText": "all intellectual property rights therein shall belong exclusively to the Client. To the extent any Work\nProduct is not deemed a \"work made for hire,\" the Service Provider hereby irrevocably assigns to\nthe Client all right, title, and interest in and to such Work Product, including all intellectual property\nrights therein.\n8. REPRESENTATIONS AND WARRANTIES\nThe Service Provider represents and warrants that he has the necessary skills, experience, and\nqualifications to perform the Services in a professional and workmanlike manner, in accordance\nwith generally accepted industry standards. The Service Provider further represents that the\nServices will not infringe upon the intellectual property rights or other rights of any third party.\n9. LIMITATION OF LIABILITY",
-    "researchTopic": "Intellectual Property",
-    "searchQuery": "US copyright law work made for hire assignment",
-    "verifiedContext": "[{\"title\":\"Work for hire\",\"url\":\"https://en.wikipedia.org/wiki/Work_for_hire\",\"content\":\"# Work for hire. In copyright law, a **work made for hire** (**work for hire** or **WFH**) is a work whose copyright is initially owned by an entity other than the actual creator as a result of an employment relationship or, in some cases, a commission. In the United States, United Kingdom, and several other jurisdictions, if a work is created by an employee as part of their job duties, the employer is consi...",
+    "researchTopic": "N/A",
+    "searchQuery": "N/A",
+    "verifiedContext": "No specific legal precedent found.",
     "strictReview": {
       "risk": "LOW",
-      "confidence": 95,
-      "basedOn": "Web Search and Contract",
-      "summary": "The clause effectively secures intellectual property rights for the Client by utilizing a 'work made for hire' designation coupled with a robust fallback assignment provision, aligning with US copyright standards.",
+      "confidence": 90,
+      "basedOn": "Contract Only",
+      "summary": "The clause provides a backup IP assignment and standard representations and warranties regarding professional performance and non-infringement; no current legal authority was found.",
       "observations": [
-        "The clause designates all created Work Product as 'work made for hire' to the fullest extent permitted by law.",
-        "It includes an irrevocable fallback assignment of all right, title, and interest in the Work Product to the Client if it is not deemed a 'work made for hire'.",
-        "The clause does not address the waiver of moral rights, which may remain with the creator depending on the jurisdiction."
+        "Includes an irrevocable backup assignment of intellectual property rights to the Client if the 'work made for hire' doctrine does not apply.",
+        "Contains representations and warranties by the Service Provider regarding professional standards and non-infringement of third-party IP.",
+        "The clause is cut off at the beginning of Section 9 (Limitation of Liability)."
       ],
-      "evidence": [
-        "In the United States, United Kingdom, and several other jurisdictions, if a work is created by an employee as part of their job duties, the employer is considered the legal author or first owner of copyright.",
-        "a work specially ordered or commissioned... if the parties expressly agree in a written instrument signed by them that the work shall be considered a work made for hire."
-      ],
-      "applicableLaw": [
-        "US Copyright Act (17 U.S.C. § 101)",
-        "US Copyright Act (17 U.S.C. § 201)"
-      ],
-      "citations": [
-        {
-          "title": "work made for hire | Wex | US Law | LII / Legal Information Institute",
-          "url": "https://www.law.cornell.edu/wex/work_made_for_hire"
-        }
-      ],
-      "internalReasoning": "Cornell Law (LII) is a highly reliable source. Under US copyright law, independent contractor work is only 'work made for hire' if it falls under specific statutory categories. The contract successfully mitigates this limitation by including a fallback assignment clause ('hereby irrevocably assigns...'), which is the standard best practice under US law. Thus, the risk is LOW."
+      "evidence": [],
+      "applicableLaw": [],
+      "citations": [],
+      "internalReasoning": "The clause contains standard backup IP assignment and representations and warranties. Since no external legal research was provided or found, the evaluation is based solely on the contract text. The risk is low as these are standard commercial terms."
     }
   },
   {
     "clauseId": 8,
     "clauseText": "Services will not infringe upon the intellectual property rights or other rights of any third party.\n9. LIMITATION OF LIABILITY\nTo the maximum extent permitted by applicable law, neither Party shall be liable to the other for any\nindirect, incidental, special, consequential, or punitive damages, including but not limited to lost\nprofits, arising out of or relating to this Agreement, even if advised of the possibility of such\ndamages. The total liability of either Party under this Agreement shall not exceed the total\ncompensation paid or payable to the Service Provider by the Client under this Agreement during\nthe six (6) months immediately preceding the event giving rise to the claim.\n10. INDEMNIFICATION",
-    "researchTopic": "Representations and Warranties",
-    "searchQuery": "US contract law professional services warranty",
-    "verifiedContext": "[{\"title\":\"Services Warranty: Key Contract Clause Insights\",\"url\":\"https://fynk.com/en/clauses/services-warranty\",\"content\":\"image: What AI is actually doing to contract management. What AI is actually doing to contract management. Supplier warrants to Buyer that any Services shall at the time of performance thereof and during the Services Warranty Period be (i) performed in a good and workmanlike manner and free of any fault, defect or deficiency that would preclude or impair the ability of suc...",
+    "researchTopic": "N/A",
+    "searchQuery": "N/A",
+    "verifiedContext": "No specific legal precedent found.",
     "strictReview": {
-      "risk": "HIGH",
+      "risk": "MEDIUM",
       "confidence": 85,
       "basedOn": "Contract Only",
-      "summary": "No current legal authority was found in the provided search results. The contract wording presents a high risk because the limitation of liability cap applies mutually without carving out critical obligations such as IP infringement indemnification or confidentiality breaches.",
+      "summary": "The clause contains a mutual waiver of consequential damages and a cap on total liability limited to fees paid in the preceding six months; no current legal authority was found.",
       "observations": [
-        "The clause contains a representation that the Services will not infringe third-party intellectual property rights.",
-        "It includes a mutual waiver of indirect, incidental, special, consequential, and punitive damages.",
-        "It caps the total liability of either party to the compensation paid or payable during the six months preceding the event giving rise to the claim.",
-        "The limitation of liability does not exclude breaches of confidentiality, intellectual property infringement, or indemnification obligations from the liability cap."
+        "Excludes indirect, incidental, special, consequential, and punitive damages, including lost profits, for both parties.",
+        "Caps total liability for either party to the compensation paid or payable during the six months preceding the claim."
       ],
       "evidence": [],
       "applicableLaw": [],
       "citations": [],
-      "internalReasoning": "The search results were from fynk.com and afterpattern.com, which are not highly reliable primary or secondary legal sources. Therefore, I evaluated the contract text directly. The clause is highly risky for the Client because the 6-month liability cap applies to 'either Party' and does not carve out the Service Provider's indemnification obligations for IP infringement or confidentiality breaches. This means if the Service Provider infringes a third party's IP and the Client is sued, the Client's recovery from the Service Provider is capped at 6 months of fees, which is highly inadequate."
+      "internalReasoning": "The clause contains a mutual limitation of liability and waiver of consequential damages. Since no external legal research was provided or found, the evaluation is based solely on the contract text. The risk is medium because a six-month liability cap may be low depending on the contract value and potential damages, though it is mutual."
     }
   },
   {
     "clauseId": 9,
     "clauseText": "compensation paid or payable to the Service Provider by the Client under this Agreement during\nthe six (6) months immediately preceding the event giving rise to the claim.\n10. INDEMNIFICATION\nThe Service Provider shall indemnify, defend, and hold harmless the Client, its officers, directors,",
-    "researchTopic": "Limitation of Liability",
-    "searchQuery": "US tort law limitation of liability clause",
-    "verifiedContext": "[{\"title\":\"Limitation of Liability Clause (Annotated)\",\"url\":\"https://www.bloomberglaw.com/external/document/XFAHJRRO000000/commercial-clause-limitation-of-liability-clause-annotated\",\"content\":\"[]( Analysis: A limitation of liability clause can offer significant value to the party whose liability for breach or nonperformance is limited. That potential benefit comes with the risk of some uncertainty about its enforcement by courts. Courts generally will enforce a limitation of liability clause b...",
+    "researchTopic": "N/A",
+    "searchQuery": "N/A",
+    "verifiedContext": "No specific legal precedent found.",
     "strictReview": {
-      "risk": "HIGH",
-      "confidence": 95,
-      "basedOn": "Web Search and Contract",
-      "summary": "Based on US legal standards, limitation of liability clauses are generally enforceable but construed narrowly. The contract wording presents a high risk as the 6-month liability cap lacks carve-outs for the Service Provider's indemnification obligations, potentially gutting the indemnity protection.",
+      "risk": "LOW",
+      "confidence": 90,
+      "basedOn": "Contract Only",
+      "summary": "The clause initiates a unilateral indemnification obligation where the Service Provider indemnifies the Client; no current legal authority was found.",
       "observations": [
-        "The clause limits the total liability of either party to the compensation paid or payable during the six months preceding the claim.",
-        "It introduces a broad indemnification obligation for the Service Provider to defend and hold harmless the Client.",
-        "There is no explicit carve-out in the limitation of liability clause for the Service Provider's indemnification obligations, which may render the indemnification practically ineffective if the cap is low."
+        "Begins a unilateral indemnification obligation requiring the Service Provider to indemnify, defend, and hold harmless the Client and its representatives.",
+        "The clause is cut off and does not show the full scope of the indemnified claims in this specific snippet."
       ],
-      "evidence": [
-        "Courts generally will enforce a limitation of liability clause but will do so narrowly. Courts are more reluctant to enforce a type of clause, known as an exculpatory clause, that completely exonerates a party from liability for its future negligent acts."
-      ],
-      "applicableLaw": [
-        "US Common Law of Contracts"
-      ],
-      "citations": [
-        {
-          "title": "Limitation of Liability Clause (Annotated)",
-          "url": "https://www.bloomberglaw.com/external/document/XFAHJRRO000000/commercial-clause-limitation-of-liability-clause-annotated"
-        }
-      ],
-      "internalReasoning": "Bloomberg Law is a highly reliable source. It notes that courts enforce limitation of liability clauses but construe them narrowly. In this contract, the 6-month liability cap applies to 'either Party' and does not carve out the Service Provider's indemnification obligations. Under US contract law, without an explicit carve-out, the liability cap will likely limit the indemnity, leaving the Client highly exposed. This represents a HIGH risk."
+      "evidence": [],
+      "applicableLaw": [],
+      "citations": [],
+      "internalReasoning": "The clause is the beginning of an indemnification provision. Since no external legal research was provided or found, the evaluation is based solely on the contract text. The risk is low for this specific snippet as it is incomplete, but it indicates a unilateral obligation."
     }
   },
   {
     "clauseId": 10,
     "clauseText": "employees, and agents from and against any and all claims, damages, liabilities, costs, and\nexpenses (including reasonable attorneys' fees) arising out of or related to (a) the Service\nProvider's performance of the Services, (b) any breach by the Service Provider of any term or\ncondition of this Agreement, or (c) any third-party claim that the Work Product or Services infringe\nupon any intellectual property rights of such third party.\n11. TERMINATION\nIn addition to the termination rights during the Probation Period as set forth in Section 2, this\nAgreement may be terminated as follows:\na. By either Party for convenience upon providing thirty (30) calendar days' written notice to the\nother Party.\nb. By either Party immediately upon written notice if the other Party materially breaches any",
-    "researchTopic": "Indemnification",
-    "searchQuery": "US contract law indemnification for intellectual property infringement",
-    "verifiedContext": "[{\"title\":\"INTELLECTUAL PROPERTY INDEMNITY Sample Clauses: 2k Samples | Law Insider\",\"url\":\"https://www.lawinsider.com/clause/intellectual-property-indemnity\",\"content\":\"To the fullest extent permitted by law, Contractor shall defend, indemnify, and hold Enterprise Services and any Purchaser and their employees and agents harmless from against any and all Claims resulting from allegations of infringement of any patents, copyrights, trade secret, or similar intellectual property rights covering t...",
+    "researchTopic": "N/A",
+    "searchQuery": "N/A",
+    "verifiedContext": "No specific legal precedent found.",
     "strictReview": {
       "risk": "MEDIUM",
       "confidence": 85,
       "basedOn": "Contract Only",
-      "summary": "No current legal authority was found in the provided search results. The contract wording provides a broad, unilateral indemnification in favor of the Client, covering performance, breach, and intellectual property infringement.",
+      "summary": "The clause outlines broad unilateral indemnification obligations for the Service Provider and mutual termination rights, including termination for convenience; no current legal authority was found.",
       "observations": [
-        "The clause provides a broad indemnification obligation requiring the Service Provider to defend, indemnify, and hold harmless the Client against claims arising from performance, breach, or IP infringement.",
-        "The indemnity includes 'reasonable attorneys' fees' and covers 'any and all claims, damages, liabilities, costs, and expenses.'",
-        "The clause does not contain reciprocal indemnification from the Client to the Service Provider."
+        "Imposes a broad, unilateral indemnification obligation on the Service Provider for performance, breach, and IP infringement.",
+        "Provides mutual termination for convenience upon 30 days' written notice.",
+        "Provides mutual termination for material breach, but the cure period details are cut off and continued in the next clause."
       ],
       "evidence": [],
       "applicableLaw": [],
       "citations": [],
-      "internalReasoning": "The search results were from Law Insider (clause database) and LawTeacher (student essay), which are not highly reliable. Therefore, I evaluated the contract text directly. The indemnification is very broad and unilateral, favoring the Client. However, because it is not carved out from the limitation of liability cap (as noted in Clause 9), its practical value is limited. This represents a MEDIUM risk."
+      "internalReasoning": "The clause contains a broad unilateral indemnification obligation for the Service Provider, which is a medium risk for the Service Provider. Since no external legal research was provided or found, the evaluation is based solely on the contract text."
     }
   },
   {
     "clauseId": 11,
     "clauseText": "other Party.\nb. By either Party immediately upon written notice if the other Party materially breaches any\nprovision of this Agreement and fails to cure such breach within fifteen (15) calendar days after\nreceiving written notice thereof.\nc. Immediately by the Client if the Service Provider engages in any act of dishonesty, gross\nmisconduct, or illegal activity related to the Services or the Client's business.\nUpon termination, the Service Provider shall cease all work, return all Client property and\nConfidential Information, and the Client shall pay the Service Provider for all Services satisfactorily\nperformed up to the date of termination.\n12. GOVERNING LAW\nThis Agreement shall be governed by and construed in accordance with the laws of a jurisdiction to",
-    "researchTopic": "Termination",
-    "searchQuery": "US employment law termination for convenience notice period",
-    "verifiedContext": "[{\"title\":\"Notice Period in USA | CXC\",\"url\":\"https://www.cxcglobal.com/global-hiring-guide/united-states/end-of-employment-in-united-states\",\"content\":\"Harness the power of the flexible workforcePaying Your Workers. Simplify management and get more from your workforce. Grow your contractor workforce with confidenceContractor Management Outsourcing. Total workforce management without the hassleGlobal Payroll. Notice period in the United States. Termination of employment in the United States. # E...",
+    "researchTopic": "N/A",
+    "searchQuery": "N/A",
+    "verifiedContext": "No specific legal precedent found.",
     "strictReview": {
       "risk": "LOW",
-      "confidence": 95,
-      "basedOn": "Web Search and Contract",
-      "summary": "The termination provisions are standard and legally sound under US contract law, providing mutual convenience termination with notice and a clear mechanism for immediate termination for cause.",
+      "confidence": 90,
+      "basedOn": "Contract Only",
+      "summary": "The clause details termination for cause, immediate termination for misconduct, post-termination obligations, and the start of the governing law provision; no current legal authority was found.",
       "observations": [
-        "The clause allows either party to terminate for convenience with 30 days' written notice.",
-        "It provides a 15-day cure period for material breaches before termination becomes effective.",
-        "It grants the Client the unilateral right to terminate immediately for cause (dishonesty, gross misconduct, or illegal activity).",
-        "It clearly outlines post-termination obligations, including the return of property and payment for services satisfactorily performed."
+        "Establishes a 15-day cure period for material breaches before termination can occur.",
+        "Grants the Client the unilateral right to terminate immediately for dishonesty, gross misconduct, or illegal activity by the Service Provider.",
+        "Requires the Service Provider to cease work and return property/confidential information upon termination, while ensuring payment for services satisfactorily performed."
       ],
-      "evidence": [
-        "A right to terminate for convenience usually requires the terminating party to provide a certain period of notice before the termination is effective."
-      ],
-      "applicableLaw": [
-        "US Common Law of Contracts"
-      ],
-      "citations": [
-        {
-          "title": "Termination for convenience | Practical Law - Westlaw",
-          "url": "https://content.next.westlaw.com/practical-law/document/Ia29ff018cf2111e79bef99c0ee06c731/Termination-for-convenience?viewType=FullText&transitionType=Default&contextData=%28sc.Default%29"
-        }
-      ],
-      "internalReasoning": "Practical Law (Westlaw) is a highly reliable source. It confirms that termination for convenience typically requires a notice period, which this contract provides (30 days). The cure period (15 days) and immediate termination for cause are standard commercial terms. The risk is LOW."
+      "evidence": [],
+      "applicableLaw": [],
+      "citations": [],
+      "internalReasoning": "The clause contains standard termination for cause, cure period, and post-termination obligations. Since no external legal research was provided or found, the evaluation is based solely on the contract text. The risk is low as these are standard commercial terms."
     }
   },
   {
     "clauseId": 12,
     "clauseText": "performed up to the date of termination.\n12. GOVERNING LAW\nThis Agreement shall be governed by and construed in accordance with the laws of a jurisdiction to\nbe determined by the Parties, without regard to its conflict of laws principles.\n13. ENTIRE AGREEMENT\nThis Agreement, along with any mutually agreed upon statements of work, constitutes the entire\nagreement between the Parties with respect to the subject matter hereof and supersedes all prior\nand contemporaneous agreements, understandings, negotiations, and discussions, whether oral or\nwritten.\n14. SEVERABILITY\nIf any provision of this Agreement is held to be invalid or unenforceable by a court of competent\njurisdiction, such provision shall be severed from this Agreement, and the remaining provisions",
-    "researchTopic": "Governing Law",
-    "searchQuery": "US choice of law clause jurisdiction determination",
-    "verifiedContext": "[{\"title\":\"Choice of Law: Understanding Jurisdiction in Legal Disputes | US Legal Forms\",\"url\":\"https://legal-resources.uslegalforms.com/c/choice-of-law\",\"content\":\"# Choice of Law: A Comprehensive Guide to Jurisdiction in Legal Matters. Choice of law refers to the legal principle that determines which jurisdiction's laws will apply in a dispute involving multiple jurisdictions. This principle is particularly important in contract disputes where the parties may be located in different states or ...",
+    "researchTopic": "N/A",
+    "searchQuery": "N/A",
+    "verifiedContext": "No specific legal precedent found.",
     "strictReview": {
-      "risk": "HIGH",
-      "confidence": 95,
-      "basedOn": "Web Search and Contract",
-      "summary": "The governing law clause is incomplete and fails to designate a specific jurisdiction, creating severe legal uncertainty and potential venue disputes in the event of a conflict.",
+      "risk": "MEDIUM",
+      "confidence": 85,
+      "basedOn": "Contract Only",
+      "summary": "The clause contains an incomplete governing law provision with an unspecified jurisdiction, alongside standard entire agreement and severability clauses; no current legal authority was found.",
       "observations": [
-        "The clause fails to specify a governing law, leaving it 'to be determined by the Parties.'",
-        "It includes standard 'without regard to its conflict of laws principles' language, but this is ineffective without an actual designated jurisdiction.",
-        "The contract lacks a forum selection (jurisdiction and venue) clause, which determines where disputes must be litigated."
+        "The governing law clause fails to specify a jurisdiction, leaving it 'to be determined by the Parties,' which could lead to disputes.",
+        "Includes a standard entire agreement integration clause that supersedes prior discussions.",
+        "Includes a standard severability clause, though it is cut off at the end."
       ],
-      "evidence": [
-        "A choice of law clause in a contract specifies which jurisdiction's laws will govern in case of a disagreement, helping to provide clarity and predictability for the parties involved.",
-        "While a choice of law clause controls how a judge will decide the legal issues in a lawsuit, choice of jurisdiction and venue provisions determine where that lawsuit will proceed."
-      ],
-      "applicableLaw": [
-        "US Contract Law",
-        "Conflict of Laws Principles"
-      ],
-      "citations": [
-        {
-          "title": "Why You Should Care About Choice of Law, Jurisdiction, and Venue Provisions in Your Company's Contracts",
-          "url": "https://www.maddinnauser.com/why-you-should-care-about-choice-of-law-jurisdiction-and-venue-provisions-in-your-companys-contracts"
-        }
-      ],
-      "internalReasoning": "Maddin Hauser is a reputable law firm. The search results confirm that choice of law and venue clauses are critical for predictability. Leaving the governing law blank ('to be determined by the Parties') means there is no agreement on governing law, which will force a court to perform a complex conflict-of-laws analysis if a dispute arises. This creates a HIGH risk of litigation over where and under what law the dispute should be resolved."
+      "evidence": [],
+      "applicableLaw": [],
+      "citations": [],
+      "internalReasoning": "The clause contains an incomplete governing law provision, which is a medium risk because leaving the jurisdiction unspecified can lead to uncertainty and disputes. Since no external legal research was provided or found, the evaluation is based solely on the contract text."
     }
   }
 ]
