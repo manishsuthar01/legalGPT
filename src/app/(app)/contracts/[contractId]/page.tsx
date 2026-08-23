@@ -1,68 +1,62 @@
 'use client';
 
-import React, { useState } from 'react';
-import { WorkspaceLayout } from '../../../../components/layout/WorkspaceLayout';
-import { UploadDropzone } from '../../../../features/contracts/components/UploadDropzone';
-import { AnalysisProgress } from '../../../../features/analysis/components/AnalysisProgress';
-import { DocumentMetadata } from '../../../../features/contracts/components/DocumentMetadata';
-import { ExecutiveSummary } from '../../../../features/analysis/components/ExecutiveSummary';
-import { RiskList } from '../../../../features/analysis/components/RiskList';
-import { ClauseViewer } from '../../../../features/contracts/components/ClauseViewer';
-import { ChatPanel } from '../../../../features/chat/components/ChatPanel';
-
+import React from 'react';
+import { WorkspaceLayout } from '@/components/layout/WorkspaceLayout';
+import { UploadDropzone } from '@/features/contracts/components/UploadDropzone';
+import { AnalysisProgress } from '@/features/analysis/components/AnalysisProgress';
+import { DocumentMetadata } from '@/features/contracts/components/DocumentMetadata';
+import { ExecutiveSummary } from '@/features/analysis/components/ExecutiveSummary';
+import { RiskList } from '@/features/analysis/components/RiskList';
+import { ClauseViewer } from '@/features/contracts/components/ClauseViewer';
+import { ChatPanel } from '@/features/chat/components/ChatPanel';
 import useContractAnalysis from '@/features/contracts/hooks/useContractAnalysis';
 
 type UIState = 'empty' | 'analyzing' | 'complete';
 
-interface AnalysisResult {
-  summary: string;
-  overallRisk: string;
-  riskScore: number;
-  riskScoreBreakdown?: { contractQuality: number; clauseRisk: number; jurisdictionCompliance: number };
-  riskCards: any[];
-  advisorFeedback: any[];
-  reviewerFeedback: any[];
-  clauses: any[];
-  positiveFindings?: any[];
-  missingClauses?: any[];
-}
-
-export default function ContractWorkspacePage({ params }: { params: { contractId: string } }) {
-  const [uiState, setUiState] = useState<UIState>('empty');
-  const { startAnalysis, isAnalysing, error } = useContractAnalysis();
-  const [streamData, setStreamData] = useState<any>(null);
-  const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
+export default function ContractWorkspacePage() {
+  const {
+    startAnalysis,
+    isAnalysing,
+    error,
+    completedNodes,
+    currentNode,
+    analysisResult,
+  } = useContractAnalysis();
 
   const handleUpload = async (path: string, country: string) => {
-    setUiState('analyzing');
-    await startAnalysis(path, country, setStreamData);
+    await startAnalysis(path, country);
   };
 
-  React.useEffect(() => {
-    if (streamData?.type === 'DONE' && streamData?.data) {
-      setAnalysisResult(streamData.data);
-      setUiState('complete');
-    }
-  }, [streamData]);
+  // UI state is purely driven by the analysis pipeline
+  const uiState: UIState = analysisResult
+    ? 'complete'
+    : isAnalysing
+    ? 'analyzing'
+    : 'empty';
 
   return (
     <WorkspaceLayout
-      documentName={analysisResult ? `Contract Analysis` : 'Upload a Contract'}
+      documentName={analysisResult ? 'Contract Analysis' : 'Upload a Contract'}
       status={uiState}
     >
       {/* State 1: Empty */}
       {uiState === 'empty' && (
         <div className="h-full w-full flex items-center justify-center relative overflow-hidden">
           <UploadDropzone onUpload={handleUpload} />
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#7c5cfc]/5 rounded-full blur-[100px] pointer-events-none"></div>
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#7c5cfc]/5 rounded-full blur-[100px] pointer-events-none"></div>
+          {error && (
+            <div className="absolute bottom-12 bg-red-950/80 border border-red-500/30 text-red-300 text-sm px-4 py-2 rounded-xl shadow-lg">
+              {error}
+            </div>
+          )}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#7c5cfc]/5 rounded-full blur-[100px] pointer-events-none" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#7c5cfc]/5 rounded-full blur-[100px] pointer-events-none" />
         </div>
       )}
 
       {/* State 2: Analyzing */}
       {uiState === 'analyzing' && (
         <div className="h-full w-full flex items-center justify-center bg-[#050505]">
-          <AnalysisProgress streamData={streamData} />
+          <AnalysisProgress completedNodes={completedNodes} currentNode={currentNode} />
         </div>
       )}
 
@@ -89,7 +83,7 @@ export default function ContractWorkspacePage({ params }: { params: { contractId
 
               <div className="mb-6">
                 <h3 className="text-white font-semibold mb-4 text-lg">Identified Risks</h3>
-                <RiskList risks={analysisResult.riskCards} />
+                <RiskList risks={analysisResult.riskCards || []} />
               </div>
 
               <ClauseViewer 
@@ -106,13 +100,6 @@ export default function ContractWorkspacePage({ params }: { params: { contractId
 
         </div>
       )}
-
-      {/* Dev Tool: State Toggle for Reviewing */}
-      <div className="fixed bottom-4 left-4 lg:left-[280px] flex gap-2 bg-[#111] p-2 rounded-xl border border-[#222] z-50">
-        <button onClick={() => setUiState('empty')} className={`px-3 py-1 text-xs rounded-lg ${uiState === 'empty' ? 'bg-[#7c5cfc] text-white' : 'text-[#999] hover:bg-[#222]'}`}>Empty</button>
-        <button onClick={() => setUiState('analyzing')} className={`px-3 py-1 text-xs rounded-lg ${uiState === 'analyzing' ? 'bg-[#7c5cfc] text-white' : 'text-[#999] hover:bg-[#222]'}`}>Analyzing</button>
-        <button onClick={() => setUiState('complete')} className={`px-3 py-1 text-xs rounded-lg ${uiState === 'complete' ? 'bg-[#7c5cfc] text-white' : 'text-[#999] hover:bg-[#222]'}`}>Complete</button>
-      </div>
     </WorkspaceLayout>
   );
 }

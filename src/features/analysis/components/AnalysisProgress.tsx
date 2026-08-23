@@ -1,17 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { CheckCircle2, CircleDashed, Circle } from 'lucide-react';
-
-const NODE_SEQUENCE = [
-  "text-extract-node",
-  "text-clean-node",
-  "clause-split-node",
-  "contract-embed-node",
-  "flag-imp-clauses-node",
-  "plan-research-node",
-  "execute-research-node",
-  "legal-reviewer-node",
-  "legal-advisor-node"
-];
+import { StreamProgress } from '@/features/contracts/hooks/useContractAnalysis';
 
 const STEP_DEFINITIONS = [
   { id: 'extract', label: 'Extracting text', nodes: ['text-extract-node'] },
@@ -23,38 +12,25 @@ const STEP_DEFINITIONS = [
   { id: 'advise', label: 'Generating suggestions & fixes', nodes: ['legal-advisor-node'] },
 ];
 
-export const AnalysisProgress = ({ streamData }: { streamData: any }) => {
-  const [completedNodes, setCompletedNodes] = useState<string[]>([]);
-  const [currentNode, setCurrentNode] = useState<string>("text-extract-node");
+interface AnalysisProgressProps {
+  streamData?: StreamProgress | null;
+  completedNodes?: string[];
+  currentNode?: string;
+}
 
-  useEffect(() => {
-    if (streamData?.type === 'node_complete') {
-      const completedNode = streamData.node;
-      setCompletedNodes(prev => {
-        if (!prev.includes(completedNode)) {
-          return [...prev, completedNode];
-        }
-        return prev;
-      });
-      
-      const index = NODE_SEQUENCE.indexOf(completedNode);
-      if (index !== -1 && index + 1 < NODE_SEQUENCE.length) {
-        setCurrentNode(NODE_SEQUENCE[index + 1]);
-      } else {
-        setCurrentNode("");
-      }
-    }
-  }, [streamData]);
-
+export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
+  completedNodes = [],
+  currentNode = 'text-extract-node'
+}) => {
   const steps = [
-    { label: 'Upload complete', status: 'complete' },
+    { label: 'Upload complete', status: 'complete' as const },
     ...STEP_DEFINITIONS.map(def => {
       const isComplete = def.nodes.every(n => completedNodes.includes(n));
       const isCurrent = !isComplete && def.nodes.includes(currentNode);
       
       return {
         label: def.label,
-        status: isComplete ? 'complete' : isCurrent ? 'current' : 'pending'
+        status: (isComplete ? 'complete' : isCurrent ? 'current' : 'pending') as 'complete' | 'current' | 'pending'
       };
     })
   ];
