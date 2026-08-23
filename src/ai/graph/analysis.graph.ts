@@ -20,7 +20,7 @@ const GraphState = Annotation.Root({
     cleanedText: Annotation<string>({
         reducer: (oldState, newState) => newState || oldState,
     }),
-    clauses: Annotation<{ text: string, source: string }[]>({
+    clauses: Annotation<{ text: string, source: string, chunk_index: number }[]>({
         reducer: (oldState, newState) => newState || oldState,
     }),
     embeddings: Annotation<number[][]>({
@@ -41,7 +41,7 @@ const GraphState = Annotation.Root({
     vectorIds: Annotation<string[]>({
         reducer: (oldState, newState) => newState || oldState,
     }),
-    status: Annotation<"pending" | "processing" | "completed">({
+    status: Annotation<"pending" | "processing" | "completed" | "failed">({
         reducer: (oldState, newState) => newState || oldState,
     }),
     flaggedClauses: Annotation<any[]>({

@@ -1,13 +1,27 @@
 import { analysisGraph } from "@/ai/graph/analysis.graph";
+import { AnalysisResult, AnalysisState } from "@/ai/types/analysis";
 
-// this service is a wrapper around the langGraph
+export interface AnalysisProgressChunk {
+    type: "node_complete" | "progress" | "status";
+    node?: string;
+    message?: string;
+    state?: Partial<AnalysisState>;
+}
+
+export type StreamHandler = (chunk: AnalysisProgressChunk) => void | Promise<void>;
 
 export class AnalysisService {
-    static async runAnalysis(contractId: string, userId: string, filePath: string, country: string, handleStream: (chunk: any) => Promise<void>): Promise<any> {
+    static async runAnalysis(
+        contractId: string,
+        userId: string,
+        filePath: string,
+        country: string,
+        handleStream: StreamHandler
+    ): Promise<{ success: boolean; data: AnalysisResult }> {
         try {
-            console.log(`Starting LangGraph analysis for contract: ${contractId} (${country})`);
+            console.log(`Starting LangGraph analysis for contract: ${contractId} (${country}) for user ${userId}`);
 
-            const initialState = {
+            const initialState: AnalysisState = {
                 contractId,
                 country,
                 uploadedFile: filePath,
@@ -34,32 +48,35 @@ export class AnalysisService {
             };
 
             const stream = await analysisGraph.stream(initialState);
-
-            let currentState: any = { ...initialState };
+            let currentState: AnalysisState = { ...initialState };
 
             for await (const chunk of stream) {
                 const [nodeName] = Object.keys(chunk) as [keyof typeof chunk];
-                const stateUpdates = chunk[nodeName];
+                const stateUpdates = chunk[nodeName] as Partial<AnalysisState>;
                 currentState = { ...currentState, ...stateUpdates };
 
-                await handleStream({ type: "node_complete", node: String(nodeName), state: currentState });
+                await handleStream({
+                    type: "node_complete",
+                    node: String(nodeName),
+                });
             }
+
+            const analysisData: AnalysisResult = {
+                summary: currentState.summary,
+                overallRisk: currentState.overallRisk,
+                riskScore: currentState.riskScore,
+                riskScoreBreakdown: currentState.riskScoreBreakdown,
+                riskCards: currentState.riskCards,
+                advisorFeedback: currentState.advisorFeedback,
+                reviewerFeedback: currentState.reviewerFeedback,
+                clauses: currentState.clauses,
+                positiveFindings: currentState.positiveFindings,
+                missingClauses: currentState.missingClauses,
+            };
 
             return {
                 success: true,
-                data: {
-                    summary: currentState.summary,
-                    overallRisk: currentState.overallRisk,
-                    riskScore: currentState.riskScore,
-                    risks: currentState.analysis,
-                    riskCards: currentState.riskCards,
-                    advisorFeedback: currentState.advisorFeedback,
-                    reviewerFeedback: currentState.reviewerFeedback,
-                    clauses: currentState.clauses,
-                    positiveFindings: currentState.positiveFindings,
-                    missingClauses: currentState.missingClauses,
-                    riskScoreBreakdown: currentState.riskScoreBreakdown,
-                }
+                data: analysisData,
             };
 
         } catch (error) {

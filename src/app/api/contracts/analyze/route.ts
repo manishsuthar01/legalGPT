@@ -1,50 +1,56 @@
 import { NextRequest, NextResponse } from "next/server";
 import { analyzeContractBodySchema } from "@/lib/validations/contract";
-import { AnalysisService } from "@/server/services/analysis.service";
+import { AnalysisProgressChunk, AnalysisService } from "@/server/services/analysis.service";
 
 export async function POST(req: NextRequest) {
-
     try {
         const body = await req.json();
         const { contractId, userId, filePath, country } = body;
 
-        const validateBody = analyzeContractBodySchema.parse({
+        const validateBody = analyzeContractBodySchema.safeParse({
             contractId,
             userId,
             filePath,
             country
         });
 
-        if (!validateBody) {
-            return NextResponse.json({ success: false, error: "Invalid request body" }, { status: 400 })
+        if (!validateBody.success) {
+            return NextResponse.json(
+                { success: false, error: "Invalid request body", details: validateBody.error.format() },
+                { status: 400 }
+            );
         }
 
         const streamResponse = new ReadableStream<Uint8Array>({
             async start(controller) {
                 const encoder = new TextEncoder();
-                const handleStream = (chunk: any): any => {
-                    // chunk: {"type":"node_complete","node":"plan-research-node","state":{}}
+
+                const handleStream = (chunk: AnalysisProgressChunk) => {
                     const data = JSON.stringify(chunk);
                     controller.enqueue(encoder.encode(`data: ${data}\n\n`));
-                }
+                };
+
                 try {
-                    const result = await AnalysisService.runAnalysis(contractId, userId, filePath, country, handleStream);
+                    const result = await AnalysisService.runAnalysis(
+                        contractId,
+                        userId,
+                        filePath,
+                        country,
+                        handleStream
+                    );
 
                     // Send the final summary and risks back to the frontend
                     const finalPayload = JSON.stringify({ status: "DONE", data: result.data });
                     controller.enqueue(encoder.encode(`data: ${finalPayload}\n\n`));
-
                     controller.close();
-                } catch (error) {
-                    controller.enqueue(encoder.encode(`data: {"status": "error", "message": "${error}"}\n\n`));
+                } catch (error: unknown) {
+                    const errorMessage = error instanceof Error ? error.message : String(error);
+                    const errorPayload = JSON.stringify({ status: "error", message: errorMessage });
+                    controller.enqueue(encoder.encode(`data: ${errorPayload}\n\n`));
                     controller.close();
                 }
             }
-        })
-
-
-        // create  contract analysis record in db
-        // update the status to processing    
+        });
 
         return new NextResponse(streamResponse, {
             headers: {
@@ -54,8 +60,7 @@ export async function POST(req: NextRequest) {
             },
         });
     } catch (error) {
-        console.error("Analysis failed:", error);
-        return NextResponse.json({ success: false, error: "Failed to trigger analysis" }, { status: 500 })
+        console.error("Analysis route failed:", error);
+        return NextResponse.json({ success: false, error: "Failed to trigger analysis" }, { status: 500 });
     }
-
-} 
+}
