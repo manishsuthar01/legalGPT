@@ -95,3 +95,15 @@ LegalGPT relies on stateful LangGraph workflows to process contracts:
 - **Interactive RAG Chat (`src/ai/graph/chat.graph.ts`)**:
   Embeds user queries, searches vector embeddings stored in Supabase, and streams accurate legal context back to the user.
 
+---
+
+## Documentation & Deep Dives
+
+For in-depth architectural specifications and implementation guides, explore the [`docs/`](./docs) directory:
+
+- [LangGraph Analysis Workflow](./docs/langgraph-analysis.md) — Node-by-node breakdown of contract ingestion, risk detection, and legal advisory agents.
+- [LangGraph Interactive Chat](./docs/langgraph-chat.md) — RAG vector retrieval, prompt orchestration, and chat state schema.
+- [API Design Specification](./docs/api-design.md) — Contract analysis SSE streaming and conversational chat endpoint schemas.
+- [Architecture Overview](./docs/architeture.md) — System components, security considerations, and data flow.
+- [Project Roadmap](./docs/roadmap.md) — Milestone tracking and upcoming features.
+
