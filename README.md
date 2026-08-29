@@ -104,6 +104,9 @@ For in-depth architectural specifications and implementation guides, explore the
 - [LangGraph Analysis Workflow](./docs/langgraph-analysis.md) — Node-by-node breakdown of contract ingestion, risk detection, and legal advisory agents.
 - [LangGraph Interactive Chat](./docs/langgraph-chat.md) — RAG vector retrieval, prompt orchestration, and chat state schema.
 - [API Design Specification](./docs/api-design.md) — Contract analysis SSE streaming and conversational chat endpoint schemas.
+- [Database Schema & Vector Store](./docs/database-schema.md) — Supabase PostgreSQL schema, pgvector indexing, and similarity functions.
+- [Domain Model](./docs/domain-model.md) — Entity relationships, risk cards, advisor feedback, and state interfaces.
+- [User Flow & Journey](./docs/user-flow.md) — Ingestion, live execution, executive reporting, and interactive chat flows.
 - [Architecture Overview](./docs/architeture.md) — System components, security considerations, and data flow.
 - [Project Roadmap](./docs/roadmap.md) — Milestone tracking and upcoming features.
 
