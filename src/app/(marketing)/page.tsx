@@ -1,5 +1,6 @@
 import {
   Hero,
+  RiskDashboard,
   Features,
   HowItWorks,
   Security,
@@ -10,6 +11,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <RiskDashboard />
       <Features />
       <HowItWorks />
       <Security />
