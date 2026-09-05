@@ -5,6 +5,8 @@
   --color-surface: #111111;
   --color-edge: #222222;
   --color-silver: #999999;
+  --color-muted-dim: #666666;
+  --color-muted-subtle: #444444;
   --color-accent: #7c5cfc;
 
   --color-risk-high: #ef4444;
@@ -16,13 +18,14 @@
 }
 
 :root {
-  --background: var(--color-obsidian);
-  --foreground: var(--color-silver);
+  --background: #050505;
+  --foreground: #999999;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -32,7 +35,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Custom scrollbars */
 * {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-edge) transparent;
+  scrollbar-color: #222222 transparent;
 }
 
 *::-webkit-scrollbar {
@@ -45,24 +48,28 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: var(--color-edge);
+  background-color: #222222;
   border-radius: 999px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: #444;
+  background-color: #444444;
 }
 
 /* Text selection */
 ::selection {
   background: rgba(124, 92, 252, 0.3);
-  color: #fff;
+  color: #ffffff;
 }
 
 /* Utility classes */
 @utility frosted-glass {
-  background: rgba(17, 17, 17, 0.6);
+  background: rgba(17, 17, 17, 0.65);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--color-edge);
+}
+
+@utility radial-purple-glow {
+  background: radial-gradient(ellipse 600px 400px at 50% 40%, rgba(124, 92, 252, 0.08) 0%, transparent 70%);
 }
