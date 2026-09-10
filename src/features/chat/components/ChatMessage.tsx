@@ -5,6 +5,12 @@ interface ChatMessageProps {
   content: string;
   timestamp: string;
 }
+export interface ChatMessageItem {
+  id: string,
+  role: 'user' | 'assistant' | 'system';
+  content: string,
+  created_at?: string
+}
 
 export const ChatMessage: React.FC<ChatMessageProps> = ({ role, content }) => {
   const isAssistant = role === 'assistant';
@@ -17,11 +23,10 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ role, content }) => {
             <span className="text-white text-xs font-bold">✓</span>
           </div>
         )}
-        <div className={`p-4 rounded-2xl text-sm leading-relaxed ${
-          isAssistant 
-            ? 'bg-[#111] border border-[#222] text-[#ccc] rounded-bl-sm' 
-            : 'bg-[#7c5cfc] text-white rounded-br-sm'
-        }`}>
+        <div className={`p-4 rounded-2xl text-sm leading-relaxed ${isAssistant
+          ? 'bg-[#111] border border-[#222] text-[#ccc] rounded-bl-sm'
+          : 'bg-[#7c5cfc] text-white rounded-br-sm'
+          }`}>
           {content}
         </div>
       </div>

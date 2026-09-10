@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ChatMessage } from './ChatMessage';
 import { SuggestedPrompt } from './SuggestedPrompt';
 import { ChatInput } from './ChatInput';
 import { mockChatData } from '../mock/chatData';
+import useContractChat from '../hooks/useContractChat';
 
 export const ChatPanel = () => {
+  const { sendMessage, error, loading } = useContractChat()
+
+  const handleSubmit = (message: string) => {
+    if (!message.trim()) return;
+    sendMessage({ message })
+  }
+
   return (
     <div className="flex flex-col h-full bg-[#0a0a0a] border-l border-[#222]">
       {/* Chat Header */}
@@ -18,7 +26,7 @@ export const ChatPanel = () => {
       {/* Chat Messages */}
       <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-2">
         {mockChatData.messages.map((msg) => (
-          <ChatMessage 
+          <ChatMessage
             key={msg.id}
             role={msg.role as any}
             content={msg.content}
@@ -29,17 +37,17 @@ export const ChatPanel = () => {
         {/* Suggested Prompts */}
         <div className="mt-4 flex flex-col gap-2">
           {mockChatData.suggestedPrompts.map((prompt, idx) => (
-            <SuggestedPrompt 
+            <SuggestedPrompt
               key={idx}
               text={prompt}
-              onClick={() => {}}
+              onClick={() => { }}
             />
           ))}
         </div>
       </div>
 
       {/* Chat Input */}
-      <ChatInput />
+      <ChatInput onSubmit={handleSubmit} isLoading={loading} />
     </div>
   );
 };
