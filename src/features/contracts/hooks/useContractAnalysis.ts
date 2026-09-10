@@ -50,13 +50,12 @@ export default function useContractAnalysis() {
 
         try {
             const contractId = typeof params?.contractId === 'string' ? params.contractId : "default-contract";
-            const res = await fetch("/api/contracts/analyze", {
+            const res = await fetch(`/api/contracts/${contractId}/analyze`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    contractId,
                     userId: "user-123",
                     filePath: supabaseFilePath,
                     country
@@ -78,7 +77,7 @@ export default function useContractAnalysis() {
                 if (done) break;
 
                 buffer += decoder.decode(value, { stream: true });
-                
+
                 // Handle both \r\n and \n newlines for SSE event boundaries
                 const lines = buffer.split(/\r?\n\r?\n/);
                 buffer = lines.pop() || '';
@@ -89,7 +88,7 @@ export default function useContractAnalysis() {
                         const rawData = trimmedLine.slice(6);
                         try {
                             const parsedData: StreamProgress = JSON.parse(rawData);
-                            
+
                             if (parsedData.status === 'DONE' && parsedData.data) {
                                 setAnalysisResult(parsedData.data);
                                 setStreamData({ type: 'DONE', data: parsedData.data });
@@ -98,7 +97,7 @@ export default function useContractAnalysis() {
                                 setError(parsedData.message || "An error occurred during analysis");
                             } else if (parsedData.type === 'node_complete' && parsedData.node) {
                                 const completedNode = parsedData.node;
-                                setCompletedNodes((prev) => 
+                                setCompletedNodes((prev) =>
                                     prev.includes(completedNode) ? prev : [...prev, completedNode]
                                 );
                                 const nextIndex = NODE_SEQUENCE.indexOf(completedNode) + 1;

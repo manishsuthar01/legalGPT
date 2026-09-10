@@ -2,11 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { analyzeContractBodySchema } from "@/lib/validations/contract";
 import { AnalysisProgressChunk, AnalysisService } from "@/server/services/analysis.service";
 
-export async function POST(req: NextRequest) {
-    try {
-        const body = await req.json();
-        const { contractId, userId, filePath, country } = body;
+interface RouteParams {
+    contractId: string;
+}
 
+export async function POST(req: NextRequest, { params }: { params: Promise<RouteParams> }) {
+    try {
+        const { contractId } = await params;
+        const body = await req.json()
+        const { userId, filePath, country } = body;
         const validateBody = analyzeContractBodySchema.safeParse({
             contractId,
             userId,
