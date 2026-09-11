@@ -28,7 +28,7 @@ export class chatService {
         message,
     }: ChatContractInput): Promise<ChatContractResponse> {
         try {
-            let targetSessionId = sessionId;
+            let targetSessionId: string | null = sessionId || null;
 
             // 1. Resolve or Create Chat Session
             if (targetSessionId) {
@@ -107,6 +107,10 @@ export class chatService {
             if (aiMsgError) {
                 console.error("Failed to record AI message:", aiMsgError);
             }
+            if (!targetSessionId) {
+                throw new Error("Session ID could not be resolved");
+            }
+
 
             return {
                 sessionId: targetSessionId,
