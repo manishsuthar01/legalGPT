@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Check, ShieldCheck, ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -27,9 +28,13 @@ export function Header() {
         
         {/* Logo with purple badge & checkmark icon */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center text-white font-bold group-hover:scale-105 group-hover:shadow-[0_0_15px_rgba(124,92,252,0.5)] transition-all duration-300">
-            <Check className="w-4 h-4 stroke-[3]" />
-          </div>
+          <Image
+            src="/logo/legalGPT_logo.png"
+            alt="LegalGPT Logo"
+            width={32}
+            height={32}
+            className="group-hover:scale-105 transition-transform duration-300"
+          />
           <div className="flex items-center gap-1.5">
             <span className="text-white font-bold text-lg tracking-tight">
               LegalGPT

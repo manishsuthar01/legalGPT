@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { Plus, FileText, ChevronDown, ChevronRight, Settings, User, X } from 'lucide-react';
 
 interface LeftSidebarProps {
@@ -14,9 +15,12 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({ onCloseMobile }) => {
       {/* Logo Area */}
       <div className="h-[70px] flex items-center justify-between px-6 border-b border-[#222] shrink-0">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 bg-[#7c5cfc] rounded-md flex items-center justify-center">
-            <span className="text-white text-xs font-bold" aria-hidden="true">✓</span>
-          </div>
+          <Image
+            src="/logo/legalGPT_logo.png"
+            alt="LegalGPT Logo"
+            width={24}
+            height={24}
+          />
           <span className="text-white font-bold text-lg tracking-tight">LegalGPT</span>
         </div>
         {onCloseMobile && (

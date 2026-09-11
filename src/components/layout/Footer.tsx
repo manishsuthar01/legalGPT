@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Check } from "lucide-react";
+import Image from "next/image";
 
 export function Footer() {
   return (
@@ -11,9 +11,12 @@ export function Footer() {
           {/* Column 1: Brand */}
           <div>
             <Link href="/" className="flex items-center gap-2 mb-4 group inline-flex">
-              <div className="w-6 h-6 rounded bg-accent flex items-center justify-center text-white font-bold text-xs group-hover:scale-105 transition-transform duration-300">
-                <Check className="w-3.5 h-3.5 stroke-[3]" />
-              </div>
+              <Image
+                src="/logo/legalGPT_logo.png"
+                alt="LegalGPT Logo"
+                width={24}
+                height={24}
+              />
               <span className="text-white font-semibold text-lg tracking-tight">
                 LegalGPT
               </span>

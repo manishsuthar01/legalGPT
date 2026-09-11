@@ -1,44 +1,44 @@
 {
-  "executiveSummary": "This contract establishes a solid foundation for a service provider relationship with clear intellectual property assignments and mutual termination rights. However, it presents notable risks due to an incomplete governing law clause with an unspecified jurisdiction, a potentially inadequate six-month liability cap, and broad unilateral indemnification obligations. Addressing these gaps will significantly improve the contract's enforceability and balance.",
+  "executiveSummary": "The contract is generally well-drafted with strong intellectual property protections, robust indemnification obligations, and clear termination rights that protect the Client. However, it presents moderate risk due to a blank governing law clause that creates severe jurisdictional uncertainty, and a limitation of liability clause that lacks critical carve-outs for confidentiality and intellectual property breaches. Addressing these two key areas will significantly improve the contract's risk posture.",
   "overallRisk": "MEDIUM",
-  "riskScore": 40,
+  "riskScore": 45,
   "riskScoreBreakdown": {
-    "contractQuality": 70,
-    "clauseRisk": 65,
-    "jurisdictionCompliance": 45
+    "contractQuality": 85,
+    "clauseRisk": 75,
+    "jurisdictionCompliance": 80
   },
   "positiveFindings": [
     {
-      "clauseTitle": "Robust Intellectual Property Assignment",
-      "explanation": "The contract includes a strong 'work made for hire' designation along with a comprehensive backup assignment clause to ensure the Client owns all work product."
+      "clauseTitle": "Comprehensive Intellectual Property Assignment",
+      "explanation": "Clauses 6 and 7 establish a robust 'work made for hire' framework paired with an explicit, irrevocable fallback assignment. This ensures that all intellectual property rights in the deliverables transfer exclusively to the Client, complying with Section 19 of the Indian Copyright Act, 1957."
     },
     {
-      "clauseTitle": "Mutual Termination for Convenience",
-      "explanation": "The agreement provides balanced flexibility for both parties to exit the relationship upon 30 days' written notice."
+      "clauseTitle": "Strong Unilateral Indemnification",
+      "explanation": "Clause 10 provides the Client with comprehensive indemnity coverage from the Service Provider for third-party intellectual property infringement, breach of contract, and performance failures, including the recovery of reasonable attorneys' fees."
     },
     {
-      "clauseTitle": "Clear Post-Termination Obligations",
-      "explanation": "The contract explicitly outlines the return of confidential information and property, while ensuring the Service Provider is paid for work satisfactorily performed up to the termination date."
+      "clauseTitle": "Immediate Termination for Cause",
+      "explanation": "Clause 11 protects the Client's business reputation and assets by allowing immediate termination of the agreement if the Service Provider engages in dishonesty, gross misconduct, or illegal activities."
     }
   ],
   "missingClauses": [
     {
-      "title": "Force Majeure",
-      "explanation": "Protects both parties from liability or breach due to extraordinary events beyond their control, such as natural disasters, acts of God, or pandemics.",
-      "severity": "medium",
-      "suggestedLanguage": "Neither Party shall be liable for any delay or failure in performance under this Agreement resulting directly or indirectly from acts of God, flood, fire, earthquake, war, riot, civil disturbance, act of terrorism, epidemic, pandemic, strike, labor dispute, or any other cause beyond the reasonable control of such Party (each a 'Force Majeure Event'). The affected Party shall provide prompt written notice to the other Party and shall make reasonable efforts to resume performance as soon as practicable."
-    },
-    {
-      "title": "Data Protection and Security",
-      "explanation": "Essential for any service agreement involving the transfer or processing of personal data to ensure compliance with US state laws (like CCPA) and global regulations.",
+      "title": "Dispute Resolution and Arbitration",
+      "explanation": "The contract lacks a dispute resolution mechanism. Under Indian law, incorporating an arbitration clause under the Arbitration and Conciliation Act, 1996 is critical to avoid protracted and expensive litigation in Indian courts.",
       "severity": "high",
-      "suggestedLanguage": "To the extent the Service Provider processes any personally identifiable information or personal data on behalf of the Client, the Service Provider shall comply with all applicable data protection and privacy laws, including but not limited to the California Consumer Privacy Act (CCPA). The Service Provider shall implement and maintain appropriate technical and organizational security measures to protect such data against unauthorized access, loss, or disclosure."
+      "suggestedLanguage": "Any dispute, controversy, or claim arising out of or relating to this Agreement, including its formation, breach, or termination, shall be referred to and finally resolved by binding arbitration in accordance with the Arbitration and Conciliation Act, 1996. The arbitral tribunal shall consist of a sole arbitrator mutually appointed by the Parties. The seat and venue of arbitration shall be New Delhi, India, and the language of the proceedings shall be English."
     },
     {
-      "title": "Insurance Requirements",
-      "explanation": "Ensures the Service Provider maintains adequate professional liability and general liability insurance to cover potential claims.",
+      "title": "Data Protection and Privacy Compliance",
+      "explanation": "Given the enactment of the Digital Personal Data Protection Act, 2023 (DPDPA) in India, a dedicated data protection clause is necessary to ensure the Service Provider complies with statutory obligations regarding personal data processing.",
+      "severity": "high",
+      "suggestedLanguage": "The Service Provider shall comply with all applicable data protection laws, including the Digital Personal Data Protection Act, 2023. The Service Provider shall process personal data solely on behalf of and in accordance with the written instructions of the Client, implement appropriate technical and organizational measures to protect such data, and notify the Client immediately upon becoming aware of any data breach."
+    },
+    {
+      "title": "Force Majeure",
+      "explanation": "The contract lacks a force majeure clause, which is standard in service agreements to excuse non-performance caused by extraordinary events beyond a party's control (e.g., natural disasters, acts of government).",
       "severity": "medium",
-      "suggestedLanguage": "During the term of this Agreement, the Service Provider shall maintain, at its own expense, commercial general liability insurance and professional liability (errors and omissions) insurance with coverage limits of not less than $1,000,000 per occurrence and in the aggregate. Upon request, the Service Provider shall provide the Client with certificates of insurance evidencing such coverage."
+      "suggestedLanguage": "Neither Party shall be liable for any delay or failure to perform its obligations under this Agreement (except for payment obligations) if such delay or failure is caused by a Force Majeure Event, including acts of God, war, riot, embargoes, acts of civil or military authorities, fire, floods, or accidents, provided that the affected Party gives prompt written notice to the other Party and makes reasonable efforts to mitigate the effects of the event."
     }
   ],
   "advisorFeedback": [
@@ -46,36 +46,36 @@
       "clauseId": 2,
       "clauseTitle": "Term and Probation",
       "risk": "LOW",
-      "likelihood": 2,
+      "likelihood": 1,
       "impact": 2,
-      "whyItMatters": "A short 14-day notice period during probation could leave you with sudden resource gaps if the provider exits abruptly.",
-      "suggestedFix": "Increase the probation notice period to 30 days to ensure business continuity.",
-      "replacementLanguage": "The initial three (3) months following the Effective Date shall constitute a probation period (the \"Probation Period\"). During the Probation Period, either Party may terminate this Agreement for any reason upon providing thirty (30) calendar days' written notice to the other Party.",
-      "rationale": "Extending the notice period to 30 days provides sufficient time to find a replacement or transition the work, mitigating operational disruption.",
+      "whyItMatters": "Ensures you can quickly offboard an underperforming service provider during the initial phase without long-term commitments.",
+      "suggestedFix": "Keep the clause as drafted; it provides a standard and balanced probation mechanism.",
+      "replacementLanguage": "This Agreement shall commence on the Effective Date and shall continue indefinitely thereafter, subject to earlier termination as provided herein. The initial three (3) months following the Effective Date shall constitute a probation period (the \"Probation Period\"). During the Probation Period, either Party may terminate this Agreement for any reason upon providing fourteen (14) calendar days' written notice to the other Party. Following the Probation Period, the termination provisions of Section 11 shall apply.",
+      "rationale": "The clause is standard, clear, and provides appropriate flexibility during the initial onboarding phase.",
       "priority": "LOW"
     },
     {
       "clauseId": 6,
-      "clauseTitle": "Confidentiality & IP",
+      "clauseTitle": "Confidentiality Obligations",
       "risk": "LOW",
       "likelihood": 1,
       "impact": 4,
-      "whyItMatters": "The clause is cut off mid-sentence, which could create ambiguity regarding the backup assignment of intellectual property rights.",
-      "suggestedFix": "Ensure the clause is fully drafted and includes complete backup assignment language.",
-      "replacementLanguage": "All work product, inventions, discoveries, improvements, designs, works of authorship, and materials created or developed by the Service Provider in connection with the Services (collectively, \"Work Product\") shall be considered \"work made for hire\" to the fullest extent permitted by law, and all intellectual property rights therein shall belong exclusively to the Client.",
-      "rationale": "Completing the sentence ensures there is no ambiguity regarding the ownership of the work product from the outset.",
+      "whyItMatters": "Protects your proprietary business information from being disclosed to competitors or used outside the scope of services.",
+      "suggestedFix": "Keep the clause as drafted, ensuring it is paired with the survival provision.",
+      "replacementLanguage": "The Service Provider agrees to keep all Confidential Information strictly confidential, not to disclose it to any third party, and not to use it for any purpose other than performing the Services for the Client. This obligation of confidentiality shall survive the termination of this Agreement.",
+      "rationale": "The clause establishes a strict, perpetual confidentiality obligation that survives the termination of the contract, protecting sensitive business data.",
       "priority": "LOW"
     },
     {
       "clauseId": 7,
-      "clauseTitle": "Backup IP Assignment & Reps",
+      "clauseTitle": "Intellectual Property Assignment",
       "risk": "LOW",
       "likelihood": 1,
-      "impact": 4,
-      "whyItMatters": "Without a clear backup assignment, you risk losing ownership of intellectual property if a court rules the work does not qualify as a 'work made for hire' under US copyright law.",
-      "suggestedFix": "Keep the backup assignment language robust and ensure it covers all global intellectual property rights.",
-      "replacementLanguage": "To the extent any Work Product is not deemed a \"work made for hire,\" the Service Provider hereby irrevocably, unconditionally, and perpetually assigns to the Client all right, title, and interest in and to such Work Product, including all intellectual property rights therein, on a worldwide basis.",
-      "rationale": "A worldwide, perpetual backup assignment guarantees that the Client owns the IP regardless of how the 'work made for hire' doctrine is interpreted by a court.",
+      "impact": 5,
+      "whyItMatters": "Guarantees that you own all deliverables and that the service provider cannot claim ownership or sue you for intellectual property infringement.",
+      "suggestedFix": "Keep the fallback assignment language, but explicitly state that the assignment is worldwide and perpetual to comply fully with Section 19 of the Indian Copyright Act, 1957.",
+      "replacementLanguage": "To the extent any Work Product is not deemed a \"work made for hire,\" the Service Provider hereby irrevocably, perpetually, and unconditionally assigns to the Client, on a worldwide basis, all right, title, and interest in and to such Work Product, including all intellectual property rights therein, for the full term of protection of such rights.",
+      "rationale": "Explicitly stating that the assignment is worldwide and perpetual prevents the assignment from lapsing or being geographically restricted under Section 19 of the Indian Copyright Act, 1957.",
       "priority": "LOW"
     },
     {
@@ -83,142 +83,82 @@
       "clauseTitle": "Limitation of Liability",
       "risk": "MEDIUM",
       "likelihood": 3,
-      "impact": 4,
-      "whyItMatters": "A liability cap limited to only six months of fees may prevent you from recovering full damages if the provider causes a major data breach or severe operational loss.",
-      "suggestedFix": "Increase the liability cap to 12 or 24 months of fees, or a fixed multiplier (e.g., 2x), and carve out indemnification and confidentiality breaches from the cap.",
-      "replacementLanguage": "Except for a Party's breach of confidentiality obligations under Section 6 or indemnification obligations under Section 10, the total liability of either Party under this Agreement shall not exceed the total compensation paid or payable to the Service Provider by the Client under this Agreement during the twelve (12) months immediately preceding the event giving rise to the claim.",
-      "rationale": "Carving out confidentiality and indemnity from the cap ensures you can recover full losses for high-risk breaches, while doubling the cap period provides a more reasonable recovery limit.",
+      "impact": 5,
+      "whyItMatters": "Could prevent you from recovering full damages if the vendor breaches confidentiality, infringes third-party IP, or causes severe losses, as their liability is capped at 6 months of fees.",
+      "suggestedFix": "Carve out confidentiality breaches, intellectual property indemnification, and gross negligence/willful misconduct from the limitation of liability and the liability cap.",
+      "replacementLanguage": "To the maximum extent permitted by applicable law, neither Party shall be liable to the other for any indirect, incidental, special, or consequential damages arising out of or relating to this Agreement. The total liability of either Party under this Agreement shall not exceed the total compensation paid or payable to the Service Provider by the Client under this Agreement during the twelve (12) months immediately preceding the event giving rise to the claim; provided, however, that the foregoing limitations and exclusions of liability shall not apply to: (a) breaches of Section 6 (Confidentiality), (b) indemnification obligations under Section 10, or (c) claims arising from a Party's gross negligence, willful misconduct, or fraud.",
+      "rationale": "Protects the Client by ensuring that high-risk events (like IP infringement claims or data breaches) are not subject to the low liability cap, while maintaining a reasonable cap for standard operational breaches.",
       "priority": "HIGH"
     },
     {
       "clauseId": 9,
-      "clauseTitle": "Indemnification (Start)",
+      "clauseTitle": "Indemnification Obligation",
       "risk": "LOW",
-      "likelihood": 2,
+      "likelihood": 1,
       "impact": 4,
-      "whyItMatters": "The clause is cut off, leaving the scope of the Service Provider's indemnification obligations undefined and potentially unenforceable.",
-      "suggestedFix": "Complete the indemnification clause to clearly define the scope of claims covered.",
-      "replacementLanguage": "The Service Provider shall indemnify, defend, and hold harmless the Client, its officers, directors, employees, and agents from and against any and all claims, damages, liabilities, costs, and expenses (including reasonable attorneys' fees) arising out of or related to the Service Provider's negligence, willful misconduct, or breach of this Agreement.",
-      "rationale": "Completing the clause ensures the Client is fully protected against third-party claims arising from the provider's actions.",
-      "priority": "MEDIUM"
+      "whyItMatters": "Establishes the foundational legal obligation for the Service Provider to cover your losses arising from their performance.",
+      "suggestedFix": "Ensure this introductory language is seamlessly integrated with the full scope of indemnification in Clause 10.",
+      "replacementLanguage": "The Service Provider shall indemnify, defend, and hold harmless the Client, its officers, directors, employees, and agents from and against any and all claims, damages, liabilities, costs, and expenses (including reasonable attorneys' fees) arising out of or related to the Service Provider's performance of the Services.",
+      "rationale": "Establishes a clear unilateral indemnity in favor of the Client, which is standard and protective in service agreements.",
+      "priority": "LOW"
     },
     {
       "clauseId": 10,
-      "clauseTitle": "Indemnification & Termination",
-      "risk": "MEDIUM",
-      "likelihood": 3,
-      "impact": 4,
-      "whyItMatters": "Broad, unilateral indemnification obligations force the Service Provider to bear all risk for any performance issues, even if the Client contributed to the loss.",
-      "suggestedFix": "Make the indemnification mutual or limit the Service Provider's indemnity to third-party claims arising from gross negligence, willful misconduct, or intellectual property infringement.",
-      "replacementLanguage": "The Service Provider shall indemnify, defend, and hold harmless the Client from and against any third-party claims, damages, liabilities, and reasonable attorneys' fees arising out of (a) the Service Provider's gross negligence or willful misconduct, or (b) any claim that the Work Product infringes the intellectual property rights of a third party, except to the extent such claim arises from Client-provided materials.",
-      "rationale": "Limiting the indemnity to third-party claims and carving out Client-contributed infringement balances the risk allocation fairly between the parties.",
-      "priority": "HIGH"
+      "clauseTitle": "Indemnification Scope and Termination",
+      "risk": "LOW",
+      "likelihood": 1,
+      "impact": 5,
+      "whyItMatters": "Protects you from third-party lawsuits and financial losses if the vendor's work infringes someone else's intellectual property.",
+      "suggestedFix": "Keep as drafted, but ensure it is carved out of the limitation of liability cap in Clause 8.",
+      "replacementLanguage": "The Service Provider shall indemnify, defend, and hold harmless the Client, its officers, directors, employees, and agents from and against any and all claims, damages, liabilities, costs, and expenses (including reasonable attorneys' fees) arising out of or related to (a) the Service Provider's performance of the Services, (b) any breach by the Service Provider of any term or condition of this Agreement, or (c) any third-party claim that the Work Product or Services infringe upon any intellectual property rights of such third party.",
+      "rationale": "Maintains a robust, comprehensive indemnity covering key operational and IP risks.",
+      "priority": "LOW"
     },
     {
       "clauseId": 11,
       "clauseTitle": "Termination for Cause",
       "risk": "LOW",
-      "likelihood": 2,
-      "impact": 3,
-      "whyItMatters": "Immediate termination for subjective terms like 'dishonesty' or 'misconduct' without clear definitions could lead to wrongful termination disputes.",
-      "suggestedFix": "Define 'gross misconduct' and 'dishonesty' more objectively, or require written proof before immediate termination.",
-      "replacementLanguage": "Immediately by the Client if the Service Provider is convicted of a felony, engages in fraud, or commits an act of gross negligence or willful misconduct that causes material financial or reputational harm to the Client's business.",
-      "rationale": "Using objective legal standards (like felony conviction or fraud) reduces the risk of a dispute over whether a specific act constituted 'dishonesty' or 'misconduct'.",
-      "priority": "MEDIUM"
+      "likelihood": 1,
+      "impact": 4,
+      "whyItMatters": "Allows you to immediately sever ties with the provider without penalty if they engage in illegal acts, fraud, or gross misconduct.",
+      "suggestedFix": "Keep as drafted; it provides excellent protection for the Client.",
+      "replacementLanguage": "This Agreement may be terminated: (a) By either Party for convenience upon providing thirty (30) calendar days' written notice; (b) By either Party immediately upon written notice if the other Party materially breaches this Agreement and fails to cure such breach within fifteen (15) calendar days after receiving written notice; or (c) Immediately by the Client if the Service Provider engages in any act of dishonesty, gross misconduct, or illegal activity related to the Services or the Client's business.",
+      "rationale": "Preserves immediate termination rights for egregious behavior while maintaining standard cure periods for minor breaches.",
+      "priority": "LOW"
     },
     {
       "clauseId": 12,
-      "clauseTitle": "Governing Law",
+      "clauseTitle": "Governing Law and Jurisdiction",
       "risk": "MEDIUM",
       "likelihood": 4,
       "impact": 4,
-      "whyItMatters": "Leaving the governing law and jurisdiction unspecified ('to be determined') can lead to costly jurisdictional disputes and uncertainty about which laws apply if a conflict arises.",
-      "suggestedFix": "Specify a mutually agreeable state and jurisdiction (e.g., New York or Delaware) to govern the contract.",
-      "replacementLanguage": "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict of laws principles. Each Party irrevocably consents to the exclusive jurisdiction of the state and federal courts located in Wilmington, Delaware.",
-      "rationale": "Specifying a clear governing law and venue eliminates jurisdictional uncertainty and prevents expensive pre-trial litigation over where a lawsuit must be filed.",
-      "priority": "CRITICAL"
+      "whyItMatters": "Leaving the governing law blank creates severe legal uncertainty, potentially forcing you to litigate in an unfavorable jurisdiction under unpredictable laws if a dispute arises.",
+      "suggestedFix": "Specify a clear governing law (e.g., the laws of India) and designate exclusive jurisdiction to a specific city's courts (e.g., New Delhi or Mumbai).",
+      "replacementLanguage": "This Agreement shall be governed by, and construed in accordance with, the laws of India, without regard to its conflict of laws principles. Subject to the dispute resolution provisions herein, the courts located in New Delhi, India shall have exclusive jurisdiction over any disputes arising out of or in connection with this Agreement.",
+      "rationale": "Eliminates jurisdictional ambiguity and ensures disputes are resolved in a predictable, convenient forum under Indian law.",
+      "priority": "HIGH"
     }
   ],
   "riskCards": [
     {
-      "id": "risk-2",
-      "severity": "low",
-      "clauseTitle": "Term and Probation",
-      "explanation": "The 14-day notice period during probation is short and could cause operational gaps if the provider leaves suddenly.",
-      "suggestedFix": "Increase the probation notice period to 30 days to ensure business continuity.",
-      "likelihood": 2,
-      "impact": 2,
-      "whyItMatters": "A short 14-day notice period during probation could leave you with sudden resource gaps if the provider exits abruptly."
-    },
-    {
-      "id": "risk-6",
-      "severity": "low",
-      "clauseTitle": "Confidentiality & IP",
-      "explanation": "The clause is cut off mid-sentence, creating potential ambiguity regarding the backup assignment of intellectual property.",
-      "suggestedFix": "Ensure the clause is fully drafted and includes complete backup assignment language.",
-      "likelihood": 1,
-      "impact": 4,
-      "whyItMatters": "The clause is cut off mid-sentence, which could create ambiguity regarding the backup assignment of intellectual property rights."
-    },
-    {
-      "id": "risk-7",
-      "severity": "low",
-      "clauseTitle": "Backup IP Assignment & Reps",
-      "explanation": "Without a robust backup assignment, you risk losing ownership of intellectual property if 'work made for hire' is ruled inapplicable.",
-      "suggestedFix": "Keep the backup assignment language robust and ensure it covers all global intellectual property rights.",
-      "likelihood": 1,
-      "impact": 4,
-      "whyItMatters": "Without a clear backup assignment, you risk losing ownership of intellectual property if a court rules the work does not qualify as a 'work made for hire' under US copyright law."
-    },
-    {
       "id": "risk-8",
-      "severity": "medium",
-      "clauseTitle": "Limitation of Liability",
-      "explanation": "The liability cap is limited to six months of fees, which may not cover significant damages from data breaches or confidentiality violations.",
-      "suggestedFix": "Increase the liability cap to 12 or 24 months of fees, or a fixed multiplier (e.g., 2x), and carve out indemnification and confidentiality breaches from the cap.",
+      "severity": "high",
+      "clauseTitle": "Limitation of Liability Cap",
+      "explanation": "The clause caps the Service Provider's total liability to 6 months of fees and lacks carve-outs for critical breaches.",
+      "suggestedFix": "Carve out confidentiality breaches, intellectual property indemnification, and gross negligence/willful misconduct from the limitation of liability and the liability cap.",
       "likelihood": 3,
-      "impact": 4,
-      "whyItMatters": "A liability cap limited to only six months of fees may prevent you from recovering full damages if the provider causes a major data breach or severe operational loss."
-    },
-    {
-      "id": "risk-9",
-      "severity": "low",
-      "clauseTitle": "Indemnification (Start)",
-      "explanation": "The indemnification clause is cut off, leaving the scope of the Service Provider's obligations undefined.",
-      "suggestedFix": "Complete the indemnification clause to clearly define the scope of claims covered.",
-      "likelihood": 2,
-      "impact": 4,
-      "whyItMatters": "The clause is cut off, leaving the scope of the Service Provider's indemnification obligations undefined and potentially unenforceable."
-    },
-    {
-      "id": "risk-10",
-      "severity": "medium",
-      "clauseTitle": "Indemnification & Termination",
-      "explanation": "The clause imposes broad, unilateral indemnification obligations on the Service Provider for all performance issues.",
-      "suggestedFix": "Make the indemnification mutual or limit the Service Provider's indemnity to third-party claims arising from gross negligence, willful misconduct, or intellectual property infringement.",
-      "likelihood": 3,
-      "impact": 4,
-      "whyItMatters": "Broad, unilateral indemnification obligations force the Service Provider to bear all risk for any performance issues, even if the Client contributed to the loss."
-    },
-    {
-      "id": "risk-11",
-      "severity": "low",
-      "clauseTitle": "Termination for Cause",
-      "explanation": "Immediate termination for subjective terms like 'dishonesty' or 'misconduct' could lead to wrongful termination disputes.",
-      "suggestedFix": "Define 'gross misconduct' and 'dishonesty' more objectively, or require written proof before immediate termination.",
-      "likelihood": 2,
-      "impact": 3,
-      "whyItMatters": "Immediate termination for subjective terms like 'dishonesty' or 'misconduct' without clear definitions could lead to wrongful termination disputes."
+      "impact": 5,
+      "whyItMatters": "Could prevent you from recovering full damages if the vendor breaches confidentiality, infringes third-party IP, or causes severe losses, as their liability is capped at 6 months of fees."
     },
     {
       "id": "risk-12",
-      "severity": "medium",
-      "clauseTitle": "Governing Law",
-      "explanation": "Leaving the governing law and jurisdiction unspecified ('to be determined') can lead to costly jurisdictional disputes.",
-      "suggestedFix": "Specify a mutually agreeable state and jurisdiction (e.g., New York or Delaware) to govern the contract.",
+      "severity": "high",
+      "clauseTitle": "Blank Governing Law",
+      "explanation": "The governing law and jurisdiction are left 'to be determined by the Parties', creating severe legal uncertainty.",
+      "suggestedFix": "Specify a clear governing law (e.g., the laws of India) and designate exclusive jurisdiction to a specific city's courts (e.g., New Delhi or Mumbai).",
       "likelihood": 4,
       "impact": 4,
-      "whyItMatters": "Leaving the governing law and jurisdiction unspecified ('to be determined') can lead to costly jurisdictional disputes and uncertainty about which laws apply if a conflict arises."
+      "whyItMatters": "Leaving the governing law blank creates severe legal uncertainty, potentially forcing you to litigate in an unfavorable jurisdiction under unpredictable laws if a dispute arises."
     }
   ]
 }
