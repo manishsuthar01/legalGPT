@@ -10,7 +10,7 @@ export async function POST(
         const { contractId } = await params;
         const body = await req.json();
         const validateBody = chatBodySchema.safeParse(body);
-
+        console.log("chat request body:", body)
         if (!validateBody.success) {
             return NextResponse.json(
                 { success: false, error: "Invalid request body", details: validateBody.error.format() },

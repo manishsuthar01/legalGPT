@@ -10,6 +10,7 @@ export const ChatPanel = () => {
 
   const handleSubmit = (message: string) => {
     if (!message.trim()) return;
+    console.log("message:", message)
     sendMessage({ message })
   }
 
