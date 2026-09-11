@@ -7,16 +7,14 @@ export default function useContractChat() {
     const [sessionId, setSessionId] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, SetError] = useState("");
-    let contractId = undefined;
+    const params = useParams<{ contractId: string }>()
+    const contractId = params?.contractId as string
 
     const sendMessage = async ({ message }: { message: string }) => {
         try {
             if (!message) return;
             setLoading(true)
-
-            // Get contractId from URL
-            const params = useParams<{ contractId: string }>()
-            const contractId = params?.contractId as string
+            console.log("in the hook to call the api", message)
 
             // Call API
             const res = await fetch(`/api/contracts/${contractId}/chat`, {
@@ -26,8 +24,10 @@ export default function useContractChat() {
                 },
                 body: JSON.stringify({ userId: "user-123", message, sessionId }),
             })
+            console.log("chat API called")
             if (!res.ok) throw new Error("Failed to start chat")
             const data = await res.json()
+            console.log("chat API response:", data)
 
             // Update session ID if new session was created
             if (data.session?.id) {
