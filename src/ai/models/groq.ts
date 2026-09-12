@@ -8,7 +8,7 @@ export const getGroqModel = (options?: any): BaseChatModel => {
 
     return new ChatGroq({
         apiKey: process.env.GROQ_API_KEY,
-        model: options?.model || "llama-3.1-8b-instant", // default model
+        model: options?.model || "openai/gpt-oss-120b", // default model
         temperature: options?.temperature ?? 0,
         ...options,
     });
