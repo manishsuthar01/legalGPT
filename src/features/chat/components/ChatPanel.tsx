@@ -6,12 +6,12 @@ import { mockChatData } from '../mock/chatData';
 import useContractChat from '../hooks/useContractChat';
 
 export const ChatPanel = () => {
-  const { sendMessage, error, loading } = useContractChat()
+  const { sendMessage, error, loading, messages } = useContractChat()
 
   const handleSubmit = (message: string) => {
     if (!message.trim()) return;
     console.log("message:", message)
-    sendMessage({ message })
+    sendMessage({ message });
   }
 
   return (
@@ -26,22 +26,22 @@ export const ChatPanel = () => {
 
       {/* Chat Messages */}
       <div className="flex-1 overflow-y-auto p-6 flex flex-col gap-2">
-        {mockChatData.messages.map((msg) => (
+        {messages.map((msg) => (
           <ChatMessage
             key={msg.id}
             role={msg.role as any}
             content={msg.content}
-            timestamp={msg.timestamp}
+            timestamp={msg.created_at || new Date().toISOString()}
           />
         ))}
 
         {/* Suggested Prompts */}
         <div className="mt-4 flex flex-col gap-2">
-          {mockChatData.suggestedPrompts.map((prompt, idx) => (
+          {messages.length === 0 && mockChatData.suggestedPrompts.map((prompt, idx) => (
             <SuggestedPrompt
               key={idx}
               text={prompt}
-              onClick={() => { }}
+              onClick={() => { handleSubmit(prompt) }}
             />
           ))}
         </div>

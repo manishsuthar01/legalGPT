@@ -1,6 +1,7 @@
 import { useParams } from "next/navigation";
 import { useState } from "react"
 import { string } from "zod";
+import { ChatMessageItem } from "../components/ChatMessage"
 
 
 export default function useContractChat() {
@@ -10,11 +11,22 @@ export default function useContractChat() {
     const params = useParams<{ contractId: string }>()
     const contractId = params?.contractId as string
 
+    const [messages, setMessages] = useState<ChatMessageItem[]>([])
+
+
     const sendMessage = async ({ message }: { message: string }) => {
         try {
             if (!message) return;
             setLoading(true)
             console.log("in the hook to call the api", message)
+            //  append the user message
+            const userMessage = {
+                id: crypto.randomUUID(),
+                role: 'user',
+                content: message,
+                status: 'sending'
+            }
+            setMessages(prev => [...prev, userMessage])
 
             // Call API
             const res = await fetch(`/api/contracts/${contractId}/chat`, {
@@ -24,10 +36,11 @@ export default function useContractChat() {
                 },
                 body: JSON.stringify({ userId: "user-123", message, sessionId }),
             })
-            console.log("chat API called")
             if (!res.ok) throw new Error("Failed to start chat")
             const data = await res.json()
             console.log("chat API response:", data)
+
+            setMessages(prev => [...prev, data.data.message])
 
             // Update session ID if new session was created
             if (data.session?.id) {
@@ -35,6 +48,7 @@ export default function useContractChat() {
             }
 
             return data
+
         } catch (error) {
             if (error instanceof Error) {
                 SetError(error.message)
@@ -52,6 +66,7 @@ export default function useContractChat() {
     return {
         sendMessage,
         error,
-        loading
+        loading,
+        messages
     }
 }
