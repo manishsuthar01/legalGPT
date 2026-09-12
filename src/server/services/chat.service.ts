@@ -69,7 +69,7 @@ export class chatService {
                     session_id: targetSessionId,
                     role: "user",
                     content: message,
-                    status: "sent",
+                    status: "completed",
                 });
 
             if (userMsgError) {
