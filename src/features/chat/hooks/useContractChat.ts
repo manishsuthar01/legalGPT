@@ -18,7 +18,6 @@ export default function useContractChat() {
         try {
             if (!message) return;
             setLoading(true)
-            console.log("in the hook to call the api", message)
             //  append the user message
             const userMessage: ChatMessageItem = {
                 id: crypto.randomUUID(),
@@ -42,8 +41,8 @@ export default function useContractChat() {
             setMessages(prev => [...prev, data.data.message])
 
             // Update session ID if new session was created
-            if (data.session?.id) {
-                setSessionId(data.session.id);
+            if (data.data.sessionId) {
+                setSessionId(data.data.sessionId);
             }
 
             return data
