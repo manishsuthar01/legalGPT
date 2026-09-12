@@ -20,11 +20,10 @@ export default function useContractChat() {
             setLoading(true)
             console.log("in the hook to call the api", message)
             //  append the user message
-            const userMessage = {
+            const userMessage: ChatMessageItem = {
                 id: crypto.randomUUID(),
                 role: 'user',
                 content: message,
-                status: 'sending'
             }
             setMessages(prev => [...prev, userMessage])
 
