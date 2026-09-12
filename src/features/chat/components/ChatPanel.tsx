@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ChatMessage } from './ChatMessage';
 import { SuggestedPrompt } from './SuggestedPrompt';
 import { ChatInput } from './ChatInput';
@@ -6,13 +6,22 @@ import { mockChatData } from '../mock/chatData';
 import useContractChat from '../hooks/useContractChat';
 
 export const ChatPanel = () => {
-  const { sendMessage, error, loading, messages } = useContractChat()
+  const { sendMessage, error, loading, messages } = useContractChat();
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, loading]);
 
   const handleSubmit = (message: string) => {
     if (!message.trim()) return;
-    console.log("message:", message)
+    console.log("message:", message);
     sendMessage({ message });
-  }
+  };
 
   return (
     <div className="flex flex-col h-full bg-[#0a0a0a] border-l border-[#222]">
@@ -41,10 +50,21 @@ export const ChatPanel = () => {
             <SuggestedPrompt
               key={idx}
               text={prompt}
-              onClick={() => { handleSubmit(prompt) }}
+              onClick={() => { handleSubmit(prompt); }}
             />
           ))}
         </div>
+
+        {/* Thinking Indicator */}
+        {loading && (
+          <div className="flex items-center gap-2 text-xs text-[#888] pl-2 py-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-[#7c5cfc] animate-pulse" />
+            <span>LegalGPT is reviewing the contract...</span>
+          </div>
+        )}
+
+        {/* Auto-scroll anchor */}
+        <div ref={messagesEndRef} />
       </div>
 
       {/* Chat Input */}
