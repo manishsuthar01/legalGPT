@@ -1,6 +1,9 @@
+'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { Plus, FileText, ChevronDown, ChevronRight, Settings, User, X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
 
 interface LeftSidebarProps {
   onCloseMobile?: () => void;
@@ -9,12 +12,15 @@ interface LeftSidebarProps {
 export const LeftSidebar: React.FC<LeftSidebarProps> = ({ onCloseMobile }) => {
   const [analysisExpanded, setAnalysisExpanded] = useState(true);
   const [generationExpanded, setGenerationExpanded] = useState(true);
+  const router = useRouter()
 
   return (
     <aside className="w-[260px] h-full flex flex-col bg-[#0a0a0a] border-r border-[#222]">
       {/* Logo Area */}
       <div className="h-[70px] flex items-center justify-between px-6 border-b border-[#222] shrink-0">
-        <div className="flex items-center gap-2">
+        <div
+          onClick={() => { router.push('/') }}
+          className="flex items-center gap-2 cursor-pointer">
           <Image
             src="/logo/legalGPT_logo.png"
             alt="LegalGPT Logo"
@@ -24,7 +30,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({ onCloseMobile }) => {
           <span className="text-white font-bold text-lg tracking-tight">LegalGPT</span>
         </div>
         {onCloseMobile && (
-          <button 
+          <button
             onClick={onCloseMobile}
             aria-label="Close menu"
             className="md:hidden p-1 text-[#999] hover:text-white rounded-md focus-visible:ring-2 focus-visible:ring-[#7c5cfc] outline-none"
@@ -36,7 +42,9 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({ onCloseMobile }) => {
 
       {/* Main Content */}
       <nav className="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-6" aria-label="Main Navigation">
-        <button className="w-full flex items-center justify-center gap-2 bg-[#7c5cfc] hover:bg-[#111] hover:border-[#333] border border-[#222] text-white font-semibold py-3 rounded-xl transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#7c5cfc] outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]">
+        <button
+          onClick={() => { router.push('/contracts/new') }}
+          className="w-full flex items-center justify-center gap-2 bg-[#7c5cfc] hover:bg-[#111] hover:border-[#333] border border-[#222] text-white font-semibold py-3 rounded-xl transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#7c5cfc] outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]">
           <Plus size={18} aria-hidden="true" />
           New Analysis
         </button>
@@ -62,7 +70,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({ onCloseMobile }) => {
           )}
         </div>
 
-        <div className="flex flex-col gap-2">
+        {/* <div className="flex flex-col gap-2">
           <button
             aria-expanded={generationExpanded}
             className="w-full flex items-center justify-between text-[#999] hover:text-white cursor-pointer px-2 py-1 focus-visible:ring-2 focus-visible:ring-[#7c5cfc] outline-none rounded-md"
@@ -81,7 +89,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({ onCloseMobile }) => {
               ))}
             </div>
           )}
-        </div>
+        </div> */}
       </nav>
 
       {/* Bottom Settings */}

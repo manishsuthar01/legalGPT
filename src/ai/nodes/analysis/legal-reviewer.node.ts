@@ -2,7 +2,6 @@ import { StringOutputParser } from "@langchain/core/output_parsers";
 import { prompt } from "../../prompts/analysis/legal-reviewer.prompt";
 import { getLLM } from "../../models";
 import { AnalysisState } from "../../types/analysis";
-import fs from "fs";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -106,9 +105,6 @@ export const legalReviewerNode = async (state: AnalysisState): Promise<Partial<A
         }
 
         console.log(`[legalReviewerNode] GENERATED ${feedback.length} STRICT REVIEWS in ${(Date.now() - startTime) / 1000}s`);
-
-        // Save the reviews to a file so we can view them easily
-        fs.writeFileSync("reviews.json", JSON.stringify(feedback, null, 2));
 
         return {
             status: "processing",

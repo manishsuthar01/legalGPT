@@ -2,7 +2,6 @@ import { StringOutputParser } from "@langchain/core/output_parsers";
 import { advisorPrompt } from "../../prompts/analysis/legal-advisor.prompt";
 import { getLLM } from "../../models";
 import { AnalysisState } from "../../types/analysis";
-import fs from "fs";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -52,9 +51,6 @@ export const legalAdvisorNode = async (state: AnalysisState): Promise<Partial<An
             const missingClauses = parsed.missingClauses || [];
 
             console.log(`[legal-advisor.node.ts] GENERATED ${advisorFeedback.length} SUGGESTIONS, ${riskCards.length} RISK CARDS, ${positiveFindings.length} POSITIVES, ${missingClauses.length} MISSING CLAUSES in ${(Date.now() - startTime) / 1000}s`);
-
-            // Save for debugging
-            fs.writeFileSync("advisor-output.json", JSON.stringify(parsed, null, 2));
 
             return {
                 status: "completed",
