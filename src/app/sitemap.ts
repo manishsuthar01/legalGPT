@@ -58,6 +58,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: getAbsoluteUrl("/tools/nda-checker"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: getAbsoluteUrl("/tools/clause-analyzer"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.9,
+    },
+    {
+      url: getAbsoluteUrl("/compare"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: getAbsoluteUrl("/compare/legalgpt-vs-lawyers"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
+      url: getAbsoluteUrl("/compare/legalgpt-vs-chatgpt"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: getAbsoluteUrl("/terms"),
       lastModified: now,
       changeFrequency: "yearly",
