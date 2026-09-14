@@ -23,6 +23,7 @@ import {
   Breadcrumbs,
   RelatedClausesSection,
   RelatedContractsSection,
+  RelatedJurisdictionsSection,
 } from "@/components/seo/InternalLinking";
 
 interface PageProps {
@@ -308,6 +309,13 @@ export default async function ContractDetailPage({ params }: PageProps) {
             contractSlugs={contract.relatedContractSlugs}
             title="Related Commercial Agreements"
             description="Explore guides for complementary contracts often negotiated alongside this agreement."
+          />
+
+          {/* Key Jurisdictions Cross-Link */}
+          <RelatedJurisdictionsSection
+            jurisdictionSlugs={["india", "united-states", "california", "united-kingdom", "european-union"]}
+            title={`${contract.title} Enforceability Across Key Jurisdictions`}
+            description={`Statutory constraints, mandatory stamping, and non-compete voidness rules that apply when signing this ${contract.title} in different countries.`}
           />
         </div>
       </div>

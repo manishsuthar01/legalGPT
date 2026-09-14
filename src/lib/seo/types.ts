@@ -68,3 +68,27 @@ export interface GlossaryTerm {
   relatedClauseSlugs: string[];
   relatedContractSlugs: string[];
 }
+
+export interface JurisdictionStatute {
+  name: string;
+  code: string;
+  impactOnContracts: string;
+}
+
+export interface JurisdictionType {
+  slug: string;
+  countryCode: string;
+  flag: string;
+  name: string;
+  shortDescription: string;
+  overview: string;
+  legalSystem: "Common Law" | "Civil Law" | "Hybrid System";
+  governingBody: string;
+  keyStatutes: JurisdictionStatute[];
+  mandatoryRequirements: string[];
+  localRedFlags: string[];
+  recommendedContractSlugs: string[];
+  faqs: FaqItem[];
+  updatedAt: string;
+}
+

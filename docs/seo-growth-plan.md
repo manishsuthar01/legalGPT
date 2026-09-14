@@ -4,9 +4,9 @@
 
 This roadmap outlines the complete 35-phase organic search engine optimization and programmatic distribution strategy for LegalGPT.
 
-### Progress Overview (Milestones 1 & Beyond)
-- **Completed:** Milestone 1 (Phases 0, 1, 2, 3) + Initial Content Hub foundations.
-- **Current Phase:** Milestone 2 (Phases 4, 5, 9, 19) — Deepening Core Content Clusters & Internal Linking Engine.
+### Progress Overview (Milestones 1 to 4)
+- **Completed:** Milestone 1 (Phases 0, 1, 2, 3), Milestone 2 (Phases 4, 5, 9, 19), Milestone 3 (Phases 6, 10, 11, 12), and Milestone 4 (Phase 8).
+- **Current Phase:** Milestone 4 (Phases 7, 13, 15) — Programmatic Scale, Thought Leadership & Authority.
 
 ---
 
@@ -59,7 +59,7 @@ This roadmap outlines the complete 35-phase organic search engine optimization a
 | # | Phase | Priority | Status | Description & Deliverables |
 |:--|:------|:---------|:-------|:---------------------------|
 | 7 | Programmatic SEO Foundation | 🟠 | ⬜ | Structured datasets generating hundreds of high-intent programmatic pages with custom value. |
-| 8 | Jurisdiction SEO Hubs | 🟠 | ⬜ | Multi-jurisdiction hubs (`/jurisdictions/india`, `/jurisdictions/us`, `/jurisdictions/uk`). |
+| 8 | Jurisdiction SEO Hubs | 🟠 | ✅ | Multi-jurisdiction hubs (`/jurisdictions`, `/jurisdictions/india`, `/jurisdictions/united-states`, `/jurisdictions/california`, `/jurisdictions/united-kingdom`, `/jurisdictions/european-union`), statutory impact breakdown, formalities, local red flags, and bidirectional internal links. |
 | 13 | Editorial & Thought Leadership Blog | 🟠 | ⬜ | Long-form legal engineering, case studies, and contract failure breakdowns. |
 | 15 | Digital PR & Linkable Assets | 🔴 | ⬜ | Linkable data studies and outreach campaigns earning editorial backlinks. |
 

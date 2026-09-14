@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { contractsData } from "@/data/seo/contracts";
 import { clausesData } from "@/data/seo/clauses";
 import { glossaryData } from "@/data/seo/glossary";
+import { jurisdictionsData } from "@/data/seo/jurisdictions";
 import { getAbsoluteUrl } from "@/lib/seo/metadata";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -88,6 +89,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: getAbsoluteUrl("/jurisdictions"),
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
       url: getAbsoluteUrl("/terms"),
       lastModified: now,
       changeFrequency: "yearly",
@@ -131,10 +138,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
+  // 5. Dynamic Jurisdiction SEO Hub Pages
+  const jurisdictionRoutes: MetadataRoute.Sitemap = jurisdictionsData.map((jurisdiction) => ({
+    url: getAbsoluteUrl(`/jurisdictions/${jurisdiction.slug}`),
+    lastModified: new Date(jurisdiction.updatedAt || now),
+    changeFrequency: "weekly",
+    priority: 0.8,
+  }));
+
   return [
     ...staticRoutes,
     ...contractRoutes,
     ...clauseRoutes,
     ...glossaryRoutes,
+    ...jurisdictionRoutes,
   ];
 }

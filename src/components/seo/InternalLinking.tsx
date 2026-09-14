@@ -7,10 +7,12 @@ import {
   BookOpen,
   ArrowRight,
   Layers,
+  Globe,
 } from "lucide-react";
 import { getClauseBySlug } from "@/data/seo/clauses";
 import { getContractBySlug } from "@/data/seo/contracts";
 import { getGlossaryTermBySlug } from "@/data/seo/glossary";
+import { getJurisdictionBySlug } from "@/data/seo/jurisdictions";
 import { BreadcrumbItem } from "@/lib/seo/types";
 
 // ==========================================
@@ -253,3 +255,77 @@ export const RelatedGlossarySection: React.FC<RelatedGlossaryProps> = ({
     </div>
   );
 };
+
+// ==========================================
+// 5. Related Jurisdictions Section
+// ==========================================
+interface RelatedJurisdictionsProps {
+  jurisdictionSlugs: string[];
+  title?: string;
+  description?: string;
+}
+
+export const RelatedJurisdictionsSection: React.FC<RelatedJurisdictionsProps> = ({
+  jurisdictionSlugs,
+  title = "Key Jurisdiction Compliance Hubs",
+  description = "Local statutory requirements, mandatory execution formalities, and judicial precedents governing agreements across major legal systems.",
+}) => {
+  const jurisdictions = jurisdictionSlugs
+    .map((slug) => getJurisdictionBySlug(slug))
+    .filter(Boolean);
+
+  if (jurisdictions.length === 0) return null;
+
+  return (
+    <section className="mt-16 pt-12 border-t border-edge">
+      <div className="flex items-center gap-2.5 mb-3">
+        <Globe className="w-5 h-5 text-accent" />
+        <h2 className="text-2xl font-bold text-white tracking-tight">{title}</h2>
+      </div>
+      {description && (
+        <p className="text-silver text-sm max-w-2xl mb-8 leading-relaxed">
+          {description}
+        </p>
+      )}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {jurisdictions.map((jurisdiction) => {
+          if (!jurisdiction) return null;
+
+          return (
+            <Link
+              key={jurisdiction.slug}
+              href={`/jurisdictions/${jurisdiction.slug}`}
+              className="group rounded-2xl bg-surface/40 hover:bg-surface/80 border border-edge hover:border-accent/40 p-5 transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <span className="text-xl" role="img" aria-label={jurisdiction.name}>
+                    {jurisdiction.flag}
+                  </span>
+                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-white/5 border border-white/10 text-silver">
+                    {jurisdiction.legalSystem}
+                  </span>
+                </div>
+
+                <h3 className="text-white font-bold text-base mb-1.5 group-hover:text-accent transition-colors flex items-center justify-between">
+                  <span>{jurisdiction.name}</span>
+                  <ArrowRight className="w-4 h-4 text-silver group-hover:text-accent group-hover:translate-x-1 transition-all shrink-0" />
+                </h3>
+
+                <p className="text-silver text-xs line-clamp-2 leading-relaxed">
+                  {jurisdiction.shortDescription}
+                </p>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-white/5 flex items-center gap-2 text-[11px] font-mono text-accent">
+                <span>View Statutes &amp; Red Flags</span>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+

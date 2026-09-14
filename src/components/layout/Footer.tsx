@@ -64,11 +64,11 @@ export function Footer() {
             <ul className="space-y-2.5 text-sm">
               {[
                 { name: "Contract Guides Hub", href: "/contracts" },
-                { name: "NDA Teardown Guide", href: "/contracts/nda" },
-                { name: "SaaS Agreement Guide", href: "/contracts/saas-agreement" },
+                { name: "Jurisdiction Hubs", href: "/jurisdictions" },
                 { name: "Clause Risk Library", href: "/clauses" },
-                { name: "Indemnification Guide", href: "/clauses/indemnification" },
                 { name: "Legal Tech Glossary", href: "/glossary" },
+                { name: "Comparisons Hub", href: "/compare" },
+                { name: "NDA Teardown Guide", href: "/contracts/nda" },
               ].map((item) => (
                 <li key={item.name}>
                   <Link
