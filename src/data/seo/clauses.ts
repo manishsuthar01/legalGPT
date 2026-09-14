@@ -178,6 +178,206 @@ export const clausesData: ClauseType[] = [
     ],
     updatedAt: "2026-03-01",
   },
+  {
+    slug: "non-compete",
+    name: "Non-Compete Clause",
+    category: "Employment",
+    riskLevel: "high",
+    definition:
+      "A non-compete clause restricts an employee, contractor, or exiting founder from working for, advising, or establishing a competing business within a defined market, geographic region, and time frame post-termination.",
+    whyItMatters:
+      "Overbroad non-compete provisions can prevent you from earning a livelihood in your profession or force you to relocate. Even where state or federal regulations (like the FTC rule or California law) restrict enforcement, predatory employers still use them to intimidate workers.",
+    standardLanguageExample:
+      "During the term of employment and for a period of twelve (12) months thereafter, Employee shall not directly or indirectly engage in, perform services for, invest in, or operate any business that competes directly with the core SaaS products offered by Employer within the United States.",
+    redFlags: [
+      "Duration exceeding 12 months for standard employees or contractors",
+      "Worldwide or unbounded geographic restrictions with vague market definitions",
+      "Applying to low-level staff or independent contractors who possess no proprietary trade secrets",
+      "No geographic or market carve-outs permitting work in related but non-competing software sectors",
+    ],
+    saferAlternative:
+      "During the term of this Agreement and for six (6) months post-termination, Employee shall not provide direct consulting services to Named Competitors [List Specific Entities] in the specific technical capacity of [Core Specialization]. In jurisdictions where statutory post-employment covenants are prohibited, this section shall be void without affecting other provisions.",
+    relatedContractSlugs: [
+      "employment-agreement",
+      "partnership-agreement",
+      "freelance-agreement",
+      "nda",
+    ],
+    relatedClauseSlugs: ["confidentiality", "non-solicitation", "termination"],
+    faqs: [
+      {
+        question: "Are non-compete agreements legally enforceable?",
+        answer:
+          "Enforceability depends heavily on jurisdiction. California, Minnesota, Oklahoma, and North Dakota broadly ban non-competes. In states that allow them, courts will only enforce clauses that are reasonable in duration (under 1 year), geography, and protect legitimate trade secrets rather than ordinary competition.",
+      },
+      {
+        question: "Can an independent contractor be bound by a non-compete?",
+        answer:
+          "In most jurisdictions, non-competes imposed on 1099 independent contractors are heavily disfavored and often trigger worker misclassification penalties. Non-disclosure and non-solicitation provisions are typically used instead.",
+      },
+    ],
+    updatedAt: "2026-03-14",
+  },
+  {
+    slug: "dispute-resolution-arbitration",
+    name: "Dispute Resolution & Mandatory Arbitration",
+    category: "General",
+    riskLevel: "medium",
+    definition:
+      "A dispute resolution clause dictates the legal process by which contractual disagreements will be settled, commonly requiring mandatory binding arbitration instead of public civil litigation and waiving jury trials and class actions.",
+    whyItMatters:
+      "Arbitration is private and faster than court, but can be significantly more expensive for individuals and small startups because parties must pay private arbitrator hourly fees. Mandatory venue clauses can also force you to travel across the globe to litigate.",
+    standardLanguageExample:
+      "Any dispute, controversy, or claim arising out of or relating to this Agreement shall be settled by binding arbitration administered by the American Arbitration Association (AAA) in accordance with its Commercial Arbitration Rules. The place of arbitration shall be Dover, Delaware, and judgment on the award may be entered in any court having jurisdiction.",
+    redFlags: [
+      "Mandatory venue in an inconvenient foreign jurisdiction where you have no physical presence",
+      "Unilateral clause where the customer can sue in court, but you are forced into private arbitration",
+      "Waiver of injunctive relief, preventing you from swiftly stopping IP or trade secret theft",
+      "Clause forcing the losing party to pay all legal fees without exception (loser pays rule)",
+    ],
+    saferAlternative:
+      "Prior to formal arbitration, the parties shall attempt in good faith to resolve any dispute through executive escalation for thirty (30) days. If unresolved, disputes shall be submitted to confidential binding arbitration administered by JAMS/AAA in the mutual home jurisdiction of the defendant, with each party bearing its own attorneys' fees unless frivolous.",
+    relatedContractSlugs: [
+      "saas-agreement",
+      "master-services-agreement",
+      "partnership-agreement",
+      "commercial-lease-agreement",
+    ],
+    relatedClauseSlugs: ["limitation-of-liability", "termination"],
+    faqs: [
+      {
+        question: "Is arbitration better than going to court?",
+        answer:
+          "Arbitration offers privacy, speed, and specialized decision-makers, making it favorable for IP and enterprise trade secrets. However, arbitration decisions cannot be appealed, and arbitrator fees ($500–$1,500/hr) can be prohibitive for small businesses.",
+      },
+      {
+        question: "What is an informal negotiation escalation period?",
+        answer:
+          "It is a required 30-day window where C-level executives from both companies must meet to negotiate a business compromise before either party can file formal lawsuits or initiate costly arbitration.",
+      },
+    ],
+    updatedAt: "2026-03-14",
+  },
+  {
+    slug: "audit-rights",
+    name: "Audit Rights & Compliance Clause",
+    category: "General",
+    riskLevel: "medium",
+    definition:
+      "An audit clause gives one party the right to inspect the other party's books, source code, data security practices, or facilities to verify compliance with licensing, financial payments, or data protection laws.",
+    whyItMatters:
+      "Poorly drafted audit clauses allow enterprise customers or licensors to disrupt your daily business operations, inspect proprietary code, or force you to pay for expensive third-party audit teams.",
+    standardLanguageExample:
+      "Upon reasonable prior written notice of at least thirty (30) business days, Licensor or its designated independent auditor may inspect Licensee's books, records, and systems during normal business hours to verify compliance with license metrics and royalty payments under this Agreement.",
+    redFlags: [
+      "Unannounced on-site physical audits into multi-tenant cloud or co-working environments",
+      "Audits conducted by direct competitors or auditors paid on contingency fees",
+      "More frequent than once per calendar year without documented reasonable suspicion of breach",
+      "Burden-shifting clauses forcing you to pay the entire audit cost if an underpayment as small as 1% is discovered",
+    ],
+    saferAlternative:
+      "Licensor may audit Licensee's records once per twelve (12) month period upon forty-five (45) days prior written notice. Any inspection shall be conducted during normal business hours by an independent certified accounting firm bound by confidentiality, without disrupting operations. If an audit reveals an underpayment exceeding five percent (5%), Licensee shall pay the reasonable cost of the audit.",
+    relatedContractSlugs: [
+      "saas-agreement",
+      "data-processing-agreement",
+      "ip-licensing-agreement",
+      "master-services-agreement",
+    ],
+    relatedClauseSlugs: ["confidentiality", "limitation-of-liability"],
+    faqs: [
+      {
+        question: "How can SaaS companies satisfy enterprise audit requirements?",
+        answer:
+          "Rather than granting direct access to source code or internal production servers, SaaS providers typically provide annual SOC 2 Type II reports, ISO 27001 certifications, and third-party penetration test summaries.",
+      },
+      {
+        question: "What is a contingency-fee auditor?",
+        answer:
+          "A contingency-fee auditor receives a percentage of whatever unpaid fees or penalties they uncover. This creates an aggressive conflict of interest and should always be explicitly prohibited in the contract.",
+      },
+    ],
+    updatedAt: "2026-03-14",
+  },
+  {
+    slug: "warranty-disclaimer",
+    name: "Warranty Disclaimer & 'As-Is' Provision",
+    category: "Liability",
+    riskLevel: "high",
+    definition:
+      "A warranty disclaimer eliminates express and statutory implied warranties—such as merchantability, fitness for a particular purpose, and uninterrupted uptime—providing products or software strictly on an 'as-is' and 'as-available' basis.",
+    whyItMatters:
+      "Under commercial law (like the UCC), sellers automatically warrant that goods and software are fit for standard use unless explicitly disclaimed in bold, capitalized, conspicuous text. Missing this clause leaves vendors liable for system outages and software bugs.",
+    standardLanguageExample:
+      "EXCEPT AS EXPRESSLY SET FORTH HEREIN, THE SERVICES AND DELIVERABLES ARE PROVIDED 'AS IS' AND 'AS AVAILABLE.' PROVIDER DISCLAIMS ALL OTHER WARRANTIES, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT, AND DOES NOT WARRANT THAT THE SOFTWARE WILL BE UNINTERRUPTED OR ERROR-FREE.",
+    redFlags: [
+      "Lack of conspicuous, uppercase, or bold text (courts can declare standard font disclaimers legally ineffective)",
+      "Disclaimers that strip out the vendor's basic promise that they possess clear legal title to sell the product",
+      "Failure to disclaim implied warranties of accuracy or third-party data availability",
+      "Warranties promising 100% bug-free operation or 100% uptime with unlimited damages",
+    ],
+    saferAlternative:
+      "Provider warrants that the Services will perform materially in accordance with the user documentation. EXCEPT FOR THE FOREGOING LIMITED WARRANTY, THE PLATFORM IS PROVIDED 'AS IS' WITHOUT WARRANTY OF ANY KIND. PROVIDER EXPRESSLY DISCLAIMS ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. CUSTOMER'S EXCLUSIVE REMEDY FOR BREACH OF WARRANTY SHALL BE RE-PERFORMANCE OR REFUND OF PRO-RATED FEES.",
+    relatedContractSlugs: [
+      "saas-agreement",
+      "master-services-agreement",
+      "ip-licensing-agreement",
+      "consulting-agreement",
+    ],
+    relatedClauseSlugs: ["limitation-of-liability", "indemnification"],
+    faqs: [
+      {
+        question: "Why are warranty disclaimers almost always written in ALL CAPS?",
+        answer:
+          "The Uniform Commercial Code (UCC) and contract case law require warranty disclaimers to be 'conspicuous.' Courts have historically held that bold, capitalized text satisfies the conspicuousness standard so buyers cannot claim they missed it.",
+      },
+      {
+        question: "Can you disclaim intentional fraud or gross negligence?",
+        answer:
+          "No. Contractual disclaimers cannot legally waive liability for intentional fraud, intentional misrepresentation, gross negligence, or statutory violations in virtually all common-law jurisdictions.",
+      },
+    ],
+    updatedAt: "2026-03-14",
+  },
+  {
+    slug: "non-solicitation",
+    name: "Non-Solicitation Provision",
+    category: "Employment",
+    riskLevel: "medium",
+    definition:
+      "A non-solicitation clause restricts a departing worker, agency, or contractor from actively recruiting employees of the counterparty, or poaching their clients and customers for a set duration.",
+    whyItMatters:
+      "Service businesses, agencies, and tech companies rely on non-solicitation provisions to prevent consultants or senior staff from taking team members or clients with them when they launch competing firms.",
+    standardLanguageExample:
+      "For a period of twelve (12) months following termination of this Agreement, neither party shall directly solicit, induce, or encourage any employee or independent contractor of the other party to terminate their employment or engagement, without prior written consent.",
+    redFlags: [
+      "Clauses that prohibit hiring an employee who responded independently to a public general job posting",
+      "Banning contact with any customer of the counterparty, even if you never interacted with them",
+      "Excessive liquidated damage penalties (e.g., demanding 200% of an employee's annual salary upon hire)",
+      "Indefinite or perpetual non-solicitation restrictions",
+    ],
+    saferAlternative:
+      "During the term and for one (1) year thereafter, neither party shall intentionally solicit for employment any employee of the other party with whom they had direct contact under this Agreement. This restriction shall not apply to general employment solicitations published to the public or employees who initiate contact on their own accord.",
+    relatedContractSlugs: [
+      "employment-agreement",
+      "consulting-agreement",
+      "master-services-agreement",
+      "partnership-agreement",
+    ],
+    relatedClauseSlugs: ["non-compete", "confidentiality"],
+    faqs: [
+      {
+        question: "What is the difference between direct solicitation and general recruitment?",
+        answer:
+          "Direct solicitation involves specifically reaching out to an individual employee with an offer to poach them. General recruitment involves posting a job opening on LinkedIn or your company website; hiring someone who applies to an open job is generally permitted if carved out.",
+      },
+      {
+        question: "Are non-solicitation clauses enforceable in California?",
+        answer:
+          "In California, employee non-solicitation agreements are viewed with heavy skepticism by courts as indirect restraints on trade under Business and Professions Code § 16600, while customer non-solicitation is strictly limited to protecting verified trade secrets.",
+      },
+    ],
+    updatedAt: "2026-03-14",
+  },
 ];
 
 export function getClauseBySlug(slug: string): ClauseType | undefined {

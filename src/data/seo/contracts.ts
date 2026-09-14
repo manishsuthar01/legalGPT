@@ -349,6 +349,390 @@ export const contractsData: ContractType[] = [
     ],
     updatedAt: "2026-03-01",
   },
+  {
+    slug: "master-services-agreement",
+    title: "Master Services Agreement (MSA)",
+    shortDescription:
+      "Complete guide to MSAs: Statement of Work (SOW) hierarchies, indemnification caps, IP carve-outs, and payment term traps.",
+    summary:
+      "A Master Services Agreement (MSA) establishes the foundational legal framework governing ongoing or repeated vendor-client engagements. Specific deliverables and pricing are governed by modular Statements of Work (SOWs), making the core MSA terms critical for long-term legal and financial liability.",
+    targetAudience: [
+      "Enterprise Vendors",
+      "Software Development Agencies",
+      "Consulting Firms",
+      "B2B Service Providers",
+    ],
+    criticalClauseSlugs: [
+      "limitation-of-liability",
+      "indemnification",
+      "warranty-disclaimer",
+      "termination",
+    ],
+    commonRisks: [
+      {
+        title: "Conflicting Terms Between MSA and Statements of Work",
+        severity: "high",
+        description:
+          "Ambiguity over whether SOW custom terms override master MSA liability protections.",
+        recommendation:
+          "Include a clear order-of-precedence clause specifying which document controls in the event of a conflict.",
+      },
+      {
+        title: "Uncapped Consequential and Lost Profits Liability",
+        severity: "high",
+        description:
+          "Customer contracts seeking recovery for lost sales or indirect losses caused by project delays or bugs.",
+        recommendation:
+          "Insist on mutual waivers of indirect, special, and consequential damages, and cap aggregate recovery to fees paid in the last 12 months.",
+      },
+      {
+        title: "Vague Acceptance Criteria Triggering Payment Withholding",
+        severity: "medium",
+        description:
+          "Clients having subjective discretion to reject deliverables indefinitely without paying milestone invoices.",
+        recommendation:
+          "Establish deemed-acceptance windows (e.g. 10 business days) where deliverables are considered approved unless specific written defects are filed.",
+      },
+    ],
+    redFlags: [
+      "Customer demands unilateral indemnification with no reciprocal IP indemnity",
+      "Unlimited audit rights into vendor financial records and internal employee pay rates",
+      "Termination for convenience without paying for work completed and non-cancelable commitments",
+      "Overly broad 'all work made for hire' clauses transferring vendor pre-existing tools and code libraries",
+    ],
+    negotiationTips: [
+      "Keep standard legal terms in the MSA and operational timelines strictly in SOWs.",
+      "Explicitly carve out vendor background technology, libraries, and frameworks from customer assignment.",
+      "Include interest charges on late invoices and allow service suspension if payments are overdue by more than 30 days.",
+    ],
+    whenToGetLegalAdvice:
+      "Consult specialized corporate counsel when negotiating multi-year enterprise MSAs with foreign jurisdictions, government agencies, or contracts exceeding $250k in total value.",
+    relatedContractSlugs: [
+      "saas-agreement",
+      "consulting-agreement",
+      "data-processing-agreement",
+    ],
+    faqs: [
+      {
+        question: "How does an MSA differ from a Statement of Work (SOW)?",
+        answer:
+          "The MSA contains permanent governing terms like confidentiality, liability caps, dispute resolution, and warranties. The SOW contains project-specific details such as scope, milestones, deliverables, and fees. Multiple SOWs can sit under one MSA.",
+      },
+      {
+        question: "What is an Order of Precedence clause in an MSA?",
+        answer:
+          "An order of precedence clause determines which document wins if an SOW and the MSA contradict each other. Typically, the MSA governs legal terms unless the SOW explicitly names the specific section it intends to modify.",
+      },
+    ],
+    updatedAt: "2026-03-14",
+  },
+  {
+    slug: "data-processing-agreement",
+    title: "Data Processing Agreement (DPA)",
+    shortDescription:
+      "GDPR, CCPA, and DPDP compliance guide for DPAs: data breach notification timelines, sub-processor liability, and audit rights.",
+    summary:
+      "A Data Processing Agreement (DPA) regulates the processing of personal data between a data controller and a data processor under regulations like GDPR, CCPA, and global privacy frameworks. Poorly negotiated DPAs can expose software vendors to catastrophic regulatory fines and unlimited indemnities.",
+    targetAudience: [
+      "SaaS Founders & CTOs",
+      "Cloud Infrastructure Providers",
+      "Healthcare & Fintech Platforms",
+      "Data Analytics Companies",
+    ],
+    criticalClauseSlugs: [
+      "audit-rights",
+      "limitation-of-liability",
+      "indemnification",
+      "confidentiality",
+    ],
+    commonRisks: [
+      {
+        title: "Unrealistic 24-Hour Breach Notification Deadlines",
+        severity: "high",
+        description:
+          "Customers demanding notification of potential security incidents within 24 hours of first detection.",
+        recommendation:
+          "Negotiate notification 'without undue delay' or within 48 to 72 hours of confirming a verified breach.",
+      },
+      {
+        title: "Super-Caps or Uncapped Liability for Privacy Breaches",
+        severity: "high",
+        description:
+          "Customers demanding privacy indemnities be completely excluded from the contract's limitation of liability cap.",
+        recommendation:
+          "Negotiate a reasonable super-cap (e.g., 2x to 3x annual contract value) rather than uncapped exposure.",
+      },
+      {
+        title: "Customer Approval Required for Every New Sub-Processor",
+        severity: "medium",
+        description:
+          "Requiring explicit prior consent for adding new cloud vendors or database tools, halting feature deployments.",
+        recommendation:
+          "Provide general written authorization with a requirement to give 30 days prior notice and an opportunity to object.",
+      },
+    ],
+    redFlags: [
+      "Customer passing 100% of their statutory GDPR fines directly onto the processor",
+      "On-site physical audit rights into shared multi-tenant data centers",
+      "No customer obligation to ensure data was collected lawfully prior to sharing",
+      "Immediate termination rights for minor technical non-compliance without cure periods",
+    ],
+    negotiationTips: [
+      "Satisfy audit requirements using standard third-party certifications like SOC 2 Type II or ISO 27001.",
+      "Ensure customer indemnifies you if they upload data collected in violation of privacy laws.",
+      "Standardize on the European Commission's standard contractual clauses (SCCs) for cross-border transfers.",
+    ],
+    whenToGetLegalAdvice:
+      "Engage a certified data privacy attorney when transferring personal data between the US, EU, and India, or handling HIPAA/health information.",
+    relatedContractSlugs: [
+      "saas-agreement",
+      "master-services-agreement",
+      "nda",
+    ],
+    faqs: [
+      {
+        question: "Is a Data Processing Agreement mandatory under GDPR?",
+        answer:
+          "Yes. Article 28 of GDPR strictly requires a written contract between data controllers and data processors that specifies the nature, purpose, duration, and categories of data processed.",
+      },
+      {
+        question: "Can a DPA have its own separate liability cap?",
+        answer:
+          "Yes. Often parties agree that the general contract cap applies to DPAs, or establish a dedicated 'privacy super-cap' (typically 2x–5x annual subscription value) to cover data breach claims.",
+      },
+    ],
+    updatedAt: "2026-03-14",
+  },
+  {
+    slug: "ip-licensing-agreement",
+    title: "Intellectual Property (IP) Licensing Agreement",
+    shortDescription:
+      "Navigate exclusive vs non-exclusive licenses, royalty calculations, sublicensing rights, field-of-use restrictions, and reversion clauses.",
+    summary:
+      "An Intellectual Property (IP) Licensing Agreement permits a licensee to use, commercialize, or integrate copyrighted material, trademarks, or patented technology owned by a licensor. Crucial terms dictate exclusivity, geographic scope, quality control, and royalty payment terms.",
+    targetAudience: [
+      "Software Authors & Creators",
+      "Patent Holders",
+      "Brand Owners & Franchisors",
+      "Digital Media Studios",
+    ],
+    criticalClauseSlugs: [
+      "ip-ownership",
+      "audit-rights",
+      "warranty-disclaimer",
+      "termination",
+    ],
+    commonRisks: [
+      {
+        title: "Inadvertently Granting Exclusive Global Rights",
+        severity: "high",
+        description:
+          "Careless wording turning a standard license into an exclusive grant that prevents the creator from using their own IP.",
+        recommendation:
+          "Always specify 'non-exclusive, non-transferable, revocable' unless receiving substantial exclusivity consideration.",
+      },
+      {
+        title: "Uncontrolled Sublicensing Without Royalty Sharing",
+        severity: "high",
+        description:
+          "Licensees sublicensing the IP to third-party resellers without paying pass-through royalties.",
+        recommendation:
+          "Explicitly require licensor approval for sublicensing and define net revenue splits on sublicensed commercialization.",
+      },
+      {
+        title: "Ambiguous Derivative Works Ownership",
+        severity: "medium",
+        description:
+          "Disputes over who owns code enhancements, translation models, or modifications made by the licensee.",
+        recommendation:
+          "Clarify that licensor retains underlying IP and enhancements, while licensee owns separate standalone components.",
+      },
+    ],
+    redFlags: [
+      "Perpetual licenses that cannot be terminated even for non-payment of royalties",
+      "Absence of quality control provisions (can result in forfeiture of trademark rights)",
+      "Unrestricted field-of-use allowing licensee to compete in licensor's core market",
+      "No audit rights to inspect royalty sales reports and accounting books",
+    ],
+    negotiationTips: [
+      "Tie exclusivity to minimum annual sales or royalty performance quotas.",
+      "Reserve the right to audit licensee sales records annually with penalty fees if underreporting exceeds 5%.",
+      "Include automatic reversion rights if the licensee files for bankruptcy or ceases commercialization.",
+    ],
+    whenToGetLegalAdvice:
+      "Seek intellectual property counsel for patent monetization, global trademark syndication, or white-label OEM software distribution.",
+    relatedContractSlugs: [
+      "saas-agreement",
+      "master-services-agreement",
+      "consulting-agreement",
+    ],
+    faqs: [
+      {
+        question: "What happens to a license if the licensor sells the company?",
+        answer:
+          "Unless restricted by 'change of control' or assignment clauses, licensing agreements generally transfer to the acquiring entity. Licensees should ensure agreements survive acquisition.",
+      },
+      {
+        question: "What is the difference between an assignment and a license?",
+        answer:
+          "An assignment is a permanent transfer of ownership (like selling a car). A license grants permission to use the IP while the licensor retains ownership (like leasing a car).",
+      },
+    ],
+    updatedAt: "2026-03-14",
+  },
+  {
+    slug: "commercial-lease-agreement",
+    title: "Commercial Lease Agreement",
+    shortDescription:
+      "Protect your business in commercial leases: CAM charges, personal guarantees, early termination options, and restoration liabilities.",
+    summary:
+      "A Commercial Lease Agreement governs the rental of commercial properties, offices, and retail spaces. Unlike residential leases, commercial leases offer virtually no statutory tenant protections, making careful negotiation of CAM expenses, personal guarantees, and build-out rights vital.",
+    targetAudience: [
+      "Startup Founders & Office Managers",
+      "Retail & Restaurant Operators",
+      "Coworking & Warehouse Tenants",
+      "Commercial Landlords",
+    ],
+    criticalClauseSlugs: [
+      "termination",
+      "indemnification",
+      "limitation-of-liability",
+      "dispute-resolution-arbitration",
+    ],
+    commonRisks: [
+      {
+        title: "Uncontrolled Common Area Maintenance (CAM) Spikes",
+        severity: "high",
+        description:
+          "Landlords passing through structural capital repairs, administrative overheads, and roof replacements into monthly rent.",
+        recommendation:
+          "Cap controllable CAM expense increases at 3%–5% annually and exclude capital expenditures from operating costs.",
+      },
+      {
+        title: "Broad Personal Guarantees Threatening Personal Assets",
+        severity: "high",
+        description:
+          "Founders personally co-signing commercial leases, putting personal savings and homes on the line if the startup folds.",
+        recommendation:
+          "Negotiate a 'Good Guy Guarantee' or burning guarantee that expires after 12–24 months of on-time rent payments.",
+      },
+      {
+        title: "Burdensome End-of-Lease Restoration Obligations",
+        severity: "medium",
+        description:
+          "Clauses forcing tenants to demolish custom tenant improvements and restore premises to raw concrete shell.",
+        recommendation:
+          "Specify that the tenant will surrender the space in broom-clean condition with reasonable wear and tear permitted.",
+      },
+    ],
+    redFlags: [
+      "Unilateral landlord right to relocate tenant to inferior space in the building",
+      "Subleasing restrictions prohibiting assignment to corporate buyers or merger partners",
+      "No rent abatement if building loses power, internet, or HVAC for extended periods",
+      "Zero notice period before landlord locks doors for minor administrative defaults",
+    ],
+    negotiationTips: [
+      "Secure early termination 'kick-out' clauses if business metrics or funding milestones are missed.",
+      "Ensure tenant improvements (TI) allowances are paid upfront or deducted directly from monthly rent.",
+      "Reserve the right to sublease or assign the space to an affiliate or acquirer without landlord fee gouging.",
+    ],
+    whenToGetLegalAdvice:
+      "Always engage a commercial real estate lawyer prior to signing multi-year leases or providing personal guarantees exceeding $50k.",
+    relatedContractSlugs: [
+      "master-services-agreement",
+      "partnership-agreement",
+    ],
+    faqs: [
+      {
+        question: "What is a Triple Net (NNN) lease?",
+        answer:
+          "In a Triple Net lease, the tenant pays base rent plus their proportionate share of property taxes, property insurance, and Common Area Maintenance (CAM) expenses.",
+      },
+      {
+        question: "What is a 'Good Guy' guarantee in commercial leasing?",
+        answer:
+          "A Good Guy guarantee limits a founder's personal liability to the period they actually occupy the space. If the company gives advance notice and vacates broom-clean, personal liability ends upon handover.",
+      },
+    ],
+    updatedAt: "2026-03-14",
+  },
+  {
+    slug: "partnership-agreement",
+    title: "Partnership & Founder Agreement",
+    shortDescription:
+      "Essential guide to founder and partnership agreements: equity vesting, drag-along rights, deadlocks, and non-compete restrictions.",
+    summary:
+      "A Partnership Agreement or Founders' Agreement establishes ownership stakes, equity vesting schedules, decision-making powers, and dissolution mechanisms between business partners. Clear rules around departure, intellectual property assignment, and buyouts prevent catastrophic corporate deadlocks.",
+    targetAudience: [
+      "Startup Co-Founders",
+      "LLC & LLP Partners",
+      "Joint Venture Collaborators",
+      "Angel Investors",
+    ],
+    criticalClauseSlugs: [
+      "non-compete",
+      "dispute-resolution-arbitration",
+      "ip-ownership",
+      "termination",
+    ],
+    commonRisks: [
+      {
+        title: "Immediate 100% Equity Ownership Without Vesting",
+        severity: "high",
+        description:
+          "A co-founder leaves after three months but keeps 50% of the startup's equity, rendering the company uninvestable.",
+        recommendation:
+          "Implement standard 4-year vesting with a 1-year cliff and accelerated vesting on acquisition (double-trigger).",
+      },
+      {
+        title: "Equal 50/50 Deadlocks Without Tie-Breaking Mechanics",
+        severity: "high",
+        description:
+          "Disputes between equal partners freezing corporate decisions, payroll, and strategic hiring.",
+        recommendation:
+          "Establish an independent advisory board member tie-breaker, shotgun buy-sell clause, or designated executive domain authority.",
+      },
+      {
+        title: "Unclear IP Assignment to the Corporate Entity",
+        severity: "high",
+        description:
+          "Founders developing code or patents personally without formal assignment to the company prior to incorporation.",
+        recommendation:
+          "Execute comprehensive Invention Assignment Agreements transferring all past, present, and future product IP to the company.",
+      },
+    ],
+    redFlags: [
+      "No buyback mechanism for departing founders' unvested shares at nominal value",
+      "Unrestricted rights for partners to sell shares to external third-party competitors",
+      "No drag-along or tag-along clauses for future company acquisitions",
+      "Permitting partners to launch competing ventures while holding equity",
+    ],
+    negotiationTips: [
+      "Document roles, expected weekly time commitments, and salary expectations upfront.",
+      "Include a Russian Roulette (Shotgun) or appraisal-based buyout clause for irreconcilable deadlocks.",
+      "Ensure all company intellectual property is formally assigned before writing any code or taking outside capital.",
+    ],
+    whenToGetLegalAdvice:
+      "Retain a startup attorney before formal incorporation or allocating cap table equity among co-founders.",
+    relatedContractSlugs: [
+      "nda",
+      "employment-agreement",
+      "consulting-agreement",
+    ],
+    faqs: [
+      {
+        question: "What is a 1-year cliff in founder vesting?",
+        answer:
+          "A 1-year cliff means that if a founder leaves before completing 12 months of service, they walk away with 0% of their equity. After 12 months, 25% vests immediately, with the remainder vesting monthly over years 2–4.",
+      },
+      {
+        question: "What happens if co-founders disagree 50/50 on a major decision?",
+        answer:
+          "Without a deadlock mechanism, companies often wind up in judicial dissolution (court liquidation). Partnership agreements avoid this via shotgun buy-sell clauses or assigning final tie-breaking votes to an independent advisory board.",
+      },
+    ],
+    updatedAt: "2026-03-14",
+  },
 ];
 
 export function getContractBySlug(slug: string): ContractType | undefined {
