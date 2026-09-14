@@ -5,8 +5,8 @@ export function Footer() {
   return (
     <footer className="border-t border-edge bg-obsidian relative z-10">
       <div className="max-w-[var(--width-container)] mx-auto px-6 py-16">
-        {/* 3-Column Grid: Brand, Navigation, Tech Stack */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-12">
+        {/* 4-Column Grid: Brand, Product, Knowledge Hub, Company & Legal */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 mb-12">
           
           {/* Column 1: Brand */}
           <div>
@@ -21,8 +21,8 @@ export function Footer() {
                 LegalGPT
               </span>
             </Link>
-            <p className="text-silver text-sm leading-relaxed mb-6 max-w-sm">
-              Autonomous legal contract audit &amp; redlining engine. Powered by deterministic legal retrieval and sovereign privacy isolation.
+            <p className="text-silver text-sm leading-relaxed mb-6">
+              Autonomous AI contract audit &amp; redlining engine. In-memory processing, zero data retention, and statutory research verification.
             </p>
             {/* System Status Indicator */}
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#111116] border border-edge text-xs">
@@ -31,23 +31,23 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Navigation & Resources */}
+          {/* Column 2: Product & Platform */}
           <div>
-            <h3 className="text-white font-medium text-sm mb-4 uppercase tracking-wider text-xs">
-              Navigation
+            <h3 className="text-white font-medium text-xs mb-4 uppercase tracking-wider">
+              Product &amp; Pricing
             </h3>
-            <ul className="space-y-2.5">
+            <ul className="space-y-2.5 text-sm">
               {[
-                { name: "Live Contract Demo", href: "#demo" },
-                { name: "Architecture & Features", href: "#features" },
-                { name: "Reasoning Pipeline", href: "#how-it-works" },
-                { name: "Zero-Data Security", href: "#security" },
-                { name: "Document Workspace", href: "/contracts/mock-id" },
+                { name: "Pricing & Plans", href: "/pricing" },
+                { name: "Zero-Data Security", href: "/security" },
+                { name: "Free Tools Suite", href: "/tools" },
+                { name: "Document Workspace", href: "/app/contracts/mock-id" },
+                { name: "Architecture & Pipeline", href: "/#how-it-works" },
               ].map((item) => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
-                    className="text-silver hover:text-white transition-colors text-sm"
+                    className="text-silver hover:text-white transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -56,27 +56,55 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 3: Tech Stack & Verification */}
+          {/* Column 3: Legal Knowledge Hub */}
           <div>
-            <h3 className="text-white font-medium text-sm mb-4 uppercase tracking-wider text-xs">
-              Core Architecture
+            <h3 className="text-white font-medium text-xs mb-4 uppercase tracking-wider">
+              Knowledge Hub
             </h3>
-            <div className="space-y-2">
+            <ul className="space-y-2.5 text-sm">
               {[
-                { label: "Pipeline", value: "LangGraph StateGraph" },
-                { label: "Encryption", value: "AES-256 Memory Scrubbing" },
-                { label: "Vector Search", value: "Semantic Chunk Embeddings" },
-                { label: "Runtime", value: "Next.js 16 + React 19" },
-              ].map((spec) => (
-                <div
-                  key={spec.label}
-                  className="flex items-center justify-between text-xs py-1.5 border-b border-edge/50 font-mono"
-                >
-                  <span className="text-[#777]">{spec.label}</span>
-                  <span className="text-silver">{spec.value}</span>
-                </div>
+                { name: "Contract Guides Hub", href: "/contracts" },
+                { name: "NDA Teardown Guide", href: "/contracts/nda" },
+                { name: "SaaS Agreement Guide", href: "/contracts/saas-agreement" },
+                { name: "Clause Risk Library", href: "/clauses" },
+                { name: "Indemnification Guide", href: "/clauses/indemnification" },
+                { name: "Legal Tech Glossary", href: "/glossary" },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="text-silver hover:text-white transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
               ))}
-            </div>
+            </ul>
+          </div>
+
+          {/* Column 4: Company & Trust */}
+          <div>
+            <h3 className="text-white font-medium text-xs mb-4 uppercase tracking-wider">
+              Company &amp; Legal
+            </h3>
+            <ul className="space-y-2.5 text-sm">
+              {[
+                { name: "About Our Mission", href: "/about" },
+                { name: "Security Architecture", href: "/security" },
+                { name: "Privacy Policy", href: "/privacy" },
+                { name: "Terms of Service", href: "/terms" },
+                { name: "Legal Disclaimer", href: "/disclaimer" },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link
+                    href={item.href}
+                    className="text-silver hover:text-white transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
         </div>
@@ -84,11 +112,14 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-edge pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#666]">
           <p>
-            © {new Date().getFullYear()} LegalGPT Enigma. All rights reserved.
+            © {new Date().getFullYear()} LegalGPT. All rights reserved. Not an attorney-client relationship.
           </p>
           <div className="flex items-center gap-6">
-            <span className="font-mono text-[11px] text-[#555]">
-              PRIVACY BY DESIGN • LOCAL IN-MEMORY PROCESSING
+            <Link href="/privacy" className="hover:text-silver transition-colors">Privacy</Link>
+            <Link href="/terms" className="hover:text-silver transition-colors">Terms</Link>
+            <Link href="/disclaimer" className="hover:text-silver transition-colors">Disclaimer</Link>
+            <span className="font-mono text-[11px] text-[#555] hidden sm:inline">
+              IN-MEMORY ANALYSIS • ZERO RETENTION
             </span>
           </div>
         </div>

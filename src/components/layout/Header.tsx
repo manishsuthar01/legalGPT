@@ -46,12 +46,13 @@ export function Header() {
         </Link>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-sm">
+        <nav className="hidden md:flex items-center gap-7 text-sm">
           {[
-            { name: "Demo", href: "#demo" },
-            { name: "Features", href: "#features" },
-            { name: "Pipeline", href: "#how-it-works" },
-            { name: "Security", href: "#security" },
+            { name: "Features", href: "/#features" },
+            { name: "Pricing", href: "/pricing" },
+            { name: "Contracts", href: "/contracts" },
+            { name: "Clauses", href: "/clauses" },
+            { name: "Security", href: "/security" },
           ].map((item) => (
             <Link
               key={item.name}
@@ -66,7 +67,7 @@ export function Header() {
         {/* Right CTA */}
         <div className="flex items-center gap-3">
           <Link
-            href="/contracts/mock-id"
+            href="/app/contracts/mock-id"
             className="group flex items-center gap-1.5 bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-xl text-xs font-semibold hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(124,92,252,0.3)]"
           >
             <span>Launch Workspace</span>
