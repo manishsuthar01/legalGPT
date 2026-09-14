@@ -4,6 +4,7 @@ import { BookOpen, ArrowRight, Sparkles } from "lucide-react";
 import { glossaryData } from "@/data/seo/glossary";
 import { createMetadata } from "@/lib/seo/metadata";
 import { JsonLd, getBreadcrumbSchema } from "@/lib/seo/json-ld";
+import { GlossarySearchFilter } from "./GlossarySearchFilter";
 
 export const metadata = createMetadata({
   title: "Legal Tech & Contract Glossary — Plain-English Definitions",
@@ -32,7 +33,7 @@ export default function GlossaryHubPage() {
       <div className="py-20 md:py-28 relative z-10">
         <div className="max-w-[var(--width-container)] mx-auto px-6">
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-14">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface/80 border border-edge text-silver mb-6 text-xs font-mono tracking-widest uppercase">
               <BookOpen className="w-3.5 h-3.5 text-accent" />
               <span>Plain-English Legal Glossary</span>
@@ -48,33 +49,8 @@ export default function GlossaryHubPage() {
             </p>
           </div>
 
-          {/* Glossary Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-20">
-            {glossaryData.map((item) => (
-              <Link
-                key={item.slug}
-                href={`/glossary/${item.slug}`}
-                className="group rounded-2xl bg-surface/60 border border-edge p-6 hover:border-accent/50 hover:bg-surface/90 transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <h2 className="text-xl font-bold text-white mb-2 group-hover:text-accent transition-colors">
-                    {item.term}
-                  </h2>
-                  <p className="text-accent text-xs font-medium mb-3">
-                    &ldquo;{item.simpleExplanation}&rdquo;
-                  </p>
-                  <p className="text-silver text-xs line-clamp-2 leading-relaxed mb-4">
-                    {item.definition}
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-1.5 text-accent text-xs font-semibold group-hover:translate-x-1 transition-transform">
-                  <span>Read Full Definition &amp; Contract Example</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </div>
-              </Link>
-            ))}
-          </div>
+          {/* Interactive Search & Alphabet Filter */}
+          <GlossarySearchFilter terms={glossaryData} />
 
           {/* Bottom CTA */}
           <div className="rounded-2xl bg-gradient-to-r from-surface to-[#161224] border border-edge p-10 text-center">

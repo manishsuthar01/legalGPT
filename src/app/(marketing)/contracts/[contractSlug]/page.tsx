@@ -19,6 +19,11 @@ import {
 import { getClauseBySlug } from "@/data/seo/clauses";
 import { createMetadata } from "@/lib/seo/metadata";
 import { JsonLd, getBreadcrumbSchema, getFaqSchema } from "@/lib/seo/json-ld";
+import {
+  Breadcrumbs,
+  RelatedClausesSection,
+  RelatedContractsSection,
+} from "@/components/seo/InternalLinking";
 
 interface PageProps {
   params: Promise<{ contractSlug: string }>;
@@ -79,17 +84,7 @@ export default async function ContractDetailPage({ params }: PageProps) {
       <div className="py-16 md:py-24 relative z-10">
         <div className="max-w-[var(--width-container)] mx-auto px-6">
           {/* Breadcrumb Navigation */}
-          <nav className="flex items-center gap-2 text-xs font-mono text-silver mb-8">
-            <Link href="/" className="hover:text-white transition-colors">
-              Home
-            </Link>
-            <span>/</span>
-            <Link href="/contracts" className="hover:text-white transition-colors">
-              Contracts
-            </Link>
-            <span>/</span>
-            <span className="text-white truncate">{contract.title}</span>
-          </nav>
+          <Breadcrumbs items={breadcrumbs} />
 
           {/* Hero Section */}
           <div className="max-w-3xl mb-16">
@@ -301,29 +296,19 @@ export default async function ContractDetailPage({ params }: PageProps) {
             </div>
           </section>
 
-          {/* Related Contracts */}
-          {contract.relatedContractSlugs.length > 0 && (
-            <section className="border-t border-edge pt-12">
-              <h2 className="text-lg font-bold text-white mb-6">
-                Related Contract Guides
-              </h2>
-              <div className="flex flex-wrap gap-3">
-                {contract.relatedContractSlugs.map((slug) => {
-                  const related = contractsData.find((c) => c.slug === slug);
-                  if (!related) return null;
-                  return (
-                    <Link
-                      key={slug}
-                      href={`/contracts/${slug}`}
-                      className="px-4 py-2 rounded-xl bg-surface border border-edge hover:border-accent text-silver hover:text-white text-xs transition-colors"
-                    >
-                      {related.title}
-                    </Link>
-                  );
-                })}
-              </div>
-            </section>
-          )}
+          {/* Critical Clauses Cluster */}
+          <RelatedClausesSection
+            clauseSlugs={contract.criticalClauseSlugs}
+            title={`High-Risk Clauses in ${contract.title}`}
+            description={`Key provisions that frequently cause disputes, hidden liability, or unfair advantages in ${contract.title} negotiations.`}
+          />
+
+          {/* Related Contracts Cluster */}
+          <RelatedContractsSection
+            contractSlugs={contract.relatedContractSlugs}
+            title="Related Commercial Agreements"
+            description="Explore guides for complementary contracts often negotiated alongside this agreement."
+          />
         </div>
       </div>
     </>

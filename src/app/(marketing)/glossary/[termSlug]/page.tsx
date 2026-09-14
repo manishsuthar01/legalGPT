@@ -12,6 +12,7 @@ import { getClauseBySlug } from "@/data/seo/clauses";
 import { getContractBySlug } from "@/data/seo/contracts";
 import { createMetadata } from "@/lib/seo/metadata";
 import { JsonLd, getBreadcrumbSchema } from "@/lib/seo/json-ld";
+import { Breadcrumbs } from "@/components/seo/InternalLinking";
 
 interface PageProps {
   params: Promise<{ termSlug: string }>;
@@ -71,17 +72,7 @@ export default async function GlossaryDetailPage({ params }: PageProps) {
       <div className="py-16 md:py-24 relative z-10">
         <div className="max-w-[var(--width-container)] mx-auto px-6">
           {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 text-xs font-mono text-silver mb-8">
-            <Link href="/" className="hover:text-white transition-colors">
-              Home
-            </Link>
-            <span>/</span>
-            <Link href="/glossary" className="hover:text-white transition-colors">
-              Glossary
-            </Link>
-            <span>/</span>
-            <span className="text-white truncate">{term.term}</span>
-          </nav>
+          <Breadcrumbs items={breadcrumbs} />
 
           {/* Header */}
           <div className="max-w-3xl mb-12">

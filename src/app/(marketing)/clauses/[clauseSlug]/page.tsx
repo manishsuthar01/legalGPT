@@ -19,6 +19,11 @@ import {
 import { getContractBySlug } from "@/data/seo/contracts";
 import { createMetadata } from "@/lib/seo/metadata";
 import { JsonLd, getBreadcrumbSchema, getFaqSchema } from "@/lib/seo/json-ld";
+import {
+  Breadcrumbs,
+  RelatedClausesSection,
+  RelatedContractsSection,
+} from "@/components/seo/InternalLinking";
 
 interface PageProps {
   params: Promise<{ clauseSlug: string }>;
@@ -80,17 +85,7 @@ export default async function ClauseDetailPage({ params }: PageProps) {
       <div className="py-16 md:py-24 relative z-10">
         <div className="max-w-[var(--width-container)] mx-auto px-6">
           {/* Breadcrumbs */}
-          <nav className="flex items-center gap-2 text-xs font-mono text-silver mb-8">
-            <Link href="/" className="hover:text-white transition-colors">
-              Home
-            </Link>
-            <span>/</span>
-            <Link href="/clauses" className="hover:text-white transition-colors">
-              Clauses
-            </Link>
-            <span>/</span>
-            <span className="text-white truncate">{clause.name}</span>
-          </nav>
+          <Breadcrumbs items={breadcrumbs} />
 
           {/* Hero Header */}
           <div className="max-w-3xl mb-16">
@@ -250,52 +245,19 @@ export default async function ClauseDetailPage({ params }: PageProps) {
             </div>
           </section>
 
-          {/* Affected Contracts & Sibling Clauses */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-edge pt-12">
-            {/* Affected Contracts */}
-            <div>
-              <h3 className="text-base font-bold text-white mb-4">
-                Contracts That Include This Clause
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {clause.relatedContractSlugs.map((slug) => {
-                  const contract = getContractBySlug(slug);
-                  if (!contract) return null;
-                  return (
-                    <Link
-                      key={slug}
-                      href={`/contracts/${slug}`}
-                      className="px-3 py-1.5 rounded-lg bg-surface border border-edge hover:border-accent text-silver hover:text-white text-xs transition-colors"
-                    >
-                      {contract.title}
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
+          {/* Affected Contracts Cluster */}
+          <RelatedContractsSection
+            contractSlugs={clause.relatedContractSlugs}
+            title="Agreements Containing This Clause"
+            description={`Commercial and employment contracts where the ${clause.name} is routinely included and negotiated.`}
+          />
 
-            {/* Sibling Clauses */}
-            <div>
-              <h3 className="text-base font-bold text-white mb-4">
-                Related Clauses to Review
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {clause.relatedClauseSlugs.map((slug) => {
-                  const sibling = getClauseBySlug(slug);
-                  if (!sibling) return null;
-                  return (
-                    <Link
-                      key={slug}
-                      href={`/clauses/${slug}`}
-                      className="px-3 py-1.5 rounded-lg bg-surface border border-edge hover:border-accent text-silver hover:text-white text-xs transition-colors"
-                    >
-                      {sibling.name}
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+          {/* Related Companion Clauses */}
+          <RelatedClausesSection
+            clauseSlugs={clause.relatedClauseSlugs}
+            title="Related Companion Clauses"
+            description="When redlining this provision, review these related clauses to prevent unintended liability shifts."
+          />
         </div>
       </div>
     </>
