@@ -21,30 +21,30 @@ export const metadata = createMetadata({
 const toolsList = [
   {
     icon: ShieldAlert,
-    title: "Contract Risk Checker",
-    badge: "Most Popular",
+    title: "Full Contract Risk Checker",
+    badge: "Deep AI Analysis",
     description:
       "Upload any contract in PDF or text format. Get a 0–100 risk score, high-severity clause count, and a summary of missing protections in 30 seconds.",
-    href: "/app/contracts/mock-id",
-    cta: "Launch Scanner Free",
+    href: "/app/contracts/new",
+    cta: "Launch Deep Scanner",
   },
   {
     icon: FileCheck,
-    title: "NDA Risk Checker",
-    badge: "Founders & Freelancers",
+    title: "Free NDA Risk Checker",
+    badge: "Instant Browser Tool",
     description:
       "Detect perpetual confidentiality periods, hidden non-competes, and aggressive IP assignment language in Non-Disclosure Agreements.",
-    href: "/contracts/nda",
-    cta: "Review NDA Guide & Tool",
+    href: "/tools/nda-checker",
+    cta: "Scan NDA Free",
   },
   {
     icon: Layers,
     title: "Clause Redlining Analyzer",
-    badge: "Interactive",
+    badge: "Interactive Redlines",
     description:
-      "Compare your contract's indemnification and limitation of liability clauses against our balanced, attorney-approved alternative language.",
-    href: "/clauses",
-    cta: "Explore Clause Library",
+      "Paste any single clause (indemnification, liability cap, non-compete) to get instant risk scoring and attorney-vetted replacement language.",
+    href: "/tools/clause-analyzer",
+    cta: "Analyze Clause Free",
   },
 ];
 
