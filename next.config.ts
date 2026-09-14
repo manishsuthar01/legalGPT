@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  trailingSlash: false,
   logging: {
     incomingRequests: {
       ignore: [/\/hybridaction/],
