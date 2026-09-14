@@ -36,7 +36,7 @@ export const CTA = () => {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
-                href="/contracts/mock-id"
+                href="/app/contracts/mock-id"
                 className="group flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-accent text-white font-semibold text-base hover:scale-[1.02] hover:bg-accent/90 transition-all duration-300 shadow-[0_0_25px_rgba(124,92,252,0.35)] w-full sm:w-auto"
               >
                 <span>Start Free Audit</span>

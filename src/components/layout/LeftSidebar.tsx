@@ -43,7 +43,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({ onCloseMobile }) => {
       {/* Main Content */}
       <nav className="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-6" aria-label="Main Navigation">
         <button
-          onClick={() => { router.push('/contracts/new') }}
+          onClick={() => { router.push('/app/contracts/new') }}
           className="w-full flex items-center justify-center gap-2 bg-[#7c5cfc] hover:bg-[#111] hover:border-[#333] border border-[#222] text-white font-semibold py-3 rounded-xl transition-all duration-300 focus-visible:ring-2 focus-visible:ring-[#7c5cfc] outline-none focus-visible:ring-offset-2 focus-visible:ring-offset-[#0a0a0a]">
           <Plus size={18} aria-hidden="true" />
           New Analysis

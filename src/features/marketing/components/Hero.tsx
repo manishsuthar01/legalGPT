@@ -57,7 +57,7 @@ export const Hero = () => {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-14"
         >
           <Link
-            href="/contracts/mock-id"
+            href="/app/contracts/mock-id"
             className="group flex items-center justify-center gap-2.5 bg-accent text-white font-semibold px-8 py-4 rounded-xl text-base hover:scale-[1.02] hover:bg-accent/90 transition-all duration-300 shadow-[0_0_25px_rgba(124,92,252,0.35)] w-full sm:w-auto"
           >
             <span>Scan Your Contract</span>

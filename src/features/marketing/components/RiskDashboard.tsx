@@ -279,7 +279,7 @@ export const RiskDashboard = () => {
                     <span className="text-white font-medium">Ready to test?</span> Scan your own document.
                   </div>
                   <Link
-                    href="/contracts/mock-id"
+                    href="/app/contracts/mock-id"
                     className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:text-accent/80 transition-colors"
                   >
                     <span>Full Workspace</span>
