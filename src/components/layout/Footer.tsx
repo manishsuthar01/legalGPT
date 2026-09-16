@@ -25,7 +25,11 @@ export function Footer() {
               Autonomous AI contract audit &amp; redlining engine. In-memory processing, zero data retention, and statutory research verification.
             </p>
             {/* System Status Indicator */}
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#111116] border border-edge text-xs">
+            <div
+              role="status"
+              aria-label="System operational status"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#111116] border border-edge text-xs"
+            >
               <span className="w-2 h-2 rounded-full bg-risk-low animate-pulse" />
               <span className="text-silver font-mono text-[11px]">System Operational</span>
             </div>

@@ -11,6 +11,8 @@ LegalGPT is an AI-powered contract analysis and legal advisory platform. It auto
 - **Autonomous Legal Web Research**: Deploys AI agents using search APIs (e.g. Tavily) to verify compliance, market standards, and legal risks.
 - **Executive Legal Advisory**: Synthesizes clause-by-clause reviews into an overall risk rating, executive summary, and key recommendations.
 - **Interactive RAG Legal Assistant**: RAG-powered chat that queries vector embeddings from Supabase to provide context-aware answers to contract-specific questions.
+- **Interactive Client-Side Scanners**: Free risk evaluation tools including `/tools/nda-checker` and `/tools/clause-analyzer` for instant counter-party clause audits.
+- **Multi-Jurisdiction Legal Intelligence**: Localized statutory hubs across United States, California, India, United Kingdom, and the European Union.
 
 ---
 
@@ -109,4 +111,5 @@ For in-depth architectural specifications and implementation guides, explore the
 - [User Flow & Journey](./docs/user-flow.md) — Ingestion, live execution, executive reporting, and interactive chat flows.
 - [Architecture Overview](./docs/architeture.md) — System components, security considerations, and data flow.
 - [Project Roadmap](./docs/roadmap.md) — Milestone tracking and upcoming features.
+- [SEO Growth Plan & Tracker](./docs/seo-growth-plan.md) — 35-phase organic search engine optimization and programmatic distribution matrix.
 
