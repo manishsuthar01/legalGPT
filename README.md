@@ -109,7 +109,7 @@ For in-depth architectural specifications and implementation guides, explore the
 - [Database Schema & Vector Store](./docs/database-schema.md) — Supabase PostgreSQL schema, pgvector indexing, and similarity functions.
 - [Domain Model](./docs/domain-model.md) — Entity relationships, risk cards, advisor feedback, and state interfaces.
 - [User Flow & Journey](./docs/user-flow.md) — Ingestion, live execution, executive reporting, and interactive chat flows.
-- [Architecture Overview](./docs/architeture.md) — System components, security considerations, and data flow.
+- [Architecture Overview](./docs/architecture.md) — System components, security considerations, and data flow.
 - [Project Roadmap](./docs/roadmap.md) — Milestone tracking and upcoming features.
 - [SEO Growth Plan & Tracker](./docs/seo-growth-plan.md) — 35-phase organic search engine optimization and programmatic distribution matrix.
 
