@@ -1,4 +1,3 @@
-import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import { AnalysisState } from "@/ai/types/analysis";
 import { supabaseAdmin } from "@/utils/supabase/admin";
 
@@ -12,14 +11,36 @@ export const extractTextNode = async (state: AnalysisState): Promise<Partial<Ana
             throw new Error(`Failed to download contract from Supabase storage: ${error?.message || "File not found"}`);
         }
 
-        const pdfLoader = new PDFLoader(fileBlob, {
-            splitPages: false
-        });
+        const arrayBuffer = await fileBlob.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
 
-        const docs = await pdfLoader.load();
-        const extractedText = docs.map(doc => doc.pageContent).join("\n\n");
+        let extractedText = "";
 
-        if (!extractedText.trim()) {
+        // Strategy 1: Direct pure-JS pdf-parse internal lib (reliable, zero canvas / native dependencies)
+        try {
+            // eslint-disable-next-line @typescript-eslint/no-require-imports
+            const pdfParseLib = require("pdf-parse/lib/pdf-parse.js");
+            const data = await pdfParseLib(buffer);
+            extractedText = data.text || "";
+        } catch (err1) {
+            console.warn("[extractTextNode] Strategy 1 (pdf-parse/lib) failed, trying standard require:", err1);
+            try {
+                // Strategy 2: Standard pdf-parse entry
+                // eslint-disable-next-line @typescript-eslint/no-require-imports
+                const pdfDefault = require("pdf-parse");
+                const data = await pdfDefault(buffer);
+                extractedText = data.text || "";
+            } catch (err2) {
+                console.warn("[extractTextNode] Strategy 2 (pdf-parse) failed, trying LangChain PDFLoader:", err2);
+                // Strategy 3: LangChain PDFLoader
+                const { PDFLoader } = await import("@langchain/community/document_loaders/fs/pdf");
+                const loader = new PDFLoader(fileBlob, { splitPages: false });
+                const docs = await (loader as any).load();
+                extractedText = docs.map((d: any) => d.pageContent).join("\n\n");
+            }
+        }
+
+        if (!extractedText || !extractedText.trim()) {
             throw new Error("No text extracted from the document");
         }
 
@@ -28,12 +49,13 @@ export const extractTextNode = async (state: AnalysisState): Promise<Partial<Ana
         return {
             extractedText: extractedText,
             status: "processing"
-        }
+        };
     } catch (error) {
         console.error("[extractTextNode] Error extracting text:", error);
 
         return {
             status: "failed",
-        }
+        };
     }
-}
+};
+
