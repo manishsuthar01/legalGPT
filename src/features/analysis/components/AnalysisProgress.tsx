@@ -36,29 +36,29 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
   ];
 
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full max-w-md mx-auto px-6">
+    <div className="flex flex-col items-center justify-center h-full w-full max-w-md mx-auto px-3 sm:px-6">
       <div 
-        className="w-full bg-[#111] border border-[#222] rounded-2xl p-10 shadow-2xl"
+        className="w-full bg-[#111] border border-[#222] rounded-xl sm:rounded-2xl p-5 sm:p-8 md:p-10 shadow-2xl"
         role="status"
         aria-live="polite"
       >
-        <h2 className="text-white text-xl font-semibold mb-8 text-center tracking-tight">
+        <h2 className="text-white text-lg sm:text-xl font-semibold mb-5 sm:mb-8 text-center tracking-tight">
           Analyzing Contract
         </h2>
         
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-3.5 sm:gap-5">
           {steps.map((step, idx) => (
-            <div key={idx} className={`flex items-center gap-4 transition-opacity duration-300 ${step.status === 'pending' ? 'opacity-50' : 'opacity-100'}`}>
+            <div key={idx} className={`flex items-center gap-3 sm:gap-4 transition-opacity duration-300 ${step.status === 'pending' ? 'opacity-50' : 'opacity-100'}`}>
               {step.status === 'complete' && (
-                <CheckCircle2 size={20} className="text-[#22c55e]" aria-hidden="true" />
+                <CheckCircle2 size={18} className="text-[#22c55e] shrink-0 sm:w-5 sm:h-5" aria-hidden="true" />
               )}
               {step.status === 'current' && (
-                <CircleDashed size={20} className="text-[#7c5cfc] animate-spin" aria-hidden="true" />
+                <CircleDashed size={18} className="text-[#7c5cfc] animate-spin shrink-0 sm:w-5 sm:h-5" aria-hidden="true" />
               )}
               {step.status === 'pending' && (
-                <Circle size={20} className="text-[#333]" aria-hidden="true" />
+                <Circle size={18} className="text-[#333] shrink-0 sm:w-5 sm:h-5" aria-hidden="true" />
               )}
-              <span className={`text-sm ${
+              <span className={`text-xs sm:text-sm ${
                 step.status === 'complete' ? 'text-[#999]' : 
                 step.status === 'current' ? 'text-white font-medium' : 
                 'text-[#555]'
@@ -73,3 +73,4 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
     </div>
   );
 };
+

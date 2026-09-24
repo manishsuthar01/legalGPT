@@ -13,13 +13,18 @@ export const DocumentMetadata: React.FC<DocumentMetadataProps> = ({ clauseCount,
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
+    <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-4 sm:mb-6">
       {stats.map((stat, idx) => (
-        <div key={idx} className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4 flex flex-col justify-center">
-          <span className="text-[#666] text-[10px] font-bold uppercase tracking-widest mb-1">{stat.label}</span>
-          <span className="text-white text-lg font-semibold">{stat.value}</span>
+        <div key={idx} className="bg-[#0a0a0a] border border-[#222] rounded-xl p-2.5 sm:p-4 flex flex-col justify-center overflow-hidden">
+          <span className="text-[#666] text-[9px] sm:text-[10px] font-bold uppercase tracking-wider mb-0.5 sm:mb-1 truncate">
+            {stat.label}
+          </span>
+          <span className="text-white text-sm sm:text-lg font-semibold truncate">
+            {stat.value}
+          </span>
         </div>
       ))}
     </div>
   );
 };
+

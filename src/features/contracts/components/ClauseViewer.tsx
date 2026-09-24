@@ -75,9 +75,9 @@ export const ClauseViewer: React.FC<ClauseViewerProps> = ({ advisorFeedback, rev
   };
 
   return (
-    <div className="flex-1 min-h-[400px] mt-6 bg-[#0a0a0a] border border-[#222] rounded-2xl overflow-hidden flex flex-col">
-      <div className="px-6 py-4 border-b border-[#222] flex items-center justify-between">
-        <h3 className="text-white font-semibold">Clause Analysis</h3>
+    <div className="flex-1 min-h-[350px] sm:min-h-[400px] mt-4 sm:mt-6 bg-[#0a0a0a] border border-[#222] rounded-xl sm:rounded-2xl overflow-hidden flex flex-col">
+      <div className="px-4 py-3 sm:px-6 sm:py-4 border-b border-[#222] flex items-center justify-between">
+        <h3 className="text-white font-semibold text-sm sm:text-base">Clause Analysis</h3>
         <span className="text-[#666] text-xs">{mergedClauses.length} flagged clause{mergedClauses.length !== 1 ? 's' : ''}</span>
       </div>
       
@@ -91,39 +91,39 @@ export const ClauseViewer: React.FC<ClauseViewerProps> = ({ advisorFeedback, rev
               {/* Collapsed Header */}
               <button
                 onClick={() => setExpandedId(isExpanded ? null : review.clauseId)}
-                className="w-full flex items-center gap-3 px-6 py-4 hover:bg-[#111] transition-colors text-left"
+                className="w-full flex items-center gap-2.5 sm:gap-3 px-4 sm:px-6 py-3.5 sm:py-4 hover:bg-[#111] transition-colors text-left focus-visible:ring-2 focus-visible:ring-[#7c5cfc] outline-none"
               >
                 {isExpanded ? (
                   <ChevronDown size={16} className="text-[#666] flex-shrink-0" />
                 ) : (
                   <ChevronRight size={16} className="text-[#666] flex-shrink-0" />
                 )}
-                <span className="text-white text-sm font-medium flex-1 truncate">
+                <span className="text-white text-xs sm:text-sm font-medium flex-1 truncate">
                   {advice?.clauseTitle || review.researchTopic || `Clause ${review.clauseId}`}
                 </span>
-                <span className={`text-xs font-bold uppercase tracking-wider ${getRiskColor(risk)}`}>
+                <span className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider shrink-0 ${getRiskColor(risk)}`}>
                   {risk}
                 </span>
               </button>
 
               {/* Expanded Content */}
               {isExpanded && (
-                <div className="px-6 pb-6 space-y-4">
+                <div className="px-4 sm:px-6 pb-4 sm:pb-6 space-y-3 sm:space-y-4">
                   {/* Original Clause Text */}
-                  <div className="bg-[#111] border border-[#222] rounded-xl p-4">
-                    <p className="text-[#666] text-[10px] font-bold uppercase tracking-widest mb-2">Original Clause</p>
-                    <p className="text-[#ccc] text-sm leading-relaxed whitespace-pre-wrap">
+                  <div className="bg-[#111] border border-[#222] rounded-xl p-3 sm:p-4">
+                    <p className="text-[#666] text-[9px] sm:text-[10px] font-bold uppercase tracking-wider mb-1.5 sm:mb-2">Original Clause</p>
+                    <p className="text-[#ccc] text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">
                       {review.clauseText}
                     </p>
                   </div>
 
                   {/* Reviewer Assessment */}
-                  <div className={`border rounded-xl p-4 ${getRiskBg(risk)}`}>
+                  <div className={`border rounded-xl p-3 sm:p-4 ${getRiskBg(risk)}`}>
                     <div className="flex items-center gap-2 mb-2">
                       <Shield size={14} className={getRiskColor(risk)} />
-                      <p className="text-[#666] text-[10px] font-bold uppercase tracking-widest">Reviewer Assessment</p>
+                      <p className="text-[#666] text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">Reviewer Assessment</p>
                     </div>
-                    <p className="text-[#ccc] text-sm leading-relaxed mb-3">
+                    <p className="text-[#ccc] text-xs sm:text-sm leading-relaxed mb-3">
                       {review.strictReview?.summary}
                     </p>
                     {review.strictReview?.observations?.length > 0 && (
@@ -140,15 +140,15 @@ export const ClauseViewer: React.FC<ClauseViewerProps> = ({ advisorFeedback, rev
 
                   {/* Advisor Suggestion */}
                   {advice && (
-                    <div className="bg-[#7c5cfc]/5 border border-[#7c5cfc]/20 rounded-xl p-4">
+                    <div className="bg-[#7c5cfc]/5 border border-[#7c5cfc]/20 rounded-xl p-3 sm:p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <Lightbulb size={14} className="text-[#7c5cfc]" />
-                        <p className="text-[#666] text-[10px] font-bold uppercase tracking-widest">Advisor Suggestion</p>
-                        <span className="ml-auto text-[10px] font-bold uppercase tracking-wider text-[#7c5cfc] bg-[#7c5cfc]/10 px-2 py-0.5 rounded-full">
+                        <p className="text-[#666] text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">Advisor Suggestion</p>
+                        <span className="ml-auto text-[9px] sm:text-[10px] font-bold uppercase tracking-wider text-[#7c5cfc] bg-[#7c5cfc]/10 px-2 py-0.5 rounded-full">
                           {advice.priority} Priority
                         </span>
                       </div>
-                      <p className="text-[#ccc] text-sm leading-relaxed mb-2">
+                      <p className="text-[#ccc] text-xs sm:text-sm leading-relaxed mb-2">
                         {advice.suggestedFix}
                       </p>
                       <p className="text-[#888] text-xs leading-relaxed italic">
@@ -159,14 +159,14 @@ export const ClauseViewer: React.FC<ClauseViewerProps> = ({ advisorFeedback, rev
 
                   {/* Replacement Language */}
                   {advice?.replacementLanguage && (
-                    <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-4">
+                    <div className="bg-[#0a0a0a] border border-[#222] rounded-xl p-3 sm:p-4">
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#7c5cfc]">
                             <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
                             <rect x="8" y="2" width="8" height="4" rx="1" ry="1" />
                           </svg>
-                          <p className="text-[#666] text-[10px] font-bold uppercase tracking-widest">Replacement Language</p>
+                          <p className="text-[#666] text-[9px] sm:text-[10px] font-bold uppercase tracking-wider">Replacement Language</p>
                         </div>
                         <button
                           onClick={() => {
@@ -177,7 +177,7 @@ export const ClauseViewer: React.FC<ClauseViewerProps> = ({ advisorFeedback, rev
                           Copy
                         </button>
                       </div>
-                      <p className="text-[#ccc] text-sm leading-relaxed font-mono bg-[#080808] border border-[#1a1a1a] rounded-lg p-3 whitespace-pre-wrap">
+                      <p className="text-[#ccc] text-xs sm:text-sm leading-relaxed font-mono bg-[#080808] border border-[#1a1a1a] rounded-lg p-3 whitespace-pre-wrap overflow-x-auto">
                         {advice.replacementLanguage}
                       </p>
                     </div>
@@ -185,7 +185,7 @@ export const ClauseViewer: React.FC<ClauseViewerProps> = ({ advisorFeedback, rev
 
                   {/* Applicable Law */}
                   {review.strictReview?.applicableLaw?.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 pt-1">
                       {review.strictReview.applicableLaw.map((law, i) => (
                         <span key={i} className="text-[10px] font-medium text-[#999] bg-[#111] border border-[#222] rounded-full px-3 py-1">
                           {law}
@@ -202,3 +202,4 @@ export const ClauseViewer: React.FC<ClauseViewerProps> = ({ advisorFeedback, rev
     </div>
   );
 };
+

@@ -39,16 +39,16 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUpload }) => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full max-w-2xl mx-auto px-6">
+    <div className="flex flex-col items-center justify-center h-full w-full max-w-2xl mx-auto px-4 sm:px-6 py-6">
       
-      <div className="mb-6 w-full max-w-xs flex flex-col items-center">
-        <label htmlFor="country-select" className="text-sm text-[#999] font-medium mb-2 uppercase tracking-wider">Target Jurisdiction</label>
+      <div className="mb-4 sm:mb-6 w-full max-w-xs flex flex-col items-center">
+        <label htmlFor="country-select" className="text-xs sm:text-sm text-[#999] font-medium mb-1.5 sm:mb-2 uppercase tracking-wider">Target Jurisdiction</label>
         <select
           id="country-select"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
           disabled={isuploading}
-          className="w-full bg-[#111] border border-[#333] text-white rounded-lg px-4 py-2 focus:outline-none focus:border-[#7c5cfc] transition-colors"
+          className="w-full bg-[#111] border border-[#333] text-white text-xs sm:text-sm rounded-lg px-3.5 sm:px-4 py-2 focus:outline-none focus:border-[#7c5cfc] transition-colors"
         >
           <option value="US">United States (US)</option>
           <option value="UK">United Kingdom (UK)</option>
@@ -63,26 +63,26 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUpload }) => {
         onClick={handleUplaodClick}
         disabled={isuploading}
         aria-label="Upload document for analysis"
-        className="w-full bg-[#0a0a0a] border-2 border-dashed border-[#222] hover:border-[#7c5cfc]/50 rounded-2xl p-16 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group focus-visible:ring-4 focus-visible:ring-[#7c5cfc]/50 outline-none"
+        className="w-full bg-[#0a0a0a] border-2 border-dashed border-[#222] hover:border-[#7c5cfc]/50 rounded-2xl p-6 sm:p-12 md:p-16 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group focus-visible:ring-4 focus-visible:ring-[#7c5cfc]/50 outline-none"
       >
-        <div className="w-20 h-20 bg-[#111] rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+        <div className="w-14 h-14 sm:w-20 sm:h-20 bg-[#111] rounded-full flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
 
           {isuploading ? (
-            <Loader2 size={40} className="text-[#7c5cfc] animate-spin" aria-hidden="true" />
+            <Loader2 size={28} className="text-[#7c5cfc] animate-spin sm:w-10 sm:h-10" aria-hidden="true" />
           ) : (
-            <UploadCloud size={40} className="text-[#7c5cfc]" aria-hidden="true" />
+            <UploadCloud size={28} className="text-[#7c5cfc] sm:w-10 sm:h-10" aria-hidden="true" />
           )}
         </div>
 
-        <h2 className="text-white text-2xl font-bold mb-3 text-center tracking-tight">
+        <h2 className="text-white text-lg sm:text-2xl font-bold mb-2 sm:mb-3 text-center tracking-tight">
           {isuploading ? 'Uploading contract...' : 'Analyze a Legal Contract'}
         </h2>
 
-        <p className="text-[#666] text-center mb-8 max-w-sm">
-          {error ? <span className='text-red-600'>Error: {error}</span> : "Drag and drop your PDF, DOCX or TXT file, or click to browse your files."}
+        <p className="text-[#666] text-xs sm:text-sm text-center mb-6 sm:mb-8 max-w-sm px-2">
+          {error ? <span className='text-red-400'>Error: {error}</span> : "Drag and drop your PDF, DOCX or TXT file, or click to browse your files."}
         </p>
 
-        <span className="bg-[#7c5cfc] group-hover:bg-[#111] group-hover:border-[#333] border border-[#222] text-white font-semibold px-8 py-3 rounded-xl transition-all duration-300 group-hover:scale-[1.02] inline-block pointer-events-none">
+        <span className="bg-[#7c5cfc] group-hover:bg-[#111] group-hover:border-[#333] border border-[#222] text-white font-semibold text-xs sm:text-sm px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl transition-all duration-300 group-hover:scale-[1.02] inline-block pointer-events-none">
           {isuploading ? "uploading..." : "browse files"}
         </span>
       </button>
@@ -96,9 +96,10 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUpload }) => {
         accept=".pdf,.docx,.txt"
       />
 
-      <p className="mt-8 text-xs text-[#444] uppercase tracking-widest font-bold text-center" aria-live="polite">
+      <p className="mt-4 sm:mt-8 text-[10px] sm:text-xs text-[#444] uppercase tracking-widest font-bold text-center" aria-live="polite">
         Supported Formats: PDF, DOCX, TXT
       </p>
     </div>
   );
+
 };
