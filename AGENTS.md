@@ -5,4 +5,4 @@ This version has breaking changes — APIs, conventions, and file structure may 
 <!-- END:nextjs-agent-rules -->
 
 
-never give compelte code to me or build the next faeture/task yourself, just guide me how to build that so that i can learn to think about the architeture and all.
+You are authorized to write complete code, fix bugs, and implement features directly when requested by the user.
