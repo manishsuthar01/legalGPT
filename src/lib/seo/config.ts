@@ -1,12 +1,35 @@
+/**
+ * Resolves the canonical base URL for the site.
+ * Prioritizes user configuration, then Vercel deployment variables,
+ * and falls back cleanly to production domain.
+ */
+function resolveSiteUrl(): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/$/, "");
+  }
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+  }
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`;
+  }
+  return "https://legalgpt.ai";
+}
+
 export const siteConfig = {
   siteName: "LegalGPT",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "https://legalgpt.ai",
+  siteUrl: resolveSiteUrl(),
   defaultTitle: "LegalGPT — AI Contract Review, Risk Analysis & Legal Intelligence",
   titleTemplate: "%s | LegalGPT",
   defaultDescription:
     "Autonomous AI-powered contract analysis, clause risk detection, and legal advisory engine. Scan contracts in seconds for aggressive terms, liability risks, and missing protections.",
-  defaultOgImage: "/logo/legalGPT_logo.png",
-  twitterHandle: "@legalgpt",
+  defaultOgImage: "/images/og-image.png",
+  defaultTwitterImage: "/images/twitter-card.png",
+  logoImage: "/logo/legalGPT_logo.png",
+  twitterHandle: process.env.NEXT_PUBLIC_TWITTER_HANDLE || "@legalgpt",
   locale: "en_US",
   author: "LegalGPT Team",
   keywords: [

@@ -32,11 +32,18 @@ export function createMetadata(meta: SeoPageMeta): Metadata {
   const absoluteUrl = getAbsoluteUrl(meta.path);
   const title = meta.title ? `${meta.title} | ${siteConfig.siteName}` : siteConfig.defaultTitle;
   const description = meta.description || siteConfig.defaultDescription;
-  const ogImage = meta.ogImage
-    ? meta.ogImage.startsWith("http")
-      ? meta.ogImage
-      : `${siteConfig.siteUrl}${meta.ogImage}`
-    : `${siteConfig.siteUrl}${siteConfig.defaultOgImage}`;
+
+  // Resolve OpenGraph image
+  const ogPath = meta.ogImage || siteConfig.defaultOgImage;
+  const ogImage = ogPath.startsWith("http")
+    ? ogPath
+    : `${siteConfig.siteUrl}${ogPath.startsWith("/") ? "" : "/"}${ogPath}`;
+
+  // Resolve Twitter image
+  const twitterPath = meta.twitterImage || meta.ogImage || siteConfig.defaultTwitterImage;
+  const twitterImage = twitterPath.startsWith("http")
+    ? twitterPath
+    : `${siteConfig.siteUrl}${twitterPath.startsWith("/") ? "" : "/"}${twitterPath}`;
 
   const isNoIndex = Boolean(meta.noindex);
 
@@ -48,8 +55,8 @@ export function createMetadata(meta: SeoPageMeta): Metadata {
     creator: siteConfig.author,
     metadataBase: new URL(siteConfig.siteUrl),
     icons: {
-      icon: "/logo/legalGPT_logo.png",
-      apple: "/logo/legalGPT_logo.png",
+      icon: siteConfig.logoImage,
+      apple: siteConfig.logoImage,
     },
     alternates: {
       canonical: absoluteUrl,
@@ -66,7 +73,8 @@ export function createMetadata(meta: SeoPageMeta): Metadata {
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: `${meta.title || siteConfig.siteName} — AI Contract Intelligence`,
+          type: "image/png",
+          alt: meta.ogImageAlt || `${meta.title || siteConfig.siteName} — AI Contract Intelligence`,
         },
       ],
       ...(meta.type === "article" && meta.publishedAt
@@ -77,12 +85,19 @@ export function createMetadata(meta: SeoPageMeta): Metadata {
         : {}),
     },
     twitter: {
-      card: "summary_large_image",
+      card: meta.twitterCard || "summary_large_image",
       title,
       description,
       site: siteConfig.twitterHandle,
       creator: siteConfig.twitterHandle,
-      images: [ogImage],
+      images: [
+        {
+          url: twitterImage,
+          width: 1200,
+          height: 630,
+          alt: meta.twitterImageAlt || `${meta.title || siteConfig.siteName} — AI Contract Intelligence`,
+        },
+      ],
     },
     robots: {
       index: !isNoIndex,

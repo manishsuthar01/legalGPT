@@ -3,6 +3,10 @@ export interface SeoPageMeta {
   description: string;
   path: string;
   ogImage?: string;
+  ogImageAlt?: string;
+  twitterImage?: string;
+  twitterImageAlt?: string;
+  twitterCard?: "summary_large_image" | "summary";
   noindex?: boolean;
   type?: "website" | "article";
   publishedAt?: string;
