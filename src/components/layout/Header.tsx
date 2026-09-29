@@ -35,14 +35,9 @@ export function Header() {
             height={32}
             className="group-hover:scale-105 transition-transform duration-300"
           />
-          <div className="flex items-center gap-1.5">
-            <span className="text-white font-bold text-lg tracking-tight">
-              LegalGPT
-            </span>
-            <span className="text-[10px] font-mono text-accent bg-accent/15 px-1.5 py-0.2 rounded border border-accent/30 uppercase">
-              AI
-            </span>
-          </div>
+          <span className="text-white font-bold text-lg tracking-tight">
+            LegalGPT
+          </span>
         </Link>
 
         {/* Navigation Links */}
@@ -65,10 +60,22 @@ export function Header() {
         </nav>
 
         {/* Right CTA */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <Link
+            href="/login"
+            className="hidden sm:inline-flex text-silver hover:text-white transition-colors font-medium text-xs tracking-wider uppercase px-3 py-2"
+          >
+            Login
+          </Link>
+          <Link
+            href="/signup"
+            className="flex items-center gap-1.5 bg-surface border border-edge hover:border-[#333] text-white px-4 py-2 rounded-xl text-xs font-semibold hover:scale-[1.02] transition-all duration-300"
+          >
+            <span>Sign Up</span>
+          </Link>
           <Link
             href="/app/contracts/mock-id"
-            className="group flex items-center gap-1.5 bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-xl text-xs font-semibold hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(124,92,252,0.3)]"
+            className="hidden sm:flex group items-center gap-1.5 bg-accent hover:bg-accent/90 text-white px-4 py-2 rounded-xl text-xs font-semibold hover:scale-[1.02] transition-all duration-300 shadow-[0_0_20px_rgba(124,92,252,0.3)]"
           >
             <span>Launch Workspace</span>
             <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
