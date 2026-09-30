@@ -11,25 +11,15 @@ export async function createClient() {
                 getAll() {
                     return cookieStore.getAll();
                 },
-                setAll(cookiesToSet: any) {
+                setAll(cookiesToSet) {
                     try {
-                        cookiesToSet.forEach((cookie: any) => {
-                            cookieStore.set(cookie.name, cookie.value, cookie.options);
+                        cookiesToSet.forEach(({ name, value, options }) => {
+                            cookieStore.set(name, value, options);
                         });
-                    } catch (error) {
-                        console.error("Error setting cookies:", error);
+                    } catch {
+                        // Ignored if called from a Server Component where cookies cannot be mutated
                     }
                 },
-                remove(name: string, options: any) {
-                    try {
-                        cookieStore.set(name, "", {
-                            ...options,
-                            maxAge: 0,
-                        });
-                    } catch (error) {
-                        console.error("Error removing cookie:", error);
-                    }
-                }
             },
         }
     );
