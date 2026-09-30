@@ -1,17 +1,21 @@
 'use client';
 
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion } from 'motion/react';
 import { Eye, EyeOff, ArrowRight, Loader2, AlertCircle, Mail, Lock } from 'lucide-react';
+
 import { createClient } from '@/lib/supabase/client';
+import { useAuthStore } from '@/features/auth/store/useAuthstore';
 import { getAuthErrorMessage } from '@/features/auth/lib/errors';
 import { validateEmail, validatePassword } from '@/features/auth/lib/validation';
 
 export default function LoginPage() {
   const router = useRouter();
+  const user = useAuthStore((state) => state.user);
+  const login = useAuthStore((state) => state.login);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -19,6 +23,20 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [fieldErrors, setFieldErrors] = useState<{ email?: string; password?: string }>({});
+
+  useEffect(() => {
+    if (user) {
+      router.replace('/app/contracts/new');
+    }
+  }, [user, router]);
+
+  if (user) {
+    return (
+      <div className="min-h-screen bg-obsidian flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-accent" />
+      </div>
+    );
+  }
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -41,7 +59,7 @@ export default function LoginPage() {
 
     try {
       const supabase = await createClient();
-      const { error: authError } = await supabase.auth.signInWithPassword({
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
         email: email.trim(),
         password,
       });
@@ -50,6 +68,18 @@ export default function LoginPage() {
         setError(getAuthErrorMessage(authError));
         setLoading(false);
         return;
+      }
+
+      // JWT access token is in data.session
+      if (data.user && data.session) {
+        login(
+          {
+            id: data.user.id,
+            email: data.user.email ?? '',
+            name: data.user.user_metadata?.name || data.user.email?.split('@')[0] || 'User',
+          },
+          data.session.access_token
+        );
       }
 
       // Redirect to the main authenticated app route
