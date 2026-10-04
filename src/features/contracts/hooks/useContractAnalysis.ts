@@ -40,7 +40,7 @@ export default function useContractAnalysis() {
         setAnalysisResult(null);
     }, []);
 
-    const startAnalysis = useCallback(async (supabaseFilePath: string, country: string) => {
+    const startAnalysis = useCallback(async (supabaseFilePath: string, country: string, targetContractId?: string) => {
         setIsAnalysing(true);
         setError(null);
         setCompletedNodes([]);
@@ -49,14 +49,14 @@ export default function useContractAnalysis() {
         setAnalysisResult(null);
 
         try {
-            const contractId = typeof params?.contractId === 'string' ? params.contractId : "default-contract";
+            const rawParamId = typeof params?.contractId === 'string' ? params.contractId : "";
+            const contractId = targetContractId || (rawParamId && rawParamId !== "new" && rawParamId !== "default-contract" ? rawParamId : crypto.randomUUID());
             const res = await fetch(`/api/contracts/${contractId}/analyze`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    userId: "user-123",
                     filePath: supabaseFilePath,
                     country
                 })

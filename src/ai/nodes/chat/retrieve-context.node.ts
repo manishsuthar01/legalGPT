@@ -9,18 +9,21 @@ import { HumanMessage } from "@langchain/core/messages";
 export const retrieveContextNode = async (state: ChatState): Promise<Partial<ChatState>> => {
     console.log("[retrieveContextNode] Fetching relevant clauses...");
     try {
-        if (!state.contractId || !state.messages.at(-1)?.content) {
+        if (!state.contractId || state.contractId === "new" || state.contractId === "default-contract" || !state.messages.at(-1)?.content) {
+            console.warn(`[retrieveContextNode] Invalid or missing contractId: "${state.contractId}", skipping retrieval.`);
             return {
-                status: "failed"
-            }
+                retrievedContext: "",
+                status: "success"
+            };
         }
         const messages = state.messages;
         const latestMessage = messages[messages.length - 1];
         const query = String(latestMessage.content);
-        if (!query) {
+        if (!query.trim()) {
             return {
-                status: "failed"
-            }
+                retrievedContext: "",
+                status: "success"
+            };
         }
         const embeddings = new GoogleGenerativeAIEmbeddings({
             apiKey: process.env.GEMINI_API_KEY,
@@ -31,12 +34,15 @@ export const retrieveContextNode = async (state: ChatState): Promise<Partial<Cha
             client: supabaseAdmin,
             tableName: "clauses",
             queryName: "match_clauses"
-        })
+        });
+
+        console.log(`[retrieveContextNode] Searching clauses strictly for contractId: "${state.contractId}" with query: "${query.slice(0, 50)}..."`);
         const results = await vectorStore.similaritySearch(query, 5, {
-            contractId: state.contractId
+            contractId: state.contractId,
+            contract_id: state.contractId
         });
         const combinedContext = results.map((result) => result.pageContent).join("\n\n");
-        console.log(`[retrieveContextNode] Retrieved ${results.length} relevant clauses.`);
+        console.log(`[retrieveContextNode] Retrieved ${results.length} relevant clauses for contract ${state.contractId}.`);
 
         return {
             retrievedContext: combinedContext,

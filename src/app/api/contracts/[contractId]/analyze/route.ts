@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { analyzeContractBodySchema } from "@/lib/validations/contract";
 import { AnalysisProgressChunk, AnalysisService } from "@/server/services/analysis.service";
+import { createClient } from "@/lib/supabase/server";
 
 interface RouteParams {
     contractId: string;
@@ -8,12 +9,35 @@ interface RouteParams {
 
 export async function POST(req: NextRequest, { params }: { params: Promise<RouteParams> }) {
     try {
-        const { contractId } = await params;
-        const body = await req.json()
-        const { userId, filePath, country } = body;
+        const supabase = await createClient();
+
+        const {
+            data: { user },
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
+        const { contractId: rawContractId } = await params;
+        const contractId = rawContractId && rawContractId !== "new" && rawContractId !== "default-contract"
+            ? rawContractId
+            : crypto.randomUUID();
+
+        const body = await req.json();
+        const { filePath, country } = body;
+
+        // Security: Ensure the file path belongs strictly to the authenticated user
+        if (!filePath || typeof filePath !== "string" || !filePath.startsWith(`${user.id}/`)) {
+            return NextResponse.json(
+                { success: false, error: "Access denied to specified file path" },
+                { status: 403 }
+            );
+        }
+
         const validateBody = analyzeContractBodySchema.safeParse({
             contractId,
-            userId,
+            userId: user.id,
             filePath,
             country
         });
@@ -37,14 +61,14 @@ export async function POST(req: NextRequest, { params }: { params: Promise<Route
                 try {
                     const result = await AnalysisService.runAnalysis(
                         contractId,
-                        userId,
+                        user.id,
                         filePath,
                         country,
                         handleStream
                     );
 
-                    // Send the final summary and risks back to the frontend
-                    const finalPayload = JSON.stringify({ status: "DONE", data: result.data });
+                    // Send the final summary, contractId, and risks back to the frontend
+                    const finalPayload = JSON.stringify({ status: "DONE", contractId, data: result.data });
                     controller.enqueue(encoder.encode(`data: ${finalPayload}\n\n`));
                     controller.close();
                 } catch (error: unknown) {
