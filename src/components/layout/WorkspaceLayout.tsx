@@ -8,9 +8,10 @@ interface WorkspaceLayoutProps {
   children: React.ReactNode;
   documentName: string;
   status: 'analyzing' | 'complete' | 'empty';
+  overallRisk?: 'LOW' | 'MEDIUM' | 'HIGH' | null;
 }
 
-export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ children, documentName, status }) => {
+export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ children, documentName, status, overallRisk }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDesktopCollapsed, setIsDesktopCollapsed] = useState(false);
 
@@ -47,6 +48,7 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ children, docu
         <TopHeader 
           documentName={documentName} 
           status={status} 
+          overallRisk={overallRisk}
           onMenuToggle={() => setIsMobileMenuOpen(true)}
           isDesktopCollapsed={isDesktopCollapsed}
           onToggleDesktopCollapse={() => setIsDesktopCollapsed(prev => !prev)}

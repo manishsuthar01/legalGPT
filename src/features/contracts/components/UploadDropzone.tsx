@@ -5,7 +5,7 @@ import { useAuthStore } from '@/features/auth/store/useAuthstore';
 import { createClient } from '@/lib/supabase/client';
 
 interface UploadDropzoneProps {
-  onUpload: (path: string, country: string) => void;
+  onUpload: (path: string, country: string, fileName?: string) => Promise<void> | void;
 }
 
 export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUpload }) => {
@@ -47,11 +47,11 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUpload }) => {
     setError(null);
 
     const result = await uploadContract(file, activeUserId);
-    setIsUploading(false);
     if (result.success && result.path) {
-      onUpload(result.path, country);
+      await onUpload(result.path, country, file.name);
     } else {
       setError(result.error instanceof Error ? result.error.message : 'Failed to upload contract');
+      setIsUploading(false);
     }
 
     if (fileInputRef.current) {

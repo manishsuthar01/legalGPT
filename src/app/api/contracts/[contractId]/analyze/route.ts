@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { analyzeContractBodySchema } from "@/lib/validations/contract";
 import { AnalysisProgressChunk, AnalysisService } from "@/server/services/analysis.service";
+import { ContractService } from "@/server/services/contract.service";
 import { createClient } from "@/lib/supabase/server";
 
 interface RouteParams {
@@ -25,7 +26,7 @@ export async function POST(req: NextRequest, { params }: { params: Promise<Route
             : crypto.randomUUID();
 
         const body = await req.json();
-        const { filePath, country } = body;
+        const { filePath, country, fileName } = body;
 
         // Security: Ensure the file path belongs strictly to the authenticated user
         if (!filePath || typeof filePath !== "string" || !filePath.startsWith(`${user.id}/`)) {
@@ -39,7 +40,8 @@ export async function POST(req: NextRequest, { params }: { params: Promise<Route
             contractId,
             userId: user.id,
             filePath,
-            country
+            country,
+            fileName,
         });
 
         if (!validateBody.success) {
@@ -48,6 +50,16 @@ export async function POST(req: NextRequest, { params }: { params: Promise<Route
                 { status: 400 }
             );
         }
+
+        // Initialize or update the contract record in Supabase database
+        await ContractService.createContractRecord({
+            id: contractId,
+            userId: user.id,
+            fileName: fileName || filePath.split('/').pop() || "Contract Document",
+            filePath,
+            country: country || "US",
+            status: "processing",
+        });
 
         const streamResponse = new ReadableStream<Uint8Array>({
             async start(controller) {
@@ -58,6 +70,13 @@ export async function POST(req: NextRequest, { params }: { params: Promise<Route
                     controller.enqueue(encoder.encode(`data: ${data}\n\n`));
                 };
 
+                // Immediately emit initial progress event to establish live stream feedback
+                handleStream({
+                    type: "progress",
+                    node: "text-extract-node",
+                    message: "Extracting contract text...",
+                });
+
                 try {
                     const result = await AnalysisService.runAnalysis(
                         contractId,
@@ -67,11 +86,21 @@ export async function POST(req: NextRequest, { params }: { params: Promise<Route
                         handleStream
                     );
 
+                    // Persist analysis report and update contract status in database
+                    await ContractService.updateContractAnalysis({
+                        contractId,
+                        status: "completed",
+                        riskScore: result.data.riskScore,
+                        overallRisk: result.data.overallRisk,
+                        analysisResult: result.data,
+                    });
+
                     // Send the final summary, contractId, and risks back to the frontend
                     const finalPayload = JSON.stringify({ status: "DONE", contractId, data: result.data });
                     controller.enqueue(encoder.encode(`data: ${finalPayload}\n\n`));
                     controller.close();
                 } catch (error: unknown) {
+                    await ContractService.updateContractStatus(contractId, "failed");
                     const errorMessage = error instanceof Error ? error.message : String(error);
                     const errorPayload = JSON.stringify({ status: "error", message: errorMessage });
                     controller.enqueue(encoder.encode(`data: ${errorPayload}\n\n`));

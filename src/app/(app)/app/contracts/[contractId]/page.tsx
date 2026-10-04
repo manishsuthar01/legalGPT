@@ -11,7 +11,7 @@ import { RiskList } from '@/features/analysis/components/RiskList';
 import { ClauseViewer } from '@/features/contracts/components/ClauseViewer';
 import { ChatPanel } from '@/features/chat/components/ChatPanel';
 import useContractAnalysis from '@/features/contracts/hooks/useContractAnalysis';
-import { FileText, MessageSquare } from 'lucide-react';
+import { FileText, MessageSquare, Loader2 } from 'lucide-react';
 
 type UIState = 'empty' | 'analyzing' | 'complete';
 type MobileTab = 'analysis' | 'chat';
@@ -32,9 +32,75 @@ export default function ContractWorkspacePage() {
     completedNodes,
     currentNode,
     analysisResult,
+    resetAnalysis,
+    setAnalysisResult,
   } = useContractAnalysis();
 
+  const [documentName, setDocumentName] = useState<string>('Upload a Contract');
+  const [isLoadingExisting, setIsLoadingExisting] = useState<boolean>(false);
   const [mobileActiveTab, setMobileActiveTab] = useState<MobileTab>('analysis');
+
+  // Track active state with refs to prevent useEffect from wiping in-flight analysis
+  const isAnalysingRef = useRef<boolean>(isAnalysing);
+  isAnalysingRef.current = isAnalysing;
+
+  const activeContractIdRef = useRef<string>(contractId);
+  activeContractIdRef.current = contractId;
+
+  // Load existing contract from database if accessed directly by ID or clicked in sidebar
+  useEffect(() => {
+    const rawId = params?.contractId;
+    if (!rawId || rawId === 'new' || rawId === 'default-contract') {
+      // If currently analysing or an active contract is already set, do not reset!
+      if (isAnalysingRef.current || activeContractIdRef.current) {
+        return;
+      }
+      setContractId('');
+      setDocumentName('Upload a Contract');
+      resetAnalysis();
+      return;
+    }
+
+    // If the contract is already loaded or is currently analyzing, do not re-fetch
+    if (rawId === activeContractIdRef.current) {
+      return;
+    }
+
+    let isMounted = true;
+    setIsLoadingExisting(true);
+
+    fetch(`/api/contracts/${rawId}`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Contract not found');
+        return res.json();
+      })
+      .then((json) => {
+        if (!isMounted) return;
+        if (json.success && json.data) {
+          const { contract, analysisResult: report } = json.data;
+          setContractId(rawId);
+          activeContractIdRef.current = rawId;
+          if (contract?.file_name) {
+            setDocumentName(contract.file_name);
+          }
+          if (report) {
+            setAnalysisResult(report);
+          }
+        }
+      })
+      .catch((err) => {
+        console.warn('Could not fetch existing contract:', err);
+      })
+      .finally(() => {
+        if (isMounted) {
+          setIsLoadingExisting(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [params?.contractId, resetAnalysis, setAnalysisResult]);
 
   // Resizable and toggleable chat layout state
   const [isChatOpen, setIsChatOpen] = useState<boolean>(true);
@@ -124,30 +190,35 @@ export default function ContractWorkspacePage() {
     };
   }, [isDragging, chatWidth]);
 
-  const handleUpload = async (path: string, country: string) => {
+  const handleUpload = async (path: string, country: string, fileName?: string) => {
     // Generate a fresh unique contract ID for every uploaded document
     const targetId = crypto.randomUUID();
+    activeContractIdRef.current = targetId;
     setContractId(targetId);
+    if (fileName) {
+      setDocumentName(fileName);
+    }
 
     // Update browser URL without reloading so the route reflects the active contract
     if (typeof window !== 'undefined') {
       window.history.replaceState(null, '', `/app/contracts/${targetId}`);
     }
 
-    await startAnalysis(path, country, targetId);
+    await startAnalysis(path, country, targetId, fileName);
   };
 
-  // UI state is purely driven by the analysis pipeline
+  // UI state is driven by analysis or loading existing
   const uiState: UIState = analysisResult
     ? 'complete'
-    : isAnalysing
+    : isAnalysing || isLoadingExisting
     ? 'analyzing'
     : 'empty';
 
   return (
     <WorkspaceLayout
-      documentName={analysisResult ? 'Contract Analysis' : 'Upload a Contract'}
+      documentName={documentName}
       status={uiState}
+      overallRisk={analysisResult?.overallRisk || null}
     >
       {/* State 1: Empty */}
       {uiState === 'empty' && (
@@ -163,10 +234,28 @@ export default function ContractWorkspacePage() {
         </div>
       )}
 
-      {/* State 2: Analyzing */}
+      {/* State 2: Analyzing or Loading Existing */}
       {uiState === 'analyzing' && (
         <div className="h-full w-full flex items-center justify-center bg-[#050505] p-4 sm:p-6 overflow-y-auto">
-          <AnalysisProgress completedNodes={completedNodes} currentNode={currentNode} />
+          {isLoadingExisting ? (
+            <div className="flex flex-col items-center justify-center gap-4 text-center">
+              <div className="w-16 h-16 rounded-2xl bg-[#7c5cfc]/10 border border-[#7c5cfc]/30 flex items-center justify-center shadow-lg shadow-[#7c5cfc]/10">
+                <Loader2 className="w-8 h-8 text-[#7c5cfc] animate-spin" />
+              </div>
+              <div className="flex flex-col items-center gap-1">
+                <h2 className="text-white font-semibold text-base sm:text-lg">Retrieving Contract Analysis</h2>
+                <p className="text-[#666] text-xs max-w-sm px-4">
+                  Loading clause vectors, legal advisory cards, and historical chat context...
+                </p>
+              </div>
+            </div>
+          ) : (
+            <AnalysisProgress 
+              documentName={documentName} 
+              completedNodes={completedNodes} 
+              currentNode={currentNode} 
+            />
+          )}
         </div>
       )}
 

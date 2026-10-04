@@ -7,6 +7,7 @@ import { StatusBadge } from '../ui/StatusBadge';
 interface TopHeaderProps {
   documentName: string;
   status: 'analyzing' | 'complete' | 'empty';
+  overallRisk?: 'LOW' | 'MEDIUM' | 'HIGH' | null;
   onMenuToggle?: () => void;
   isDesktopCollapsed?: boolean;
   onToggleDesktopCollapse?: () => void;
@@ -15,6 +16,7 @@ interface TopHeaderProps {
 export const TopHeader: React.FC<TopHeaderProps> = ({ 
   documentName, 
   status, 
+  overallRisk,
   onMenuToggle,
   isDesktopCollapsed,
   onToggleDesktopCollapse
@@ -51,7 +53,15 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
         {/* Risk / Status Badge */}
         {status === 'complete' && (
           <div className="shrink-0 scale-90 sm:scale-100 origin-left">
-            <StatusBadge level="high" label="High Risk" />
+            <StatusBadge 
+              level={
+                overallRisk === 'HIGH' ? 'high' : 
+                overallRisk === 'MEDIUM' ? 'medium' : 
+                overallRisk === 'LOW' ? 'low' : 
+                'neutral'
+              } 
+              label={`${overallRisk || 'Analyzed'} Risk`} 
+            />
           </div>
         )}
         {status === 'analyzing' && (

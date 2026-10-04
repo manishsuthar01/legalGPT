@@ -16,11 +16,13 @@ interface AnalysisProgressProps {
   streamData?: StreamProgress | null;
   completedNodes?: string[];
   currentNode?: string;
+  documentName?: string;
 }
 
 export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
   completedNodes = [],
-  currentNode = 'text-extract-node'
+  currentNode = 'text-extract-node',
+  documentName,
 }) => {
   const steps = [
     { label: 'Upload complete', status: 'complete' as const },
@@ -42,9 +44,15 @@ export const AnalysisProgress: React.FC<AnalysisProgressProps> = ({
         role="status"
         aria-live="polite"
       >
-        <h2 className="text-white text-lg sm:text-xl font-semibold mb-5 sm:mb-8 text-center tracking-tight">
+        <h2 className="text-white text-lg sm:text-xl font-semibold mb-1 text-center tracking-tight">
           Analyzing Contract
         </h2>
+        {documentName && (
+          <p className="text-[#7c5cfc] text-xs font-medium text-center mb-5 sm:mb-8 truncate max-w-xs mx-auto">
+            {documentName}
+          </p>
+        )}
+        {!documentName && <div className="mb-5 sm:mb-8" />}
         
         <div className="flex flex-col gap-3.5 sm:gap-5">
           {steps.map((step, idx) => (
