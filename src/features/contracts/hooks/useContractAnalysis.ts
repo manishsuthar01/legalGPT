@@ -40,7 +40,12 @@ export default function useContractAnalysis() {
         setAnalysisResult(null);
     }, []);
 
-    const startAnalysis = useCallback(async (supabaseFilePath: string, country: string, targetContractId?: string) => {
+    const startAnalysis = useCallback(async (
+        supabaseFilePath: string, 
+        country: string, 
+        targetContractId?: string,
+        fileName?: string
+    ) => {
         setIsAnalysing(true);
         setError(null);
         setCompletedNodes([]);
@@ -58,7 +63,8 @@ export default function useContractAnalysis() {
                 },
                 body: JSON.stringify({
                     filePath: supabaseFilePath,
-                    country
+                    country,
+                    fileName
                 })
             });
 
@@ -93,6 +99,10 @@ export default function useContractAnalysis() {
                                 setAnalysisResult(parsedData.data);
                                 setStreamData({ type: 'DONE', data: parsedData.data });
                                 setCurrentNode("");
+                                // Notify sidebar and components that a new contract analysis is complete
+                                if (typeof window !== 'undefined') {
+                                    window.dispatchEvent(new CustomEvent('contracts:updated'));
+                                }
                             } else if (parsedData.status === 'error') {
                                 setError(parsedData.message || "An error occurred during analysis");
                             } else if (parsedData.type === 'node_complete' && parsedData.node) {
