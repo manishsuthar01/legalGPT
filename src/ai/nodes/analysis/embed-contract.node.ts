@@ -20,10 +20,15 @@ export const embedContracNode = async (state: AnalysisState): Promise<Partial<An
             model: "gemini-embedding-001",
         });
 
+        const targetContractId = state.contractId && state.contractId !== "new" && state.contractId !== "default-contract"
+            ? state.contractId
+            : crypto.randomUUID();
+
         const docsToStore = state.clauses.map((clause) => ({
             pageContent: clause.text,
             metadata: {
-                contractId: state.contractId,
+                contractId: targetContractId,
+                contract_id: targetContractId,
                 source: clause.source,
                 chunk_index: clause.chunk_index
             }

@@ -1,3 +1,4 @@
+import { createClient } from "@/lib/supabase/server";
 import { chatBodySchema } from "@/lib/validations/chat";
 import { chatService } from "@/server/services/chat.service";
 import { NextRequest, NextResponse } from "next/server";
@@ -7,10 +8,27 @@ export async function POST(
     { params }: { params: Promise<{ contractId: string }> }
 ) {
     try {
+        const supabase = await createClient();
+
+        const {
+            data: { user },
+        } = await supabase.auth.getUser();
+
+        if (!user) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
         const { contractId } = await params;
+        if (!contractId || contractId === "new" || contractId === "default-contract") {
+            return NextResponse.json(
+                { success: false, error: "Please upload and analyze a contract before chatting." },
+                { status: 400 }
+            );
+        }
+
         const body = await req.json();
         const validateBody = chatBodySchema.safeParse(body);
-        console.log("chat request body:", body)
+
         if (!validateBody.success) {
             return NextResponse.json(
                 { success: false, error: "Invalid request body", details: validateBody.error.format() },
@@ -18,11 +36,11 @@ export async function POST(
             );
         }
 
-        const { message, userId = "user-123", sessionId } = body;
+        const { message, sessionId } = validateBody.data;
 
         const result = await chatService.chatWithContract({
             contractId,
-            userId,
+            userId: user.id,
             message,
             sessionId,
         });
@@ -35,10 +53,6 @@ export async function POST(
         console.error("Chat route error:", error);
         const errorMessage = error instanceof Error ? error.message : "Internal server error";
         const status = errorMessage === "Session not found" ? 404 : 500;
-
-        return NextResponse.json(
-            { success: false, error: errorMessage },
-            { status }
-        );
+        return NextResponse.json({ success: false, error: errorMessage }, { status });
     }
 }

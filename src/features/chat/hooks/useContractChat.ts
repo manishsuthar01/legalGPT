@@ -1,70 +1,85 @@
 import { useParams } from "next/navigation";
-import { useState } from "react"
-import { string } from "zod";
-import { ChatMessageItem } from "../components/ChatMessage"
+import { useState, useEffect } from "react";
+import { ChatMessageItem } from "../components/ChatMessage";
 
-
-export default function useContractChat() {
+export default function useContractChat(contractIdProp?: string) {
     const [sessionId, setSessionId] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const [error, SetError] = useState("");
-    const params = useParams<{ contractId: string }>()
-    const contractId = params?.contractId as string
+    const params = useParams<{ contractId: string }>();
+    const routeContractId = params?.contractId as string;
+    const contractId = contractIdProp || (routeContractId && routeContractId !== "new" && routeContractId !== "default-contract" ? routeContractId : "");
 
-    const [messages, setMessages] = useState<ChatMessageItem[]>([])
+    const [messages, setMessages] = useState<ChatMessageItem[]>([]);
 
+    // Reset messages and session whenever contractId changes
+    useEffect(() => {
+        setMessages([]);
+        setSessionId(null);
+        SetError("");
+    }, [contractId]);
 
     const sendMessage = async ({ message }: { message: string }) => {
         try {
-            if (!message) return;
-            setLoading(true)
-            //  append the user message
+            if (!message.trim()) return;
+            if (!contractId) {
+                SetError("Please analyze a contract before asking questions.");
+                return;
+            }
+
+            setLoading(true);
+            SetError("");
+
             const userMessage: ChatMessageItem = {
                 id: crypto.randomUUID(),
                 role: 'user',
                 content: message,
-            }
-            setMessages(prev => [...prev, userMessage])
+            };
+            setMessages(prev => [...prev, userMessage]);
 
-            // Call API
             const res = await fetch(`/api/contracts/${contractId}/chat`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ userId: "user-123", message, sessionId }),
-            })
-            if (!res.ok) throw new Error("Failed to start chat")
-            const data = await res.json()
-            console.log("chat API response:", data)
+                body: JSON.stringify({ message, sessionId }),
+            });
 
-            setMessages(prev => [...prev, data.data.message])
+            if (!res.ok) {
+                const errData = await res.json().catch(() => ({}));
+                throw new Error(errData.error || "Failed to get response from assistant");
+            }
+
+            const data = await res.json();
+
+            if (data?.data?.message) {
+                setMessages(prev => [...prev, data.data.message]);
+            }
 
             // Update session ID if new session was created
-            if (data.data.sessionId) {
+            if (data?.data?.sessionId) {
                 setSessionId(data.data.sessionId);
             }
 
-            return data
+            return data;
 
         } catch (error) {
             if (error instanceof Error) {
-                SetError(error.message)
+                SetError(error.message);
             } else {
-                SetError("Something went wrong. Please try again later.")
+                SetError("Something went wrong. Please try again later.");
             }
 
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-
-    }
-
+    };
 
     return {
         sendMessage,
         error,
         loading,
-        messages
-    }
+        messages,
+        contractId
+    };
 }

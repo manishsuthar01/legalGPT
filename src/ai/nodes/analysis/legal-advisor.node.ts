@@ -2,6 +2,7 @@ import { StringOutputParser } from "@langchain/core/output_parsers";
 import { advisorPrompt } from "../../prompts/analysis/legal-advisor.prompt";
 import { getResilientLLM } from "../../models";
 import { AnalysisState } from "../../types/analysis";
+import { safeParseJsonObject } from "../../utils/json-parser";
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -64,8 +65,8 @@ export const legalAdvisorNode = async (state: AnalysisState): Promise<Partial<An
 
     try {
         // Uses Gemini (default gemini-2.5-flash) with seamless fallback to Groq if rate-limited
-        const model = getResilientLLM("gemini", { 
-            model: process.env.GEMINI_MODEL || "gemini-2.5-flash" 
+        const model = getResilientLLM("gemini", {
+            model: process.env.GEMINI_MODEL || "gemini-2.5-flash"
         });
         const chain = advisorPrompt.pipe(model as any).pipe(new StringOutputParser());
 
@@ -90,8 +91,10 @@ export const legalAdvisorNode = async (state: AnalysisState): Promise<Partial<An
         }
 
         try {
-            const cleanJson = aiResponse.replace(/```json/gi, "").replace(/```/gi, "").trim();
-            const parsed = JSON.parse(cleanJson);
+            const parsed = safeParseJsonObject(aiResponse);
+            if (!parsed) {
+                throw new Error("Unable to parse advisor response as JSON object");
+            }
 
             const advisorFeedback = parsed.advisorFeedback || [];
             const riskCards = parsed.riskCards || [];
