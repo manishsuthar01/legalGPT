@@ -9,9 +9,18 @@ interface WorkspaceLayoutProps {
   documentName: string;
   status: 'analyzing' | 'complete' | 'empty';
   overallRisk?: 'LOW' | 'MEDIUM' | 'HIGH' | null;
+  activeContractId?: string;
+  onSelectContract?: (contractId: string) => void;
 }
 
-export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ children, documentName, status, overallRisk }) => {
+export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ 
+  children, 
+  documentName, 
+  status, 
+  overallRisk,
+  activeContractId,
+  onSelectContract
+}) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDesktopCollapsed, setIsDesktopCollapsed] = useState(false);
 
@@ -31,6 +40,8 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({ children, docu
           isCollapsed={isDesktopCollapsed}
           onToggleCollapse={() => setIsDesktopCollapsed(prev => !prev)}
           onCloseMobile={() => setIsMobileMenuOpen(false)} 
+          activeContractId={activeContractId}
+          onSelectContract={onSelectContract}
         />
       </div>
 

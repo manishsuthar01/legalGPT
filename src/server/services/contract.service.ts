@@ -211,7 +211,20 @@ export class ContractService {
                 return { contract: contract as ContractRecord, analysisResult: null };
             }
 
-            // 3. Map database snake_case fields to AnalysisResult camelCase interface
+            // 3. Fetch segmented clauses for this contract from clauses table
+            const { data: clausesData } = await supabaseAdmin
+                .from("clauses")
+                .select("content, source, chunk_index")
+                .eq("contract_id", contractId)
+                .order("chunk_index", { ascending: true });
+
+            const clauses = (clausesData || []).map((c) => ({
+                text: c.content || "",
+                source: c.source || "Document",
+                chunk_index: c.chunk_index || 0,
+            }));
+
+            // 4. Map database snake_case fields to AnalysisResult camelCase interface
             const mappedAnalysisResult: AnalysisResult = {
                 summary: report.summary,
                 overallRisk: report.overall_risk,
@@ -224,7 +237,7 @@ export class ContractService {
                 riskCards: report.risk_cards || [],
                 advisorFeedback: report.advisor_feedback || [],
                 reviewerFeedback: report.reviewer_feedback || [],
-                clauses: [],
+                clauses,
                 positiveFindings: report.positive_findings || [],
                 missingClauses: report.missing_clauses || [],
             };

@@ -20,21 +20,28 @@ interface LeftSidebarProps {
   isCollapsed?: boolean;
   onToggleCollapse?: () => void;
   onCloseMobile?: () => void;
+  activeContractId?: string;
+  onSelectContract?: (contractId: string) => void;
 }
 
 export const LeftSidebar: React.FC<LeftSidebarProps> = ({ 
   isCollapsed = false, 
   onToggleCollapse, 
-  onCloseMobile 
+  onCloseMobile,
+  activeContractId: propActiveContractId,
+  onSelectContract
 }) => {
   const [analysisExpanded, setAnalysisExpanded] = useState(true);
   const router = useRouter();
   const params = useParams<{ contractId?: string }>();
-  const activeContractId = params?.contractId;
+  const activeContractId = propActiveContractId || params?.contractId;
   const { contracts, isLoading, deleteContract } = useUserContracts();
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  const handleNavigate = (path: string) => {
+  const handleNavigate = (path: string, contractId?: string) => {
+    if (contractId && onSelectContract) {
+      onSelectContract(contractId);
+    }
     router.push(path);
     if (onCloseMobile) {
       onCloseMobile();
@@ -48,6 +55,9 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
     await deleteContract(contractId);
     setDeletingId(null);
     if (activeContractId === contractId) {
+      if (onSelectContract) {
+        onSelectContract('new');
+      }
       router.push('/app/contracts/new');
     }
   };
@@ -111,7 +121,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
         {/* New Analysis Button */}
         {isCollapsed ? (
           <button
-            onClick={() => handleNavigate('/app/contracts/new')}
+            onClick={() => handleNavigate('/app/contracts/new', 'new')}
             title="New Analysis"
             aria-label="New Analysis"
             className="w-11 h-11 flex items-center justify-center bg-[#7c5cfc] hover:bg-[#6a4beb] text-white rounded-xl shadow-lg shadow-[#7c5cfc]/20 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[#7c5cfc] outline-none"
@@ -120,7 +130,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
           </button>
         ) : (
           <button
-            onClick={() => handleNavigate('/app/contracts/new')}
+            onClick={() => handleNavigate('/app/contracts/new', 'new')}
             className="w-full flex items-center justify-center gap-2 bg-[#7c5cfc] hover:bg-[#6a4beb] text-white font-semibold py-2.5 sm:py-3 px-4 rounded-xl shadow-lg shadow-[#7c5cfc]/20 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[#7c5cfc] outline-none text-sm cursor-pointer"
           >
             <Plus size={18} aria-hidden="true" />
@@ -161,8 +171,8 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
                   <div className="px-2 py-4 text-center">
                     <p className="text-xs text-[#555]">No contracts analyzed yet.</p>
                     <button
-                      onClick={() => handleNavigate('/app/contracts/new')}
-                      className="mt-2 text-xs text-[#7c5cfc] hover:underline"
+                      onClick={() => handleNavigate('/app/contracts/new', 'new')}
+                      className="mt-2 text-xs text-[#7c5cfc] hover:underline cursor-pointer"
                     >
                       Upload your first contract
                     </button>
@@ -177,7 +187,7 @@ export const LeftSidebar: React.FC<LeftSidebarProps> = ({
                   return (
                     <div
                       key={doc.id}
-                      onClick={() => handleNavigate(`/app/contracts/${doc.id}`)}
+                      onClick={() => handleNavigate(`/app/contracts/${doc.id}`, doc.id)}
                       title={doc.file_name}
                       className={`
                         group relative w-full flex items-center gap-2.5 text-sm rounded-lg cursor-pointer transition-all duration-150 focus-visible:ring-2 focus-visible:ring-[#7c5cfc] outline-none

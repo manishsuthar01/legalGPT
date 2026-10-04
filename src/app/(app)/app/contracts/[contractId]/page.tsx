@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { WorkspaceLayout } from '@/components/layout/WorkspaceLayout';
 import { UploadDropzone } from '@/features/contracts/components/UploadDropzone';
 import { AnalysisProgress } from '@/features/analysis/components/AnalysisProgress';
@@ -17,6 +17,7 @@ type UIState = 'empty' | 'analyzing' | 'complete';
 type MobileTab = 'analysis' | 'chat';
 
 export default function ContractWorkspacePage() {
+  const router = useRouter();
   const params = useParams<{ contractId: string }>();
   const [contractId, setContractId] = useState<string>(() => {
     if (params?.contractId && params.contractId !== 'new' && params.contractId !== 'default-contract') {
@@ -39,68 +40,100 @@ export default function ContractWorkspacePage() {
   const [documentName, setDocumentName] = useState<string>('Upload a Contract');
   const [isLoadingExisting, setIsLoadingExisting] = useState<boolean>(false);
   const [mobileActiveTab, setMobileActiveTab] = useState<MobileTab>('analysis');
+  const [loadError, setLoadError] = useState<string | null>(null);
 
-  // Track active state with refs to prevent useEffect from wiping in-flight analysis
-  const isAnalysingRef = useRef<boolean>(isAnalysing);
-  isAnalysingRef.current = isAnalysing;
-
-  const activeContractIdRef = useRef<string>(contractId);
-  activeContractIdRef.current = contractId;
-
-  // Load existing contract from database if accessed directly by ID or clicked in sidebar
-  useEffect(() => {
-    const rawId = params?.contractId;
-    if (!rawId || rawId === 'new' || rawId === 'default-contract') {
-      // If currently analysing or an active contract is already set, do not reset!
-      if (isAnalysingRef.current || activeContractIdRef.current) {
-        return;
-      }
+  // Dedicated function to load any contract by ID
+  const loadContract = useCallback(async (targetId: string) => {
+    if (!targetId || targetId === 'new' || targetId === 'default-contract') {
       setContractId('');
       setDocumentName('Upload a Contract');
+      setLoadError(null);
       resetAnalysis();
       return;
     }
 
-    // If the contract is already loaded or is currently analyzing, do not re-fetch
-    if (rawId === activeContractIdRef.current) {
+    try {
+      setIsLoadingExisting(true);
+      setLoadError(null);
+      setContractId(targetId);
+      // Clear previous analysis result while loading new contract
+      setAnalysisResult(null);
+
+      const res = await fetch(`/api/contracts/${targetId}`);
+      if (!res.ok) {
+        throw new Error('Contract not found or unavailable');
+      }
+      const json = await res.json();
+      if (json.success && json.data) {
+        const { contract, analysisResult: report } = json.data;
+        if (contract?.file_name) {
+          setDocumentName(contract.file_name);
+        }
+        if (report) {
+          setAnalysisResult(report);
+        } else if (contract?.status === 'failed') {
+          setLoadError('Analysis failed for this contract. You may re-upload or analyze again.');
+        } else if (contract?.status === 'processing' || contract?.status === 'pending') {
+          setLoadError('Analysis is currently processing for this contract.');
+        }
+      }
+    } catch (err) {
+      console.warn('Could not fetch existing contract:', err);
+      setLoadError('Failed to load contract details. Please try again.');
+    } finally {
+      setIsLoadingExisting(false);
+    }
+  }, [resetAnalysis, setAnalysisResult]);
+
+  // Handler for direct sidebar selection or new analysis click
+  const handleSelectContract = useCallback((targetId: string) => {
+    if (!targetId || targetId === 'new') {
+      setContractId('');
+      setDocumentName('Upload a Contract');
+      setLoadError(null);
+      resetAnalysis();
+      router.push('/app/contracts/new');
       return;
     }
 
-    let isMounted = true;
-    setIsLoadingExisting(true);
+    // If currently displaying this contract with full report, just navigate URL
+    if (contractId === targetId && analysisResult && !isAnalysing) {
+      router.push(`/app/contracts/${targetId}`);
+      return;
+    }
 
-    fetch(`/api/contracts/${rawId}`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Contract not found');
-        return res.json();
-      })
-      .then((json) => {
-        if (!isMounted) return;
-        if (json.success && json.data) {
-          const { contract, analysisResult: report } = json.data;
-          setContractId(rawId);
-          activeContractIdRef.current = rawId;
-          if (contract?.file_name) {
-            setDocumentName(contract.file_name);
-          }
-          if (report) {
-            setAnalysisResult(report);
-          }
-        }
-      })
-      .catch((err) => {
-        console.warn('Could not fetch existing contract:', err);
-      })
-      .finally(() => {
-        if (isMounted) {
-          setIsLoadingExisting(false);
-        }
-      });
+    // Load target contract and update route
+    loadContract(targetId);
+    router.push(`/app/contracts/${targetId}`);
+  }, [contractId, analysisResult, isAnalysing, resetAnalysis, router, loadContract]);
 
-    return () => {
-      isMounted = false;
-    };
-  }, [params?.contractId, resetAnalysis, setAnalysisResult]);
+  // Load contract when accessed via URL directly or upon route changes
+  useEffect(() => {
+    const rawId = params?.contractId;
+    if (!rawId || rawId === 'new' || rawId === 'default-contract') {
+      // If currently analysing or if we already have an active contract loaded, do not reset!
+      if (isAnalysing || contractId) {
+        return;
+      }
+      setContractId('');
+      setDocumentName('Upload a Contract');
+      setLoadError(null);
+      resetAnalysis();
+      return;
+    }
+
+    // If currently actively analyzing this contract, do not overwrite with a fetch
+    if (isAnalysing && contractId === rawId) {
+      return;
+    }
+
+    // If already showing this contract with an analysis result, skip refetch
+    if (contractId === rawId && analysisResult) {
+      return;
+    }
+
+    loadContract(rawId);
+  }, [params?.contractId, isAnalysing, contractId, analysisResult, loadContract, resetAnalysis]);
 
   // Resizable and toggleable chat layout state
   const [isChatOpen, setIsChatOpen] = useState<boolean>(true);
@@ -193,8 +226,8 @@ export default function ContractWorkspacePage() {
   const handleUpload = async (path: string, country: string, fileName?: string) => {
     // Generate a fresh unique contract ID for every uploaded document
     const targetId = crypto.randomUUID();
-    activeContractIdRef.current = targetId;
     setContractId(targetId);
+    setLoadError(null);
     if (fileName) {
       setDocumentName(fileName);
     }
@@ -205,6 +238,9 @@ export default function ContractWorkspacePage() {
     }
 
     await startAnalysis(path, country, targetId, fileName);
+
+    // After analysis finishes, synchronize the Next.js router
+    router.replace(`/app/contracts/${targetId}`, { scroll: false });
   };
 
   // UI state is driven by analysis or loading existing
@@ -219,14 +255,16 @@ export default function ContractWorkspacePage() {
       documentName={documentName}
       status={uiState}
       overallRisk={analysisResult?.overallRisk || null}
+      activeContractId={contractId || params?.contractId}
+      onSelectContract={handleSelectContract}
     >
       {/* State 1: Empty */}
       {uiState === 'empty' && (
         <div className="h-full w-full flex items-center justify-center relative overflow-y-auto p-4 sm:p-6">
           <UploadDropzone onUpload={handleUpload} />
-          {error && (
+          {(error || loadError) && (
             <div className="absolute bottom-6 sm:bottom-12 bg-red-950/80 border border-red-500/30 text-red-300 text-xs sm:text-sm px-4 py-2 rounded-xl shadow-lg max-w-sm text-center">
-              {error}
+              {error || loadError}
             </div>
           )}
           <div className="absolute top-1/4 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-[#7c5cfc]/5 rounded-full blur-[100px] pointer-events-none" />
