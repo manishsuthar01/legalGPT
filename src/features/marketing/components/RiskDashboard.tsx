@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "motion/react";
 import { MacWindow } from "@/components/ui/MacWindow";
-import { AlertTriangle, AlertCircle, CheckCircle2, Sparkles, Check, ArrowRight } from "lucide-react";
+import { AlertTriangle, AlertCircle, Check, ArrowRight, Scale, FileText } from "lucide-react";
 import Link from "next/link";
 
 interface RiskItem {
@@ -24,7 +24,7 @@ const mockRisks: RiskItem[] = [
     severity: "high",
     summary: "The vendor agrees to indemnify without any liability cap, exposing you to unlimited punitive and incidental damages.",
     originalText: "Vendor shall defend, indemnify, and hold harmless Customer from and against any and all losses, damages, liabilities, costs, without limitation or cap whatsoever.",
-    fixedText: "Vendor's aggregate liability under this Section shall in no event exceed the total fees actually paid by Customer in the preceding twelve (12) months.",
+    fixedText: "Vendor's aggregate liability under this Section shall in no event exceed the total fees actually paid by Customer in the preceding twelve (12) months. Neither party shall be liable for consequential damages.",
   },
   {
     id: "risk-2",
@@ -54,157 +54,145 @@ export const RiskDashboard = () => {
     setFixedRisks((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const activeRisk = mockRisks.find((r) => r.id === activeRiskId) || mockRisks[0];
-
   return (
-    <section id="demo" className="py-20 relative z-10">
-      <div className="max-w-[var(--width-container)] mx-auto px-6">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-[11px] font-semibold uppercase tracking-widest mb-3">
-            Interactive Redline Engine
-          </div>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
-            Auditing contracts in <span className="text-accent">real time</span>
-          </h2>
-          <p className="text-silver text-base md:text-lg max-w-xl mx-auto">
-            Experience how Enigma isolates high-risk clauses, explains legal consequences, and generates attorney-grade redlines instantly.
-          </p>
-        </div>
-
-        {/* Mac-Style Window Demo Frame */}
+    <section id="demo" className="pb-16 sm:pb-24 relative z-10 bg-white">
+      <div className="max-w-[var(--width-container)] mx-auto px-4 sm:px-6">
+        
+        {/* Massive Curved Visual Showcase Container matching Wollo hero showcase */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="rounded-[28px] sm:rounded-[36px] md:rounded-[44px] bg-gradient-to-b from-[#F4F6F9] via-[#ECEFF4] to-[#E2E6EC] p-2.5 sm:p-4 md:p-6 border border-[#DCE0E7] shadow-[0_20px_50px_rgba(10,13,20,0.05)] overflow-hidden"
         >
           <MacWindow
-            title="commercial_master_services_agreement_v2.pdf"
+            title="master_services_agreement.pdf"
             statusBadge={
-              <span className="inline-flex items-center gap-2 text-[11px] font-mono text-risk-high bg-risk-high/10 border border-risk-high/30 px-3 py-1 rounded-full whitespace-nowrap shrink-0">
-                <span className="w-1.5 h-1.5 rounded-full bg-risk-high animate-pulse shrink-0" />
-                <span>Score: 48/100 (High Risk)</span>
+              <span className="inline-flex items-center gap-1.5 text-[11px] font-medium text-rose-700 bg-rose-50 border border-rose-200 px-3 py-0.5 rounded-full whitespace-nowrap shrink-0">
+                <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0" />
+                <span>Risk Score: 78/100 (High)</span>
               </span>
             }
           >
-            <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[580px] bg-[#0a0a0a]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[540px] bg-white">
               
-              {/* Left Column: Mock Legal Document Viewer */}
-              <div className="lg:col-span-7 bg-[#0d0d0d] border-b lg:border-b-0 lg:border-r border-edge p-6 sm:p-8 flex flex-col font-sans">
-                <div className="flex items-center justify-between pb-4 mb-6 border-b border-edge/60">
-                  <div className="flex items-center gap-2 text-xs text-silver font-mono">
-                    <span>DOCUMENT VIEWER</span>
-                    <span className="text-[#444]">•</span>
-                    <span>PAGE 4 OF 12</span>
+              {/* Left Column: Legal Document Viewer */}
+              <div className="lg:col-span-7 bg-white border-b lg:border-b-0 lg:border-r border-[#E5E7EB] p-4 sm:p-6 flex flex-col font-sans">
+                <div className="flex items-center justify-between pb-3 mb-4 border-b border-[#E5E7EB]">
+                  <div className="flex items-center gap-2 text-xs text-[#6B7280]">
+                    <FileText size={14} className="text-[#583AFE]" />
+                    <span className="font-semibold text-[#0A0D14]">Contract Preview</span>
+                    <span className="text-[#D1D5DB]">•</span>
+                    <span>Section 8: Indemnification</span>
                   </div>
                   <div className="flex items-center gap-2 text-xs">
-                    <span className="text-[#666] font-mono text-[11px]">HIGHLIGHTS:</span>
-                    <span className="px-1.5 py-0.5 rounded bg-risk-high/20 text-risk-high text-[10px] font-mono">2 HIGH</span>
-                    <span className="px-1.5 py-0.5 rounded bg-risk-medium/20 text-risk-medium text-[10px] font-mono">1 MEDIUM</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-rose-50 text-rose-700 border border-rose-200 text-[10px] font-medium">2 High</span>
+                    <span className="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-medium">1 Medium</span>
                   </div>
                 </div>
 
                 {/* Contract Paper Simulation */}
-                <div className="flex-1 bg-[#121214] border border-edge rounded-xl p-6 sm:p-8 text-sm leading-relaxed text-[#c4c4c4] space-y-6 overflow-y-auto max-h-[480px]">
+                <div className="flex-1 bg-[#FAFAFC] border border-[#E5E7EB] rounded-xl p-4 sm:p-6 text-xs sm:text-[13px] leading-relaxed text-[#1F2937] space-y-5 overflow-y-auto max-h-[440px]">
                   <div>
-                    <h4 className="text-white font-semibold text-xs tracking-wider uppercase text-[#888] mb-2 font-mono">
-                      8. INDEMNIFICATION & REIMBURSEMENT
+                    <h4 className="text-[#6B7280] text-[11px] font-semibold uppercase tracking-wider mb-2">
+                      8. INDEMNIFICATION &amp; REIMBURSEMENT
                     </h4>
-                    <p
+                    <div
                       onClick={() => setActiveRiskId("risk-1")}
-                      className={`cursor-pointer rounded-lg p-3 transition-all duration-300 border ${
+                      className={`cursor-pointer rounded-lg p-3.5 transition-all border select-text ${
                         activeRiskId === "risk-1"
-                          ? "bg-risk-high/10 border-risk-high/40 shadow-[0_0_15px_rgba(239,68,68,0.15)] text-white"
-                          : "bg-risk-high/5 border-risk-high/20 hover:border-risk-high/40"
+                          ? "bg-rose-50/80 border-rose-300 text-[#0A0D14] ring-1 ring-rose-200"
+                          : "bg-rose-50/30 border-rose-200/60 hover:border-rose-300"
                       }`}
                     >
-                      <span className="inline-block px-1.5 py-0.2 mr-2 bg-risk-high text-black text-[10px] font-bold rounded">
-                        8.2
+                      <span className="inline-block px-1.5 py-0.5 mr-2 bg-rose-100 text-rose-700 text-[10px] font-mono font-bold rounded">
+                        §8.2
                       </span>
                       {fixedRisks["risk-1"] ? (
-                        <span className="text-risk-low font-medium">
+                        <span className="text-emerald-700 font-mono text-xs font-medium">
                           {mockRisks[0].fixedText}
                         </span>
                       ) : (
-                        <span>
+                        <span className="font-legal-clause text-[#111827]">
                           {mockRisks[0].originalText}
                         </span>
                       )}
-                    </p>
+                    </div>
                   </div>
 
                   <div>
-                    <h4 className="text-white font-semibold text-xs tracking-wider uppercase text-[#888] mb-2 font-mono">
+                    <h4 className="text-[#6B7280] text-[11px] font-semibold uppercase tracking-wider mb-2">
                       14. INTELLECTUAL PROPERTY RIGHTS
                     </h4>
-                    <p
+                    <div
                       onClick={() => setActiveRiskId("risk-2")}
-                      className={`cursor-pointer rounded-lg p-3 transition-all duration-300 border ${
+                      className={`cursor-pointer rounded-lg p-3.5 transition-all border select-text ${
                         activeRiskId === "risk-2"
-                          ? "bg-risk-high/10 border-risk-high/40 shadow-[0_0_15px_rgba(239,68,68,0.15)] text-white"
-                          : "bg-risk-high/5 border-risk-high/20 hover:border-risk-high/40"
+                          ? "bg-rose-50/80 border-rose-300 text-[#0A0D14] ring-1 ring-rose-200"
+                          : "bg-rose-50/30 border-rose-200/60 hover:border-rose-300"
                       }`}
                     >
-                      <span className="inline-block px-1.5 py-0.2 mr-2 bg-risk-high text-black text-[10px] font-bold rounded">
-                        14.1
+                      <span className="inline-block px-1.5 py-0.5 mr-2 bg-rose-100 text-rose-700 text-[10px] font-mono font-bold rounded">
+                        §14.1
                       </span>
                       {fixedRisks["risk-2"] ? (
-                        <span className="text-risk-low font-medium">
+                        <span className="text-emerald-700 font-mono text-xs font-medium">
                           {mockRisks[1].fixedText}
                         </span>
                       ) : (
-                        <span>
+                        <span className="font-legal-clause text-[#111827]">
                           {mockRisks[1].originalText}
                         </span>
                       )}
-                    </p>
+                    </div>
                   </div>
 
                   <div>
-                    <h4 className="text-white font-semibold text-xs tracking-wider uppercase text-[#888] mb-2 font-mono">
-                      19. TERM, TERMINATION & RENEWAL
+                    <h4 className="text-[#6B7280] text-[11px] font-semibold uppercase tracking-wider mb-2">
+                      19. TERM, TERMINATION &amp; RENEWAL
                     </h4>
-                    <p
+                    <div
                       onClick={() => setActiveRiskId("risk-3")}
-                      className={`cursor-pointer rounded-lg p-3 transition-all duration-300 border ${
+                      className={`cursor-pointer rounded-lg p-3.5 transition-all border select-text ${
                         activeRiskId === "risk-3"
-                          ? "bg-risk-medium/10 border-risk-medium/40 shadow-[0_0_15px_rgba(245,158,11,0.15)] text-white"
-                          : "bg-risk-medium/5 border-risk-medium/20 hover:border-risk-medium/40"
+                          ? "bg-amber-50/80 border-amber-300 text-[#0A0D14] ring-1 ring-amber-200"
+                          : "bg-amber-50/30 border-amber-200/60 hover:border-amber-300"
                       }`}
                     >
-                      <span className="inline-block px-1.5 py-0.2 mr-2 bg-risk-medium text-black text-[10px] font-bold rounded">
-                        19.3
+                      <span className="inline-block px-1.5 py-0.5 mr-2 bg-amber-100 text-amber-800 text-[10px] font-mono font-bold rounded">
+                        §19.3
                       </span>
                       {fixedRisks["risk-3"] ? (
-                        <span className="text-risk-low font-medium">
+                        <span className="text-emerald-700 font-mono text-xs font-medium">
                           {mockRisks[2].fixedText}
                         </span>
                       ) : (
-                        <span>
+                        <span className="font-legal-clause text-[#111827]">
                           {mockRisks[2].originalText}
                         </span>
                       )}
-                    </p>
+                    </div>
                   </div>
                 </div>
 
-                <div className="mt-4 flex items-center justify-between text-xs text-[#666]">
-                  <span>Click any highlighted clause to view legal counsel feedback</span>
-                  <span className="text-accent font-mono text-[11px]">Enigma AI v2.4</span>
+                <div className="mt-3.5 flex items-center justify-between text-xs text-[#6B7280] select-none">
+                  <span>Click any highlighted clause to preview the recommended redline</span>
+                  <span className="text-emerald-600 font-medium">Interactive Demo</span>
                 </div>
               </div>
 
               {/* Right Column: Live Risk Feed */}
-              <div className="lg:col-span-5 p-6 sm:p-8 flex flex-col bg-[#0f0f12]">
-                <div className="flex items-center justify-between pb-4 mb-4 border-b border-edge">
+              <div className="lg:col-span-5 p-4 sm:p-6 flex flex-col bg-[#F9FAFB]">
+                <div className="flex items-center justify-between pb-3 mb-3 border-b border-[#E5E7EB]">
                   <div className="flex items-center gap-2">
-                    <span className="text-white font-semibold text-sm">Identified Risks</span>
-                    <span className="bg-accent/20 text-accent text-xs px-2 py-0.5 rounded-full font-mono">
-                      {mockRisks.length} Issues
+                    <span className="text-[#0A0D14] font-semibold text-xs uppercase tracking-wider">
+                      Flagged Clauses
+                    </span>
+                    <span className="bg-[#583AFE]/10 text-[#583AFE] border border-[#583AFE]/20 text-[10px] px-2 py-0.5 rounded-full font-bold">
+                      {mockRisks.length} flagged
                     </span>
                   </div>
-                  <span className="text-xs text-silver">Severity Sorted</span>
                 </div>
 
                 {/* Risk Feed Cards */}
@@ -217,54 +205,53 @@ export const RiskDashboard = () => {
                       <div
                         key={risk.id}
                         onClick={() => setActiveRiskId(risk.id)}
-                        className={`p-4 rounded-xl border transition-all duration-300 cursor-pointer ${
+                        className={`p-4 rounded-xl border transition-all cursor-pointer ${
                           isActive
-                            ? "bg-[#18181c] border-accent shadow-[0_0_20px_rgba(124,92,252,0.15)] scale-[1.01]"
-                            : "bg-[#131316] border-edge hover:border-[#333] hover:bg-[#161619]"
+                            ? "bg-white border-[#583AFE] shadow-sm ring-1 ring-[#583AFE]/20"
+                            : "bg-white/80 border-[#E5E7EB] hover:border-[#D1D5DB] hover:bg-white"
                         }`}
                       >
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-[11px] font-mono text-[#888]">
+                          <span className="text-[10px] font-mono text-[#6B7280]">
                             {risk.clauseRef}
                           </span>
                           {risk.severity === "high" ? (
-                            <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-risk-high bg-risk-high/10 border border-risk-high/20 px-2 py-0.5 rounded-md">
-                              <AlertTriangle className="w-3 h-3" /> High Risk
+                            <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 rounded-full">
+                              <AlertTriangle className="w-2.5 h-2.5 text-rose-500" /> High
                             </span>
                           ) : (
-                            <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-risk-medium bg-risk-medium/10 border border-risk-medium/20 px-2 py-0.5 rounded-md">
-                              <AlertCircle className="w-3 h-3" /> Medium Risk
+                            <span className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-full">
+                              <AlertCircle className="w-2.5 h-2.5 text-amber-500" /> Medium
                             </span>
                           )}
                         </div>
 
-                        <h4 className="text-white font-medium text-sm mb-1.5 flex items-center justify-between">
+                        <h4 className="text-[#0A0D14] font-semibold text-xs mb-1.5 flex items-center justify-between">
                           <span>{risk.title}</span>
                           {isFixed && (
-                            <span className="text-risk-low flex items-center gap-1 text-xs font-normal">
-                              <Check className="w-3.5 h-3.5" /> Redlined
+                            <span className="text-emerald-600 flex items-center gap-1 text-[11px] font-mono font-medium">
+                              <Check className="w-3 h-3" /> Redlined
                             </span>
                           )}
                         </h4>
-                        <p className="text-silver text-xs leading-relaxed mb-3">
+                        <p className="text-[#4B5565] text-xs leading-relaxed mb-3">
                           {risk.summary}
                         </p>
 
                         {isActive && (
-                          <div className="pt-3 border-t border-edge/60">
+                          <div className="pt-3 border-t border-[#F3F4F6]">
                             <button
                               onClick={(e) => {
                                 e.stopPropagation();
                                 toggleFix(risk.id);
                               }}
-                              className={`w-full py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-2 transition-all duration-200 ${
+                              className={`w-full py-2 px-3 rounded-lg text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer shadow-xs ${
                                 isFixed
-                                  ? "bg-risk-low/10 text-risk-low border border-risk-low/30 hover:bg-risk-low/20"
-                                  : "bg-accent text-white hover:bg-accent/90 shadow-[0_0_15px_rgba(124,92,252,0.3)]"
+                                  ? "bg-emerald-50 text-emerald-700 border border-emerald-300 hover:bg-emerald-100"
+                                  : "bg-[#583AFE] hover:bg-[#4c30f0] text-white"
                               }`}
                             >
-                              <Sparkles className="w-3.5 h-3.5" />
-                              <span>{isFixed ? "Revert to Original Clause" : "Auto-Fix Clause with AI"}</span>
+                              <span>{isFixed ? "Revert to Original Text" : "Apply Recommended Redline"}</span>
                             </button>
                           </div>
                         )}
@@ -274,16 +261,16 @@ export const RiskDashboard = () => {
                 </div>
 
                 {/* Bottom Action */}
-                <div className="pt-4 mt-4 border-t border-edge flex items-center justify-between">
-                  <div className="text-xs text-silver">
-                    <span className="text-white font-medium">Ready to test?</span> Scan your own document.
+                <div className="pt-3.5 mt-3 border-t border-[#E5E7EB] flex items-center justify-between">
+                  <div className="text-xs text-[#6B7280]">
+                    <span className="text-[#0A0D14] font-medium">Have an agreement?</span> Review in workspace.
                   </div>
                   <Link
-                    href="/app/contracts/mock-id"
-                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-accent hover:text-accent/80 transition-colors"
+                    href="/app/contracts/new"
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#583AFE] hover:text-[#4c30f0] transition-colors"
                   >
-                    <span>Full Workspace</span>
-                    <ArrowRight className="w-3 h-3" />
+                    <span>Open Workspace</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>
