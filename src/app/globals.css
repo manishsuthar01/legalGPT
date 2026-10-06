@@ -1,46 +1,109 @@
 @import "tailwindcss";
 
 @theme {
-  --color-obsidian: #050505;
-  --color-surface: #111111;
-  --color-edge: #222222;
-  --color-silver: #999999;
-  --color-muted-dim: #666666;
-  --color-muted-subtle: #444444;
-  --color-accent: #7c5cfc;
+  /* LegalGPT Semantic Color Tokens - Dark Canvas Base */
+  --color-canvas: #090B0E;
+  --color-surface-base: #0F1218;
+  --color-surface-elevated: #161B23;
+  --color-surface-overlay: #1C222D;
+  --color-surface-inset: #0B0E13;
+  --color-surface-muted: #131720;
 
-  --color-risk-high: #ef4444;
-  --color-risk-medium: #f59e0b;
-  --color-risk-low: #22c55e;
-  
-  --font-sans: "Plus Jakarta Sans", Inter, system-ui, sans-serif;
-  --width-container: 1100px;
+  --color-fg-primary: #F1F4F8;
+  --color-fg-secondary: #9DA8B9;
+  --color-fg-muted: #636F83;
+
+  --color-border-subtle: #181E29;
+  --color-border-default: #222938;
+  --color-border-strong: #333E53;
+  --color-border-focus: #4B72C2;
+
+  --color-brand-primary: #2B5EA7;
+  --color-brand-primary-hover: #356FBF;
+  --color-brand-accent: #C49B55;
+
+  --color-risk-critical: #DC2626;
+  --color-risk-high: #E05252;
+  --color-risk-medium: #D97706;
+  --color-risk-low: #16A34A;
+  --color-risk-neutral: #64748B;
+
+  /* Backward-compatible token aliases */
+  --color-obsidian: #090B0E;
+  --color-surface: #121620;
+  --color-edge: #222938;
+  --color-silver: #9DA8B9;
+  --color-muted-dim: #636F83;
+  --color-muted-subtle: #414A5C;
+  --color-accent: #2B5EA7;
+
+  /* Light Inset Marketing Tokens (Wollo Style Inspiration) */
+  --color-canvas-outer: #E9ECF0;
+  --color-canvas-card: #FFFFFF;
+  --color-text-ink: #0A0D14;
+  --color-text-body: #4B5565;
+  --color-text-subtle: #6B7280;
+  --color-pill-bg: #F3F4F6;
+  --color-pill-text: #4B5563;
+  --color-hero-accent: #583AFE;
+  --color-btn-dark: #0A0D14;
+  --color-card-light: #F9FAFB;
+  --color-border-light: #E5E7EB;
+
+  /* Typography */
+  --font-sans: var(--font-sans), "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: "Newsreader", "Charter", "Georgia", "Times New Roman", serif;
+  --font-mono: "JetBrains Mono", Menlo, Monaco, "Courier New", monospace;
+
+  /* Layout dimensions */
+  --width-container: 1200px;
 }
 
 :root {
-  --background: #050505;
-  --foreground: #999999;
+  --background: #090B0E;
+  --foreground: #9DA8B9;
+  --surface-base: #0F1218;
+  --surface-elevated: #161B23;
+  --surface-inset: #0B0E13;
+  --border-default: #222938;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
+  font-family: var(--font-sans);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: #ffffff;
+  letter-spacing: -0.02em;
 }
 
-/* Custom scrollbars */
+/* Marketing canvas styling matching Wollo reference */
+.marketing-canvas {
+  color: #4B5565;
+}
+:where(.marketing-canvas) :is(h1, h2, h3, h4, h5, h6) {
+  color: #0A0D14;
+}
+
+/* Legal text styling */
+.font-legal-clause {
+  font-family: var(--font-serif);
+  line-height: 1.75;
+}
+
+/* Custom editorial scrollbars */
 * {
   scrollbar-width: thin;
-  scrollbar-color: #222222 transparent;
+  scrollbar-color: #222938 transparent;
 }
 
 *::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
 }
 
 *::-webkit-scrollbar-track {
@@ -48,28 +111,81 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #222222;
+  background-color: #222938;
   border-radius: 999px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: #444444;
+  background-color: #333E53;
 }
 
-/* Text selection */
+/* Text selection - refined legal blue tint */
 ::selection {
-  background: rgba(124, 92, 252, 0.3);
-  color: #ffffff;
+  background: rgba(43, 94, 167, 0.35);
+  color: #FFFFFF;
+}
+
+/* Accessible focus ring utility */
+.focus-ring {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
 }
 
 /* Utility classes */
-@utility frosted-glass {
-  background: rgba(17, 17, 17, 0.65);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--color-edge);
+@utility frosted-legal-header {
+  background: rgba(15, 18, 24, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--color-border-default);
 }
 
-@utility radial-purple-glow {
-  background: radial-gradient(ellipse 600px 400px at 50% 40%, rgba(124, 92, 252, 0.08) 0%, transparent 70%);
+@utility legal-card {
+  background-color: #121620;
+  border: 1px solid #222938;
+  border-radius: 12px;
+}
+
+@utility legal-card-elevated {
+  background-color: #161B23;
+  border: 1px solid #2D364A;
+  border-radius: 12px;
+}
+
+/* Light Canvas Design System Utilities */
+@utility bg-canvas-outer {
+  background-color: #E8EBF0;
+}
+@utility bg-canvas-card {
+  background-color: #FFFFFF;
+}
+@utility text-ink {
+  color: #0A0D14;
+}
+@utility text-body {
+  color: #4B5565;
+}
+@utility text-subtle {
+  color: #6B7280;
+}
+@utility bg-pill {
+  background-color: #F3F4F6;
+}
+@utility bg-accent-violet {
+  background-color: #583AFE;
+}
+@utility border-light {
+  border-color: #E5E7EB;
+}
+
+/* Prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
