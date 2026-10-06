@@ -45,155 +45,153 @@ export default function PricingPage() {
           { label: "Pricing", href: "/pricing" },
         ])}
       />
-      <JsonLd schema={getFaqSchema(pricingFaqs)} />
-
-      <div className="py-20 md:py-28 relative z-10">
-        <div className="max-w-[var(--width-container)] mx-auto px-6">
+      <JsonLd schema={getFaqSchema(pricingFaqs)} />      <div className="py-16 md:py-24 relative z-10 bg-white">
+        <div className="max-w-[var(--width-container)] mx-auto px-4 sm:px-6">
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface/80 border border-edge text-silver mb-6 text-xs font-mono tracking-widest uppercase">
-              <Sparkles className="w-3.5 h-3.5 text-accent" />
-              <span>Simple, Transparent Tiers</span>
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F3F4F6] border border-[#E5E7EB] text-[#4B5565] mb-6 text-[11px] font-semibold tracking-wide uppercase">
+              <Sparkles className="w-3.5 h-3.5 text-[#583AFE]" />
+              <span>Transparent Pricing Tiers</span>
             </div>
-            <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white mb-6">
+            <h1 className="text-4xl sm:text-6xl font-normal tracking-[-0.03em] text-[#0A0D14] mb-4">
               Invest in Protection. <br />
-              <span className="text-accent drop-shadow-[0_0_35px_rgba(124,92,252,0.35)]">
-                Avoid Catastrophic Liabilities.
+              <span className="text-[#583AFE]">
+                Eliminate Hidden Liability.
               </span>
             </h1>
-            <p className="text-silver text-base sm:text-lg leading-relaxed">
+            <p className="text-[#4B5565] text-sm sm:text-base leading-relaxed">
               Traditional legal reviews cost $500–$1,000 per hour. LegalGPT gives you instant, multi-agent contract audits and redlines for a fraction of the cost.
             </p>
           </div>
 
           {/* Pricing Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-24">
             {/* Tier 1: Free */}
-            <div className="rounded-2xl bg-surface/60 border border-edge p-8 flex flex-col justify-between hover:border-edge/80 transition-all">
+            <div className="rounded-2xl bg-[#F9FAFB] border border-[#E5E7EB] p-7 sm:p-8 flex flex-col justify-between hover:border-[#D1D5DB] hover:bg-white hover:shadow-xs transition-all">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-white">Starter Free</h2>
-                  <span className="text-[11px] font-mono uppercase text-silver bg-[#1c1c1f] px-2.5 py-1 rounded-full border border-edge">
-                    Individuals
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-lg font-semibold text-[#0A0D14]">Starter Audit</h2>
+                  <span className="text-[10px] font-mono uppercase text-[#6B7280] bg-white px-2.5 py-1 rounded-full border border-[#E5E7EB] font-medium">
+                    Solo &amp; Freelance
                   </span>
                 </div>
-                <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-4xl font-extrabold text-white">$0</span>
-                  <span className="text-silver text-sm">/ month</span>
+                <div className="flex items-baseline gap-1 mb-4">
+                  <span className="text-4xl font-bold font-mono text-[#0A0D14]">$0</span>
+                  <span className="text-[#6B7280] text-xs">/ month</span>
                 </div>
-                <p className="text-silver text-xs leading-relaxed mb-6">
-                  Instant contract risk scanning for solo freelancers and founders reviewing standard agreements.
+                <p className="text-[#4B5565] text-xs sm:text-sm leading-relaxed mb-6">
+                  Instant contract risk scanning for solo practitioners and founders reviewing standard agreements.
                 </p>
-                <ul className="space-y-3 mb-8 text-xs text-silver">
+                <ul className="space-y-3 mb-8 text-xs sm:text-sm text-[#4B5565]">
                   <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-risk-low shrink-0" />
+                    <Check className="w-4 h-4 text-[#16A34A] shrink-0" />
                     <span>3 Contract Audits / month</span>
                   </li>
                   <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-risk-low shrink-0" />
+                    <Check className="w-4 h-4 text-[#16A34A] shrink-0" />
                     <span>Executive Risk Score &amp; High-Risk Flags</span>
                   </li>
                   <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-risk-low shrink-0" />
+                    <Check className="w-4 h-4 text-[#16A34A] shrink-0" />
                     <span>PDF &amp; Raw Text Ingestion</span>
                   </li>
                   <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-risk-low shrink-0" />
-                    <span>Zero Data Retention</span>
+                    <Check className="w-4 h-4 text-[#16A34A] shrink-0" />
+                    <span>Zero Corporate Data Retention</span>
                   </li>
                 </ul>
               </div>
               <Link
-                href="/app/contracts/mock-id"
-                className="w-full text-center py-3 rounded-xl border border-edge bg-[#151518] hover:bg-[#1a1a1f] text-white text-xs font-semibold transition-colors"
+                href="/app/contracts/new"
+                className="w-full text-center py-3 rounded-full border border-[#E5E7EB] bg-white hover:bg-[#F9FAFB] text-[#0A0D14] text-xs font-semibold transition-all shadow-2xs"
               >
                 Scan Free Now
               </Link>
             </div>
 
             {/* Tier 2: Pro (Featured) */}
-            <div className="rounded-2xl bg-gradient-to-b from-surface via-surface to-[#161224] border-2 border-accent p-8 flex flex-col justify-between relative shadow-[0_0_40px_rgba(124,92,252,0.2)]">
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-accent text-white text-[11px] font-bold px-3.5 py-0.5 rounded-full uppercase tracking-wider">
-                Most Popular
+            <div className="rounded-2xl bg-white border-2 border-[#583AFE] p-7 sm:p-8 flex flex-col justify-between relative shadow-lg">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[#583AFE] text-white text-[10px] font-bold px-3.5 py-1 rounded-full uppercase tracking-wider shadow-xs">
+                Recommended
               </div>
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-white">Pro Founder</h2>
-                  <Zap className="w-4 h-4 text-accent" />
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-lg font-semibold text-[#0A0D14]">Pro Counsel</h2>
+                  <Zap className="w-4 h-4 text-[#583AFE]" />
                 </div>
-                <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-4xl font-extrabold text-white">$49</span>
-                  <span className="text-silver text-sm">/ month</span>
+                <div className="flex items-baseline gap-1 mb-4">
+                  <span className="text-4xl font-bold font-mono text-[#0A0D14]">$49</span>
+                  <span className="text-[#6B7280] text-xs">/ month</span>
                 </div>
-                <p className="text-silver text-xs leading-relaxed mb-6">
-                  Deep multi-agent legal research, redlining alternatives, and interactive RAG chat for startups and agencies.
+                <p className="text-[#4B5565] text-xs sm:text-sm leading-relaxed mb-6">
+                  Deep multi-agent legal research, redlining alternatives, and interactive RAG chat for startups and counsel.
                 </p>
-                <ul className="space-y-3 mb-8 text-xs text-white">
+                <ul className="space-y-3 mb-8 text-xs sm:text-sm text-[#1F2937]">
                   <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-accent shrink-0" />
+                    <Check className="w-4 h-4 text-[#583AFE] shrink-0" />
                     <span>Unlimited Contract Audits</span>
                   </li>
                   <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-accent shrink-0" />
+                    <Check className="w-4 h-4 text-[#583AFE] shrink-0" />
                     <span>Autonomous Web Legal Research (Tavily)</span>
                   </li>
                   <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-accent shrink-0" />
+                    <Check className="w-4 h-4 text-[#583AFE] shrink-0" />
                     <span>Substitute Clause Redlining Language</span>
                   </li>
                   <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-accent shrink-0" />
+                    <Check className="w-4 h-4 text-[#583AFE] shrink-0" />
                     <span>Interactive RAG Contract Copilot</span>
                   </li>
                   <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-accent shrink-0" />
+                    <Check className="w-4 h-4 text-[#583AFE] shrink-0" />
                     <span>US, UK, &amp; India Jurisdiction Engines</span>
                   </li>
                 </ul>
               </div>
               <Link
-                href="/app/contracts/mock-id"
-                className="w-full text-center py-3 rounded-xl bg-accent hover:bg-accent/90 text-white text-xs font-semibold transition-all shadow-[0_0_20px_rgba(124,92,252,0.4)]"
+                href="/app/contracts/new"
+                className="w-full text-center py-3 rounded-full bg-[#583AFE] hover:bg-[#4d32e6] text-white text-xs font-semibold transition-all shadow-md active:scale-95"
               >
                 Start 14-Day Trial
               </Link>
             </div>
 
             {/* Tier 3: Enterprise */}
-            <div className="rounded-2xl bg-surface/60 border border-edge p-8 flex flex-col justify-between hover:border-edge/80 transition-all">
+            <div className="rounded-2xl bg-[#F9FAFB] border border-[#E5E7EB] p-7 sm:p-8 flex flex-col justify-between hover:border-[#D1D5DB] hover:bg-white hover:shadow-xs transition-all">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-xl font-bold text-white">Enterprise</h2>
-                  <ShieldCheck className="w-4 h-4 text-silver" />
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-lg font-semibold text-[#0A0D14]">Enterprise</h2>
+                  <ShieldCheck className="w-4 h-4 text-[#6B7280]" />
                 </div>
-                <div className="flex items-baseline gap-1 mb-6">
-                  <span className="text-4xl font-extrabold text-white">Custom</span>
+                <div className="flex items-baseline gap-1 mb-4">
+                  <span className="text-4xl font-bold font-mono text-[#0A0D14]">Custom</span>
                 </div>
-                <p className="text-silver text-xs leading-relaxed mb-6">
+                <p className="text-[#4B5565] text-xs sm:text-sm leading-relaxed mb-6">
                   Custom legal guidelines, API integrations, private VPC deployment, and team collaboration.
                 </p>
-                <ul className="space-y-3 mb-8 text-xs text-silver">
+                <ul className="space-y-3 mb-8 text-xs sm:text-sm text-[#4B5565]">
                   <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-risk-low shrink-0" />
+                    <Check className="w-4 h-4 text-[#16A34A] shrink-0" />
                     <span>Custom Playbook &amp; Risk Weights</span>
                   </li>
                   <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-risk-low shrink-0" />
+                    <Check className="w-4 h-4 text-[#16A34A] shrink-0" />
                     <span>Dedicated Private VPC Deployment</span>
                   </li>
                   <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-risk-low shrink-0" />
+                    <Check className="w-4 h-4 text-[#16A34A] shrink-0" />
                     <span>REST API &amp; Webhook Integration</span>
                   </li>
                   <li className="flex items-center gap-2.5">
-                    <Check className="w-4 h-4 text-risk-low shrink-0" />
+                    <Check className="w-4 h-4 text-[#16A34A] shrink-0" />
                     <span>SSO / SAML &amp; Audit Logging</span>
                   </li>
                 </ul>
               </div>
               <a
                 href="mailto:contact@legalgpt.ai"
-                className="w-full text-center py-3 rounded-xl border border-edge bg-[#151518] hover:bg-[#1a1a1f] text-white text-xs font-semibold transition-colors"
+                className="w-full text-center py-3 rounded-full border border-[#E5E7EB] bg-white hover:bg-[#F9FAFB] text-[#0A0D14] text-xs font-semibold transition-all shadow-2xs"
               >
                 Contact Enterprise
               </a>
@@ -201,20 +199,20 @@ export default function PricingPage() {
           </div>
 
           {/* FAQs */}
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-2xl font-bold text-white text-center mb-8">
+          <div className="max-w-3xl mx-auto mb-20">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-[#0A0D14] text-center mb-8">
               Frequently Asked Questions
             </h2>
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               {pricingFaqs.map((faq) => (
                 <div
                   key={faq.question}
-                  className="rounded-xl bg-surface/40 border border-edge p-6"
+                  className="rounded-2xl bg-[#F9FAFB] border border-[#E5E7EB] p-6 hover:border-[#D1D5DB] transition-all"
                 >
-                  <h3 className="text-white text-base font-semibold mb-2">
+                  <h3 className="text-[#0A0D14] text-base font-semibold mb-2">
                     {faq.question}
                   </h3>
-                  <p className="text-silver text-sm leading-relaxed">
+                  <p className="text-[#4B5565] text-sm leading-relaxed">
                     {faq.answer}
                   </p>
                 </div>
@@ -223,16 +221,16 @@ export default function PricingPage() {
           </div>
 
           {/* CTA Banner */}
-          <div className="mt-20 p-10 rounded-2xl bg-gradient-to-r from-surface to-[#161224] border border-edge text-center">
-            <h2 className="text-2xl font-bold text-white mb-3">
+          <div className="rounded-[28px] sm:rounded-[36px] bg-[#0A0D14] p-10 sm:p-14 text-center text-white shadow-xl">
+            <h2 className="text-3xl sm:text-4xl font-normal text-white mb-3 tracking-tight">
               Ready to verify your next contract?
             </h2>
-            <p className="text-silver text-sm max-w-xl mx-auto mb-6">
+            <p className="text-[#9DA8B9] text-sm sm:text-base max-w-xl mx-auto mb-8 leading-relaxed">
               Upload your agreement and receive a full clause-by-clause risk score in under 60 seconds.
             </p>
             <Link
-              href="/app/contracts/mock-id"
-              className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-xl text-xs font-semibold transition-all shadow-[0_0_20px_rgba(124,92,252,0.3)]"
+              href="/app/contracts/new"
+              className="inline-flex items-center gap-2 bg-[#583AFE] hover:bg-[#4d32e6] text-white px-8 py-3.5 rounded-full text-xs font-semibold transition-all shadow-md active:scale-95"
             >
               <span>Audit Document Now</span>
               <ArrowRight className="w-4 h-4" />

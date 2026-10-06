@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion } from 'motion/react';
-import { Eye, EyeOff, ArrowRight, Loader2, AlertCircle, Mail, Lock } from 'lucide-react';
+import { Eye, EyeOff, ArrowRight, Loader2, AlertCircle, Mail, Lock, Scale } from 'lucide-react';
 
 import { createClient } from '@/lib/supabase/client';
 import { useAuthStore } from '@/features/auth/store/useAuthstore';
@@ -32,8 +32,8 @@ export default function LoginPage() {
 
   if (user) {
     return (
-      <div className="min-h-screen bg-obsidian flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-accent" />
+      <div className="min-h-screen bg-[#090B0E] flex items-center justify-center">
+        <Loader2 className="w-6 h-6 animate-spin text-[#4B72C2]" />
       </div>
     );
   }
@@ -43,7 +43,6 @@ export default function LoginPage() {
     setError('');
     setFieldErrors({});
 
-    // Client-side validation
     const emailResult = validateEmail(email);
     const passwordResult = validatePassword(password);
 
@@ -70,7 +69,6 @@ export default function LoginPage() {
         return;
       }
 
-      // JWT access token is in data.session
       if (data.user && data.session) {
         login(
           {
@@ -82,7 +80,6 @@ export default function LoginPage() {
         );
       }
 
-      // Redirect to the main authenticated app route
       router.push('/app/contracts/new');
     } catch {
       setError('Something went wrong. Please try again.');
@@ -91,106 +88,101 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-obsidian text-silver flex flex-col items-center justify-center relative overflow-hidden px-4 py-8">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] pointer-events-none radial-purple-glow opacity-60" />
-
-      {/* Floating orbs for depth */}
-      <div className="absolute top-1/4 left-1/3 w-72 h-72 bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/3 w-72 h-72 bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
-
+    <div className="min-h-screen bg-[#090B0E] text-[#9DA8B9] flex flex-col items-center justify-center relative px-4 py-8 select-none">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-[420px] relative z-10"
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        className="w-full max-w-[400px] relative z-10"
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center justify-center gap-2.5 mb-10 group">
-          <Image
-            src="/logo/legalGPT_logo.png"
-            alt="LegalGPT Logo"
-            width={36}
-            height={36}
-            className="group-hover:scale-105 transition-transform duration-300"
-          />
-          <span className="text-white font-bold text-xl tracking-tight">LegalGPT</span>
+        <Link href="/" className="flex items-center justify-center gap-2 mb-8 group">
+          <div className="w-8 h-8 rounded-md bg-[#161B23] border border-[#273244] flex items-center justify-center p-1">
+            <Image
+              src="/logo/legalGPT_logo.png"
+              alt="LegalGPT Logo"
+              width={26}
+              height={26}
+              className="object-contain"
+            />
+          </div>
+          <span className="text-[#F1F4F8] font-semibold text-lg tracking-tight">LegalGPT</span>
         </Link>
 
         {/* Card */}
-        <div className="bg-surface/60 backdrop-blur-xl border border-edge rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/40">
+        <div className="bg-[#0F1218] border border-[#222938] rounded-xl p-6 sm:p-7 shadow-lg select-text">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">
-              Welcome back
+          <div className="text-center mb-6">
+            <h1 className="text-xl font-semibold text-[#F1F4F8] tracking-tight mb-1">
+              Sign In to Legal Workspace
             </h1>
-            <p className="text-silver text-sm">
-              Sign in to your LegalGPT account
+            <p className="text-[#636F83] text-xs">
+              Access your contract intelligence repository
             </p>
           </div>
 
           {/* Error banner */}
           {error && (
             <motion.div
-              initial={{ opacity: 0, y: -8 }}
+              initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-start gap-2.5 bg-risk-high/10 border border-risk-high/20 text-risk-high rounded-xl px-4 py-3 mb-6 text-sm"
+              className="flex items-start gap-2 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-md px-3 py-2.5 mb-4 text-xs font-mono"
             >
               <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
               <span>{error}</span>
             </motion.div>
           )}
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {/* Email field */}
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="login-email" className="text-xs font-semibold uppercase tracking-wider text-silver/80">
-                Email
+              <label htmlFor="login-email" className="text-[10px] font-bold uppercase tracking-wider text-[#7E8B9F]">
+                Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-dim pointer-events-none" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#636F83] pointer-events-none" />
                 <input
                   id="login-email"
                   type="email"
                   autoComplete="email"
-                  placeholder="you@example.com"
+                  placeholder="counsel@firm.com"
                   value={email}
                   onChange={(e) => { setEmail(e.target.value); setFieldErrors(prev => ({ ...prev, email: undefined })); }}
-                  className={`w-full bg-[#0a0a0a] border ${fieldErrors.email ? 'border-risk-high/50' : 'border-edge'} rounded-xl pl-10 pr-4 py-3 text-white text-sm placeholder-muted-dim focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/30 transition-all duration-200`}
+                  className={`w-full bg-[#0B0E14] border ${fieldErrors.email ? 'border-rose-500/50' : 'border-[#222938]'} rounded-md pl-9 pr-3 py-2 text-[#F1F4F8] text-xs placeholder-[#636F83] focus:outline-none focus:border-[#4B72C2] focus:ring-1 focus:ring-[#4B72C2] transition-colors`}
                 />
               </div>
               {fieldErrors.email && (
-                <span className="text-risk-high text-xs mt-0.5">{fieldErrors.email}</span>
+                <span className="text-rose-400 text-[10px] font-mono mt-0.5">{fieldErrors.email}</span>
               )}
             </div>
 
             {/* Password field */}
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="login-password" className="text-xs font-semibold uppercase tracking-wider text-silver/80">
+              <label htmlFor="login-password" className="text-[10px] font-bold uppercase tracking-wider text-[#7E8B9F]">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-dim pointer-events-none" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#636F83] pointer-events-none" />
                 <input
                   id="login-password"
                   type={showPassword ? 'text' : 'password'}
                   autoComplete="current-password"
-                  placeholder="Enter your password"
+                  placeholder="Enter your account password"
                   value={password}
                   onChange={(e) => { setPassword(e.target.value); setFieldErrors(prev => ({ ...prev, password: undefined })); }}
-                  className={`w-full bg-[#0a0a0a] border ${fieldErrors.password ? 'border-risk-high/50' : 'border-edge'} rounded-xl pl-10 pr-12 py-3 text-white text-sm placeholder-muted-dim focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/30 transition-all duration-200`}
+                  className={`w-full bg-[#0B0E14] border ${fieldErrors.password ? 'border-rose-500/50' : 'border-[#222938]'} rounded-md pl-9 pr-10 py-2 text-[#F1F4F8] text-xs placeholder-[#636F83] focus:outline-none focus:border-[#4B72C2] focus:ring-1 focus:ring-[#4B72C2] transition-colors`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-dim hover:text-silver transition-colors rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-[#636F83] hover:text-[#9DA8B9] transition-colors rounded cursor-pointer"
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                 </button>
               </div>
               {fieldErrors.password && (
-                <span className="text-risk-high text-xs mt-0.5">{fieldErrors.password}</span>
+                <span className="text-rose-400 text-[10px] font-mono mt-0.5">{fieldErrors.password}</span>
               )}
             </div>
 
@@ -198,17 +190,17 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="group w-full flex items-center justify-center gap-2.5 bg-accent hover:bg-accent/90 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold py-3.5 rounded-xl text-sm hover:scale-[1.01] transition-all duration-300 shadow-[0_0_25px_rgba(124,92,252,0.25)] hover:shadow-[0_0_35px_rgba(124,92,252,0.35)] mt-1"
+              className="w-full flex items-center justify-center gap-2 bg-[#2B5EA7] hover:bg-[#356FBF] disabled:opacity-40 disabled:cursor-not-allowed text-white font-medium py-2.5 rounded-md text-xs transition-colors shadow-sm mt-1 focus-ring cursor-pointer"
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Signing in…</span>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>Authenticating…</span>
                 </>
               ) : (
                 <>
                   <span>Sign In</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </>
               )}
             </button>
@@ -216,13 +208,13 @@ export default function LoginPage() {
         </div>
 
         {/* Footer link */}
-        <p className="text-center text-sm text-silver mt-6">
+        <p className="text-center text-xs text-[#636F83] mt-5">
           Don&apos;t have an account?{' '}
           <Link
             href="/signup"
-            className="text-accent font-semibold hover:text-accent/80 transition-colors"
+            className="text-[#4B72C2] font-medium hover:underline transition-colors"
           >
-            Create one
+            Create an account
           </Link>
         </p>
       </motion.div>

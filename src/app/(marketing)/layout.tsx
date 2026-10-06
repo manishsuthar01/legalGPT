@@ -1,6 +1,5 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { DotGrid } from "@/components/ui/DotGrid";
 
 export default function MarketingLayout({
   children,
@@ -8,20 +7,11 @@ export default function MarketingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-obsidian text-silver flex flex-col relative">
-      {/* Universal Interactive DotGrid background at z-0 */}
-      <DotGrid
-        dotSize={3}
-        gap={24}
-        baseColor="#523c7f"
-        activeColor="#9d82fc"
-        proximity={100}
-      />
-
-      {/* Main content layer at z-10 */}
-      <div className="relative z-10 flex flex-col min-h-screen">
+    <div className="min-h-screen bg-[#E8EBF0] text-[#111827] p-2.5 sm:p-4 md:p-6 lg:p-8 flex flex-col font-sans">
+      {/* Pristine Inset Framed Canvas matching the reference visual style */}
+      <div className="marketing-canvas flex-1 bg-white rounded-[24px] sm:rounded-[32px] md:rounded-[40px] shadow-[0_4px_30px_rgba(0,0,0,0.03)] border border-[#DCE0E7] flex flex-col relative overflow-hidden">
         <Header />
-        <main className="flex-1 pt-16">
+        <main className="flex-1">
           {children}
         </main>
         <Footer />
