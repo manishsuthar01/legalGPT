@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles } from 'lucide-react';
+import { HelpCircle, ArrowRight } from 'lucide-react';
 
 interface SuggestedPromptProps {
   text: string;
@@ -9,11 +9,15 @@ interface SuggestedPromptProps {
 export const SuggestedPrompt: React.FC<SuggestedPromptProps> = ({ text, onClick }) => {
   return (
     <button 
+      type="button"
       onClick={onClick}
-      className="flex items-center gap-2 px-3 py-2 bg-[#111] border border-[#222] hover:border-[#7c5cfc]/50 hover:bg-[#7c5cfc]/5 rounded-xl text-xs text-[#999] hover:text-[#ccc] transition-all duration-300 text-left focus-visible:ring-2 focus-visible:ring-[#7c5cfc] outline-none"
+      className="flex items-center justify-between gap-2 px-3 py-2 bg-[#0F1218] border border-[#1E2533] hover:border-[#36455D] hover:bg-[#131822] rounded-md text-xs text-[#9DA8B9] hover:text-[#F1F4F8] transition-colors text-left focus-ring outline-none cursor-pointer group"
     >
-      <Sparkles size={14} className="text-[#7c5cfc]" aria-hidden="true" />
-      <span className="truncate">{text}</span>
+      <div className="flex items-center gap-2 min-w-0">
+        <HelpCircle size={13} className="text-[#4B72C2] shrink-0" aria-hidden="true" />
+        <span className="truncate">{text}</span>
+      </div>
+      <ArrowRight size={11} className="text-[#636F83] group-hover:text-[#F1F4F8] transition-colors shrink-0" />
     </button>
   );
 };

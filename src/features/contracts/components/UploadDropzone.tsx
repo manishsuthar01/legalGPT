@@ -1,5 +1,5 @@
 import React, { useState, useRef, DragEvent } from 'react';
-import { Loader2, UploadCloud } from 'lucide-react';
+import { Loader2, UploadCloud, FileText, ShieldCheck, Scale, CheckCircle2 } from 'lucide-react';
 import { uploadContract } from '@/utils/supabase/storage';
 import { useAuthStore } from '@/features/auth/store/useAuthstore';
 import { createClient } from '@/lib/supabase/client';
@@ -7,6 +7,13 @@ import { createClient } from '@/lib/supabase/client';
 interface UploadDropzoneProps {
   onUpload: (path: string, country: string, fileName?: string) => Promise<void> | void;
 }
+
+const INTAKE_STEPS = [
+  { step: '01', title: 'Upload & Parse', desc: 'Text & metadata extraction' },
+  { step: '02', title: 'Clause Splitting', desc: 'Atomic clause indexing' },
+  { step: '03', title: 'Statutory Audit', desc: 'Flag liability & exposure' },
+  { step: '04', title: 'Advisory Redline', desc: 'Attorney-grade remediation' },
+];
 
 export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUpload }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -17,7 +24,7 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUpload }) => {
   const user = useAuthStore((state) => state.user);
   const userId = user?.id;
 
-  const handleUplaodClick = () => {
+  const handleUploadClick = () => {
     if (!fileInputRef.current) return;
     fileInputRef.current.click();
   };
@@ -39,7 +46,7 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUpload }) => {
     }
 
     if (!activeUserId) {
-      setError('You must be logged in to upload a contract.');
+      setError('Authentication required: please log in to analyze contracts.');
       return;
     }
 
@@ -50,7 +57,7 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUpload }) => {
     if (result.success && result.path) {
       await onUpload(result.path, country, file.name);
     } else {
-      setError(result.error instanceof Error ? result.error.message : 'Failed to upload contract');
+      setError(result.error instanceof Error ? result.error.message : 'Failed to ingest contract file');
       setIsUploading(false);
     }
 
@@ -90,75 +97,121 @@ export const UploadDropzone: React.FC<UploadDropzoneProps> = ({ onUpload }) => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center h-full w-full max-w-2xl mx-auto px-4 sm:px-6 py-6">
+    <div className="flex flex-col items-center justify-center w-full max-w-3xl mx-auto px-4 py-8">
+      {/* Editorial Header */}
+      <div className="w-full text-center mb-6">
+        <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#161B23] border border-[#263143] text-[#C49B55] text-[10px] font-bold uppercase tracking-widest mb-3">
+          <Scale size={12} className="text-[#C49B55]" />
+          <span>Statutory Intake & Document Analysis</span>
+        </div>
+        <h2 className="text-[#F1F4F8] text-xl sm:text-2xl font-semibold tracking-tight mb-2">
+          Contract Audit Workspace
+        </h2>
+        <p className="text-[#9DA8B9] text-xs sm:text-sm max-w-lg mx-auto leading-relaxed">
+          Upload any commercial contract, MSA, NDA, or vendor agreement for automated clause segmentation, liability detection, and statutory review.
+        </p>
+      </div>
 
-      <div className="mb-4 sm:mb-6 w-full max-w-xs flex flex-col items-center">
-        <label htmlFor="country-select" className="text-xs sm:text-sm text-[#999] font-medium mb-1.5 sm:mb-2 uppercase tracking-wider">Target Jurisdiction</label>
+      {/* Audit Pipeline Steps */}
+      <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-2 mb-6">
+        {INTAKE_STEPS.map((s, idx) => (
+          <div 
+            key={idx} 
+            className="bg-[#0F1218] border border-[#1E2533] rounded-lg p-2.5 flex flex-col justify-between"
+          >
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-[10px] font-mono text-[#4B72C2] font-semibold">{s.step}</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2B5EA7]" />
+            </div>
+            <span className="text-xs font-medium text-[#F1F4F8] leading-tight">{s.title}</span>
+            <span className="text-[10px] text-[#636F83] mt-0.5 truncate">{s.desc}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Target Jurisdiction Selector */}
+      <div className="w-full max-w-sm mb-4">
+        <div className="flex items-center justify-between mb-1.5 px-0.5">
+          <label 
+            htmlFor="country-select" 
+            className="text-[10px] font-bold uppercase tracking-wider text-[#7E8B9F]"
+          >
+            Governing Jurisdiction
+          </label>
+          <span className="text-[10px] text-[#636F83] font-mono">Applies statutory law</span>
+        </div>
         <select
           id="country-select"
           value={country}
           onChange={(e) => setCountry(e.target.value)}
           disabled={isuploading}
-          className="w-full bg-[#111] border border-[#333] text-white text-xs sm:text-sm rounded-lg px-3.5 sm:px-4 py-2 focus:outline-none focus:border-[#7c5cfc] transition-colors"
+          className="w-full bg-[#121620] border border-[#242D3E] text-[#F1F4F8] text-xs rounded-md px-3 py-2 focus:border-[#4B72C2] focus:ring-1 focus:ring-[#4B72C2] transition-colors outline-none cursor-pointer"
         >
-          <option value="US">United States (US)</option>
-          <option value="UK">United Kingdom (UK)</option>
-          <option value="EU">European Union (EU)</option>
-          <option value="IN">India (IN)</option>
-          <option value="AU">Australia (AU)</option>
-          <option value="CA">Canada (CA)</option>
+          <option value="US">United States (Federal & Delaware Common Law)</option>
+          <option value="UK">United Kingdom (England & Wales Law)</option>
+          <option value="EU">European Union (Civil Law Standards & GDPR)</option>
+          <option value="IN">India (Indian Contract Act 1872)</option>
+          <option value="AU">Australia (Commonwealth & State Common Law)</option>
+          <option value="CA">Canada (Common Law & Quebec Civil Code)</option>
         </select>
       </div>
 
+      {/* Main Drag & Drop Zone */}
       <button
         type="button"
-        onClick={handleUplaodClick}
+        onClick={handleUploadClick}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         disabled={isuploading}
-        aria-label="Upload document for analysis"
-        className={`w-full border-2 border-dashed rounded-2xl p-6 sm:p-12 md:p-16 flex flex-col items-center justify-center cursor-pointer transition-all duration-300 group focus-visible:ring-4 focus-visible:ring-[#7c5cfc]/50 outline-none ${
+        aria-label="Upload legal agreement for analysis"
+        className={`w-full border border-dashed rounded-xl p-8 sm:p-12 flex flex-col items-center justify-center cursor-pointer transition-colors outline-none group focus-ring ${
           isDragOver
-            ? 'bg-[#7c5cfc]/10 border-[#7c5cfc] scale-[1.01]'
-            : 'bg-[#0a0a0a] border-[#222] hover:border-[#7c5cfc]/50'
+            ? 'bg-[#141C2A] border-[#4B72C2]'
+            : 'bg-[#0E1219] border-[#222B3B] hover:border-[#384863] hover:bg-[#111621]'
         }`}
       >
-        <div className="w-14 h-14 sm:w-20 sm:h-20 bg-[#111] rounded-full flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 transition-transform duration-300">
-
+        <div className="w-12 h-12 rounded-lg bg-[#161C26] border border-[#273244] flex items-center justify-center mb-4 transition-colors group-hover:border-[#4B72C2]">
           {isuploading ? (
-            <Loader2 size={28} className="text-[#7c5cfc] animate-spin sm:w-10 sm:h-10" aria-hidden="true" />
+            <Loader2 size={22} className="text-[#4B72C2] animate-spin" aria-hidden="true" />
           ) : (
-            <UploadCloud size={28} className="text-[#7c5cfc] sm:w-10 sm:h-10" aria-hidden="true" />
+            <UploadCloud size={22} className="text-[#9DA8B9] group-hover:text-[#F1F4F8] transition-colors" aria-hidden="true" />
           )}
         </div>
 
-        <h2 className="text-white text-lg sm:text-2xl font-bold mb-2 sm:mb-3 text-center tracking-tight">
-          {isuploading ? 'Uploading contract...' : 'Analyze a Legal Contract'}
-        </h2>
+        <h3 className="text-[#F1F4F8] text-sm sm:text-base font-medium mb-1.5 text-center">
+          {isuploading ? 'Ingesting and parsing document...' : 'Select or drag agreement to audit'}
+        </h3>
 
-        <p className="text-[#666] text-xs sm:text-sm text-center mb-6 sm:mb-8 max-w-sm px-2">
-          {error ? <span className='text-red-400'>Error: {error}</span> : "Drag and drop your PDF, DOCX or TXT file, or click to browse your files."}
+        <p className="text-[#636F83] text-xs text-center mb-4 max-w-sm px-2">
+          {error ? (
+            <span className="text-red-400 font-medium">Error: {error}</span>
+          ) : (
+            'Supports PDF, DOCX, or plain TXT files up to 25MB.'
+          )}
         </p>
 
-        <span className="bg-[#7c5cfc] group-hover:bg-[#111] group-hover:border-[#333] border border-[#222] text-white font-semibold text-xs sm:text-sm px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl transition-all duration-300 group-hover:scale-[1.02] inline-block pointer-events-none">
-          {isuploading ? "uploading..." : "browse files"}
+        <span className="inline-flex items-center gap-2 bg-[#2B5EA7] hover:bg-[#356FBF] text-white text-xs font-medium px-4 py-2 rounded-md shadow-sm transition-colors pointer-events-none">
+          <FileText size={14} />
+          <span>{isuploading ? 'Parsing...' : 'Browse Document Files'}</span>
         </span>
       </button>
 
+      {/* Hidden file input */}
       <input
         type="file"
         ref={fileInputRef}
         onChange={handleFileChange}
-        disabled={isuploading}
-        className="hidden"
         accept=".pdf,.docx,.txt"
+        className="hidden"
+        aria-label="Upload document file"
       />
 
-      <p className="mt-4 sm:mt-8 text-[10px] sm:text-xs text-[#444] uppercase tracking-widest font-bold text-center" aria-live="polite">
-        Supported Formats: PDF, DOCX, TXT
-      </p>
+      {/* Security & Confidentiality Notice */}
+      <div className="mt-5 flex items-center gap-2 text-[11px] text-[#636F83]">
+        <ShieldCheck size={13} className="text-[#16A34A] shrink-0" />
+        <span>Confidential & Attorney-Client Protected • Zero training on uploaded contract corpora</span>
+      </div>
     </div>
   );
-
 };
