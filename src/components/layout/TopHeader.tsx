@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Clock, Menu, PanelLeft } from 'lucide-react';
-import { StatusBadge } from '../ui/StatusBadge';
+import { Clock, Menu, PanelLeft, ShieldCheck, Scale, FileText } from 'lucide-react';
+import { StatusBadge, RiskLevel } from '../ui/StatusBadge';
 
 interface TopHeaderProps {
   documentName: string;
@@ -21,73 +21,90 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
   isDesktopCollapsed,
   onToggleDesktopCollapse
 }) => {
+  const getRiskLevel = (risk?: string | null): RiskLevel => {
+    switch (risk?.toUpperCase()) {
+      case 'CRITICAL': return 'critical';
+      case 'HIGH': return 'high';
+      case 'MEDIUM': return 'medium';
+      case 'LOW': return 'low';
+      default: return 'neutral';
+    }
+  };
+
   return (
-    <header className="h-[60px] sm:h-[70px] w-full flex items-center justify-between px-3 sm:px-6 md:px-8 bg-[#0a0a0a] border-b border-[#222] shrink-0 z-30">
-      <div className="flex items-center gap-2 sm:gap-4 overflow-hidden min-w-0">
+    <header className="h-[58px] w-full flex items-center justify-between px-3 sm:px-6 bg-[#0B0E14] border-b border-[#1C222E] shrink-0 z-30 select-none">
+      <div className="flex items-center gap-2 sm:gap-3.5 overflow-hidden min-w-0">
         {/* Mobile Hamburger Menu */}
         <button
           onClick={onMenuToggle}
-          aria-label="Open navigation menu"
-          className="md:hidden p-2 -ml-1 text-[#999] hover:text-white hover:bg-[#161616] rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-[#7c5cfc] outline-none"
+          aria-label="Open workspace navigation"
+          className="md:hidden p-1.5 text-[#9DA8B9] hover:text-[#F1F4F8] hover:bg-[#161B23] rounded-md transition-colors focus-ring"
         >
-          <Menu size={20} />
+          <Menu size={18} />
         </button>
 
-        {/* Desktop Sidebar Toggle (Gemini style) */}
+        {/* Desktop Sidebar Toggle */}
         {onToggleDesktopCollapse && (
           <button
             onClick={onToggleDesktopCollapse}
-            aria-label={isDesktopCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+            aria-label={isDesktopCollapsed ? "Expand sidebar (Ctrl+[)" : "Collapse sidebar (Ctrl+[)"}
             title={isDesktopCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-            className="hidden md:flex p-2 -ml-2 text-[#777] hover:text-white hover:bg-[#161616] rounded-lg transition-colors focus-visible:ring-2 focus-visible:ring-[#7c5cfc] outline-none"
+            className="hidden md:flex p-1.5 text-[#636F83] hover:text-[#F1F4F8] hover:bg-[#161B23] rounded-md transition-colors focus-ring"
           >
-            <PanelLeft size={18} />
+            <PanelLeft size={16} />
           </button>
         )}
 
-        {/* Document Title */}
-        <h1 className="text-white font-semibold text-sm sm:text-base md:text-lg truncate max-w-[150px] xs:max-w-[220px] sm:max-w-xs md:max-w-md lg:max-w-lg">
-          {status !== 'empty' ? documentName : 'New Analysis'}
-        </h1>
+        {/* Breadcrumb Context & Document Title */}
+        <div className="flex items-center gap-1.5 overflow-hidden min-w-0">
+          <span className="hidden sm:inline-flex items-center gap-1 text-[11px] text-[#636F83] uppercase tracking-wider font-mono shrink-0">
+            <Scale size={12} className="text-[#636F83]" />
+            <span>Workspace</span>
+            <span>/</span>
+          </span>
+
+          <div className="flex items-center gap-1.5 min-w-0">
+            <FileText size={14} className="text-[#4B72C2] shrink-0 hidden xs:inline" />
+            <h1 className="text-[#F1F4F8] font-medium text-xs sm:text-sm truncate max-w-[160px] xs:max-w-[220px] sm:max-w-xs md:max-w-md lg:max-w-lg">
+              {status !== 'empty' ? documentName : 'New Contract Intake'}
+            </h1>
+          </div>
+        </div>
 
         {/* Risk / Status Badge */}
-        {status === 'complete' && (
-          <div className="shrink-0 scale-90 sm:scale-100 origin-left">
+        {status === 'complete' && overallRisk && (
+          <div className="shrink-0">
             <StatusBadge 
-              level={
-                overallRisk === 'HIGH' ? 'high' : 
-                overallRisk === 'MEDIUM' ? 'medium' : 
-                overallRisk === 'LOW' ? 'low' : 
-                'neutral'
-              } 
-              label={`${overallRisk || 'Analyzed'} Risk`} 
+              level={getRiskLevel(overallRisk)} 
+              label={`${overallRisk} Risk`} 
+              size="sm"
             />
           </div>
         )}
         {status === 'analyzing' && (
-          <div className="shrink-0 scale-90 sm:scale-100 origin-left">
-            <StatusBadge level="neutral" label="Analyzing" />
+          <div className="shrink-0">
+            <StatusBadge level="neutral" label="Audit In Progress" size="sm" />
           </div>
         )}
 
-        {/* Timestamp */}
+        {/* Timestamp / Freshness */}
         {status === 'complete' && (
-          <div className="hidden lg:flex items-center gap-1.5 text-xs text-[#666] shrink-0">
-            <Clock size={12} />
-            <span>Analyzed just now</span>
+          <div className="hidden xl:flex items-center gap-1.5 text-[11px] text-[#636F83] font-mono shrink-0">
+            <Clock size={11} />
+            <span>Audit Complete</span>
           </div>
         )}
       </div>
 
-      <div className="flex items-center gap-1 sm:gap-2 shrink-0">
-        {/* Quick status pill for mobile header */}
-        <div className="flex items-center gap-1.5 text-[11px] sm:text-xs text-[#777] bg-[#121212] border border-[#222] px-2.5 py-1 rounded-full">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
-          <span className="hidden xs:inline">LegalAI Engine</span>
-          <span className="xs:hidden">AI</span>
+      {/* Header Right Actions */}
+      <div className="flex items-center gap-2 shrink-0">
+        {/* Security & Statutory Model Badge */}
+        <div className="flex items-center gap-1.5 text-[10px] text-[#9DA8B9] bg-[#121620] border border-[#202736] px-2.5 py-1 rounded-full font-mono">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A]" />
+          <span className="hidden sm:inline">Statutory Engine: Active</span>
+          <span className="sm:hidden">Engine</span>
         </div>
       </div>
     </header>
   );
 };
-

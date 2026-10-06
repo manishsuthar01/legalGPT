@@ -1,5 +1,5 @@
 import React, { useState, KeyboardEvent } from 'react';
-import { SendHorizontal } from 'lucide-react';
+import { SendHorizontal, ShieldAlert } from 'lucide-react';
 
 interface ChatInputProps {
   onSubmit: (message: string) => void;
@@ -23,32 +23,33 @@ export const ChatInput = ({ onSubmit, isLoading }: ChatInputProps) => {
   };
 
   return (
-    <div className="p-3 sm:p-4 border-t border-[#222] bg-[#0a0a0a] pb-[max(0.75rem,env(safe-area-inset-bottom))] shrink-0">
-      <div className="relative flex items-end bg-[#121212] border border-[#262626] rounded-xl overflow-hidden focus-within:border-[#7c5cfc]/60 transition-colors">
+    <div className="p-3 border-t border-[#1C222E] bg-[#0B0E14] pb-[max(0.75rem,env(safe-area-inset-bottom))] shrink-0">
+      <div className="relative flex items-end bg-[#10141D] border border-[#222B3B] rounded-lg overflow-hidden focus-within:border-[#4B72C2] transition-colors">
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask a question about this contract... (Enter to send)"
-          aria-label="Chat input message"
-          className="w-full bg-transparent text-sm sm:text-[15px] text-white placeholder-[#555] p-3 sm:p-3.5 pr-12 resize-none focus:outline-none min-h-[48px] sm:min-h-[54px] max-h-[120px] leading-relaxed"
+          placeholder="Ask a question about this contract... (Enter to send, Shift+Enter for newline)"
+          aria-label="Legal counsel inquiry message"
+          className="w-full bg-transparent text-xs sm:text-[13px] text-[#F1F4F8] placeholder-[#636F83] p-2.5 sm:p-3 pr-11 resize-none focus:outline-none min-h-[44px] max-h-[120px] leading-relaxed"
           rows={1}
         />
         <button
+          type="button"
           onClick={handleSend}
-          aria-label="Send message"
+          aria-label="Send inquiry"
           disabled={isLoading || !message.trim()}
-          className="absolute right-2 bottom-2 p-2 bg-[#7c5cfc] hover:bg-[#6a4beb] disabled:opacity-40 disabled:hover:bg-[#7c5cfc] text-white rounded-lg transition-colors flex items-center justify-center focus-visible:ring-2 focus-visible:ring-white outline-none active:scale-95"
+          className="absolute right-1.5 bottom-1.5 p-1.5 bg-[#2B5EA7] hover:bg-[#356FBF] disabled:opacity-30 disabled:hover:bg-[#2B5EA7] text-white rounded-md transition-colors flex items-center justify-center focus-ring outline-none cursor-pointer"
         >
-          <SendHorizontal size={16} aria-hidden="true" />
+          <SendHorizontal size={14} aria-hidden="true" />
         </button>
       </div>
-      <div className="text-center mt-2">
-        <span className="text-[9px] sm:text-[10px] text-[#555] uppercase tracking-wider font-semibold">
-          AI can make mistakes. Verify important legal info.
+      <div className="flex items-center justify-center gap-1.5 text-center mt-1.5 select-none">
+        <ShieldAlert size={10} className="text-[#636F83]" />
+        <span className="text-[9px] text-[#636F83] font-mono">
+          Advisory AI Model • Grounded in contract text. Verify critical indemnities.
         </span>
       </div>
     </div>
   );
 };
-

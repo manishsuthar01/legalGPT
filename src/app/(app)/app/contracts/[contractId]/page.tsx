@@ -11,10 +11,180 @@ import { RiskList } from '@/features/analysis/components/RiskList';
 import { ClauseViewer } from '@/features/contracts/components/ClauseViewer';
 import { ChatPanel } from '@/features/chat/components/ChatPanel';
 import useContractAnalysis from '@/features/contracts/hooks/useContractAnalysis';
-import { FileText, MessageSquare, Loader2 } from 'lucide-react';
+import { FileText, MessageSquare, Loader2, Scale } from 'lucide-react';
+import { AnalysisResult } from '@/ai/types/analysis';
 
 type UIState = 'empty' | 'analyzing' | 'complete';
 type MobileTab = 'analysis' | 'chat';
+
+const SAMPLE_ANALYSIS_DATA: AnalysisResult = {
+  summary: "This Master Services Agreement & Mutual NDA governs bilateral proprietary evaluations. While mutual confidentiality covenants are structured reasonably, the agreement contains severe liability exposure in Section 8 (Uncapped Consequential Indemnity), Section 3 (Perpetual Non-Disclosure Obligation), and Section 12 (Unilateral Fee Shifting). Recommended curative redlines must be inserted prior to signing.",
+  overallRisk: 'HIGH',
+  riskScore: 78,
+  riskScoreBreakdown: {
+    contractQuality: 68,
+    clauseRisk: 82,
+    jurisdictionCompliance: 74,
+  },
+  riskCards: [
+    {
+      id: 'risk-1',
+      severity: 'critical',
+      clauseTitle: 'Section 8.2 • Uncapped Consequential Indemnity',
+      explanation: 'The indemnity clause lacks any monetary liability cap, creating open-ended financial exposure for indirect disclosures or third-party claims.',
+      suggestedFix: 'Insert an aggregate monetary liability cap tied to fees paid or $100,000, and explicitly exclude consequential, punitive, and incidental damages.',
+      likelihood: 4,
+      impact: 5,
+      whyItMatters: 'Uncapped indemnities expose corporate assets to catastrophic uninsured liability beyond ordinary commercial bounds.',
+    },
+    {
+      id: 'risk-2',
+      severity: 'high',
+      clauseTitle: 'Section 3.1 • Perpetual Non-Disclosure Term',
+      explanation: 'Confidentiality obligations are specified to survive indefinitely without expiration, rather than terminating after standard 2-to-3-year commercial windows.',
+      suggestedFix: 'Limit standard business confidentiality obligations to 36 months following termination, reserving perpetual protection strictly for proven trade secrets.',
+      likelihood: 5,
+      impact: 4,
+      whyItMatters: 'Indefinite obligations create permanent enterprise compliance burdens and risk unenforceability under trade secret common law.',
+    },
+    {
+      id: 'risk-3',
+      severity: 'medium',
+      clauseTitle: 'Section 12.4 • Unilateral Attorneys Fees',
+      explanation: 'Prevailing party attorney fee shifting is written asymmetrically, permitting only the disclosing party to recover legal defense costs in litigation.',
+      suggestedFix: 'Draft as a bilateral fee-shifting provision where the prevailing party in any enforcement proceeding recovers reasonable counsel costs.',
+      likelihood: 3,
+      impact: 3,
+      whyItMatters: 'One-sided fee clauses incentivize aggressive litigious posturing while depriving your team of reciprocal recovery rights.',
+    },
+  ],
+  advisorFeedback: [
+    {
+      clauseId: 1,
+      clauseTitle: 'Section 8.2 • Indemnification',
+      risk: 'CRITICAL',
+      likelihood: 4,
+      impact: 5,
+      whyItMatters: 'Exposes party to catastrophic uncapped indemnification for third-party subcontractor claims.',
+      suggestedFix: 'Add liability cap of 12 months fees and mutualize indemnification scope.',
+      replacementLanguage: "Each party's maximum aggregate liability arising out of or related to this Agreement, whether in contract, tort, or under any statutory indemnification theory, shall not exceed One Hundred Thousand Dollars ($100,000). In no event shall either party be liable for any indirect, incidental, punitive, or consequential damages.",
+      rationale: 'Establishes standard commercial limitation of liability consistent with ABA Model Contract Guidelines.',
+      priority: 'CRITICAL',
+    },
+    {
+      clauseId: 2,
+      clauseTitle: 'Section 3.1 • Term & Survival',
+      risk: 'HIGH',
+      likelihood: 5,
+      impact: 4,
+      whyItMatters: 'Perpetual confidentiality without trade secret carve-outs triggers excessive audit exposure.',
+      suggestedFix: 'Limit confidentiality term to three (3) years post-termination.',
+      replacementLanguage: 'The obligations of non-disclosure and non-use set forth herein shall commence on the Effective Date and terminate exactly three (3) years following the termination or expiration of this Agreement; provided, however, that with respect to Information qualifying as a Trade Secret under the Uniform Trade Secrets Act, such obligations shall survive until such information no longer qualifies as a trade secret under applicable law.',
+      rationale: 'Brings duration into alignment with Delaware Chancery Court enforceability baselines.',
+      priority: 'HIGH',
+    },
+    {
+      clauseId: 3,
+      clauseTitle: 'Section 12.4 • Dispute Resolution & Fees',
+      risk: 'MEDIUM',
+      likelihood: 3,
+      impact: 3,
+      whyItMatters: 'Asymmetrical fee recovery creates an unlevel litigation playing field.',
+      suggestedFix: 'Make fee shifting mutual for the prevailing party.',
+      replacementLanguage: 'In the event of any arbitration, suit, or proceeding brought to enforce the terms of this Agreement, the prevailing party shall be entitled to recover from the non-prevailing party all reasonable attorneys fees, costs, and necessary disbursements incurred in connection therewith.',
+      rationale: 'Neutralizes unilateral litigation leverage.',
+      priority: 'MEDIUM',
+    },
+  ],
+  reviewerFeedback: [
+    {
+      clauseId: 1,
+      clauseText: 'Recipient shall defend, indemnify, and hold harmless Discloser and its officers, directors, and affiliates from and against any and all claims, damages, liabilities, losses, costs, and expenses (including attorneys fees) arising out of or resulting from any unauthorized use or disclosure of Confidential Information by Recipient, without monetary limitation.',
+      researchTopic: 'Uncapped Consequential Indemnity',
+      strictReview: {
+        risk: 'CRITICAL',
+        summary: 'Clause creates open-ended, uncapped strict indemnification liability for any disclosure, including inadvertent employee breaches.',
+        observations: [
+          'No aggregate cap on liability or fee multiplier.',
+          'Failure to exclude indirect, consequential, or punitive damages.',
+          'Missing prompt notice requirements and control of defense carve-outs.'
+        ],
+        evidence: [
+          'UCC § 2-719 allows contractual limitation of remedy unless unconscionable.',
+          'Restatement (Second) of Contracts § 351 on foreseeability of damages.'
+        ],
+        applicableLaw: ['Del. Code Ann. tit. 6 § 2-719', 'Restatement (Second) Contracts § 351'],
+        internalReasoning: 'Uncapped indemnification in an NDA is highly non-standard and represents extreme asymmetry.'
+      }
+    },
+    {
+      clauseId: 2,
+      clauseText: 'The confidentiality obligations herein shall remain in full force and effect in perpetuity following the disclosure of Confidential Information or the termination of business discussions between the parties.',
+      researchTopic: 'Perpetual Confidentiality Term',
+      strictReview: {
+        risk: 'HIGH',
+        summary: 'Perpetual duration for standard commercial information is disfavored under common law and creates permanent enterprise compliance risk.',
+        observations: [
+          'Lacks standard 2 to 3 year sunset clause.',
+          'Fails to distinguish general business confidential information from statutory trade secrets.'
+        ],
+        evidence: [
+          'Delaware Uniform Trade Secrets Act (DUTSA) 6 Del. C. § 2001.',
+          'Silicon Image, Inc. v. Analogix Semiconductor, Inc. regarding overbroad duration.'
+        ],
+        applicableLaw: ['6 Del. C. § 2001', 'DUTSA'],
+        internalReasoning: 'Courts will frequently strike down perpetual NDAs as unreasonable restraints on trade unless limited to statutory trade secrets.'
+      }
+    },
+    {
+      clauseId: 3,
+      clauseText: 'In the event Discloser initiates legal action to enforce any provision hereof, Recipient shall reimburse Discloser for all legal fees, costs, and investigative expenses incurred.',
+      researchTopic: 'Unilateral Attorney Fee Shifting',
+      strictReview: {
+        risk: 'MEDIUM',
+        summary: 'Unilateral attorney fee provision allows Discloser to litigate without cost risk while burdening Recipient.',
+        observations: [
+          'Reimbursement is triggered upon initiation rather than judgment.',
+          'No reciprocal fee protection for Recipient if Discloser files an unfounded suit.'
+        ],
+        evidence: [
+          'Delaware default American Rule requires express bilateral agreement for fee shifting.'
+        ],
+        applicableLaw: ['Delaware American Rule Exception Doctrine'],
+        internalReasoning: 'Unilateral fee shifting clauses create moral hazard and should always be negotiated to mutual prevailing-party terms.'
+      }
+    }
+  ],
+  clauses: [
+    { text: 'Clause 1: Confidentiality definition and exclusions.', source: 'Section 1', chunk_index: 0 },
+    { text: 'Clause 2: Obligations of non-disclosure.', source: 'Section 2', chunk_index: 1 },
+    { text: 'Clause 3: Perpetual duration.', source: 'Section 3', chunk_index: 2 },
+  ],
+  positiveFindings: [
+    {
+      clauseTitle: 'Section 2.3 • Standard Permitted Disclosures',
+      explanation: 'Includes standard safe harbor for legal process, court orders, and regulatory subpoena disclosures with prior notice obligations.',
+    },
+    {
+      clauseTitle: 'Section 5.1 • Mutual Non-Solicitation Carve-out',
+      explanation: 'Explicitly excludes general job advertisements and non-targeted recruiting from solicitation restrictions.',
+    },
+  ],
+  missingClauses: [
+    {
+      title: 'Residual Knowledge Carve-Out (Unaided Memory)',
+      explanation: 'Agreement lacks standard protection permitting engineers and consultants to retain generalized concepts, ideas, and techniques retained in unaided memory.',
+      severity: 'high',
+      suggestedLanguage: 'Notwithstanding anything to the contrary, neither party shall be restricted in the use of general concepts, techniques, or know-how retained in the unaided memory of personnel who have had authorized access to Confidential Information, provided such personnel do not intentionally memorize such information.',
+    },
+    {
+      title: 'Injunctive Relief Balance & Bond Requirement',
+      explanation: 'Discloser is granted unilateral immediate injunctive relief without the obligation to post bond or demonstrate irreparable financial harm.',
+      severity: 'medium',
+      suggestedLanguage: 'In the event of a breach or threatened breach, the non-breaching party shall be entitled to seek injunctive relief from a court of competent jurisdiction upon demonstrating irreparable harm and posting a reasonable bond.',
+    },
+  ]
+};
 
 export default function ContractWorkspacePage() {
   const router = useRouter();
@@ -52,11 +222,20 @@ export default function ContractWorkspacePage() {
       return;
     }
 
+    // Interactive Demo / Sample contract mode fallback
+    if (targetId === 'mock-id' || targetId === 'sample-contract') {
+      setContractId(targetId);
+      setDocumentName('Commercial_Services_Agreement_v2.pdf');
+      setLoadError(null);
+      setAnalysisResult(SAMPLE_ANALYSIS_DATA);
+      setIsLoadingExisting(false);
+      return;
+    }
+
     try {
       setIsLoadingExisting(true);
       setLoadError(null);
       setContractId(targetId);
-      // Clear previous analysis result while loading new contract
       setAnalysisResult(null);
 
       const res = await fetch(`/api/contracts/${targetId}`);
@@ -78,14 +257,19 @@ export default function ContractWorkspacePage() {
         }
       }
     } catch (err) {
-      console.warn('Could not fetch existing contract:', err);
-      setLoadError('Failed to load contract details. Please try again.');
+      console.warn('Could not fetch existing contract, falling back to sample if mock-id:', err);
+      // Fallback to sample analysis if mock-id was requested
+      if (targetId === 'mock-id') {
+        setDocumentName('Commercial_Services_Agreement_v2.pdf');
+        setAnalysisResult(SAMPLE_ANALYSIS_DATA);
+      } else {
+        setLoadError('Failed to load contract details. Please try again.');
+      }
     } finally {
       setIsLoadingExisting(false);
     }
   }, [resetAnalysis, setAnalysisResult]);
 
-  // Handler for direct sidebar selection or new analysis click
   const handleSelectContract = useCallback((targetId: string) => {
     if (!targetId || targetId === 'new') {
       setContractId('');
@@ -96,22 +280,18 @@ export default function ContractWorkspacePage() {
       return;
     }
 
-    // If currently displaying this contract with full report, just navigate URL
     if (contractId === targetId && analysisResult && !isAnalysing) {
       router.push(`/app/contracts/${targetId}`);
       return;
     }
 
-    // Load target contract and update route
     loadContract(targetId);
     router.push(`/app/contracts/${targetId}`);
   }, [contractId, analysisResult, isAnalysing, resetAnalysis, router, loadContract]);
 
-  // Load contract when accessed via URL directly or upon route changes
   useEffect(() => {
     const rawId = params?.contractId;
     if (!rawId || rawId === 'new' || rawId === 'default-contract') {
-      // If currently analysing or if we already have an active contract loaded, do not reset!
       if (isAnalysing || contractId) {
         return;
       }
@@ -122,12 +302,10 @@ export default function ContractWorkspacePage() {
       return;
     }
 
-    // If currently actively analyzing this contract, do not overwrite with a fetch
     if (isAnalysing && contractId === rawId) {
       return;
     }
 
-    // If already showing this contract with an analysis result, skip refetch
     if (contractId === rawId && analysisResult) {
       return;
     }
@@ -137,11 +315,10 @@ export default function ContractWorkspacePage() {
 
   // Resizable and toggleable chat layout state
   const [isChatOpen, setIsChatOpen] = useState<boolean>(true);
-  const [chatWidth, setChatWidth] = useState<number>(450);
+  const [chatWidth, setChatWidth] = useState<number>(440);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Restore saved preferences from localStorage
   useEffect(() => {
     try {
       const savedWidth = localStorage.getItem('legalgpt_chat_width');
@@ -177,7 +354,6 @@ export default function ContractWorkspacePage() {
     } catch {}
   }, []);
 
-  // Keyboard shortcut (Cmd+K / Ctrl+K) to toggle chat
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
@@ -189,7 +365,6 @@ export default function ContractWorkspacePage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [toggleChat]);
 
-  // Mouse drag handler for horizontal resizing
   useEffect(() => {
     if (!isDragging) return;
 
@@ -224,7 +399,6 @@ export default function ContractWorkspacePage() {
   }, [isDragging, chatWidth]);
 
   const handleUpload = async (path: string, country: string, fileName?: string) => {
-    // Generate a fresh unique contract ID for every uploaded document
     const targetId = crypto.randomUUID();
     setContractId(targetId);
     setLoadError(null);
@@ -232,18 +406,14 @@ export default function ContractWorkspacePage() {
       setDocumentName(fileName);
     }
 
-    // Update browser URL without reloading so the route reflects the active contract
     if (typeof window !== 'undefined') {
       window.history.replaceState(null, '', `/app/contracts/${targetId}`);
     }
 
     await startAnalysis(path, country, targetId, fileName);
-
-    // After analysis finishes, synchronize the Next.js router
     router.replace(`/app/contracts/${targetId}`, { scroll: false });
   };
 
-  // UI state is driven by analysis or loading existing
   const uiState: UIState = analysisResult
     ? 'complete'
     : isAnalysing || isLoadingExisting
@@ -258,32 +428,30 @@ export default function ContractWorkspacePage() {
       activeContractId={contractId || params?.contractId}
       onSelectContract={handleSelectContract}
     >
-      {/* State 1: Empty */}
+      {/* State 1: Empty Intake */}
       {uiState === 'empty' && (
-        <div className="h-full w-full flex items-center justify-center relative overflow-y-auto p-4 sm:p-6">
+        <div className="h-full w-full flex items-center justify-center relative overflow-y-auto p-4 sm:p-6 bg-[#090B0E]">
           <UploadDropzone onUpload={handleUpload} />
           {(error || loadError) && (
-            <div className="absolute bottom-6 sm:bottom-12 bg-red-950/80 border border-red-500/30 text-red-300 text-xs sm:text-sm px-4 py-2 rounded-xl shadow-lg max-w-sm text-center">
+            <div className="absolute bottom-6 sm:bottom-10 bg-red-950/70 border border-red-500/30 text-red-300 text-xs sm:text-sm px-4 py-2.5 rounded-lg shadow-lg max-w-sm text-center font-mono">
               {error || loadError}
             </div>
           )}
-          <div className="absolute top-1/4 left-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-[#7c5cfc]/5 rounded-full blur-[100px] pointer-events-none" />
-          <div className="absolute bottom-1/4 right-1/4 w-64 sm:w-96 h-64 sm:h-96 bg-[#7c5cfc]/5 rounded-full blur-[100px] pointer-events-none" />
         </div>
       )}
 
       {/* State 2: Analyzing or Loading Existing */}
       {uiState === 'analyzing' && (
-        <div className="h-full w-full flex items-center justify-center bg-[#050505] p-4 sm:p-6 overflow-y-auto">
+        <div className="h-full w-full flex items-center justify-center bg-[#090B0E] p-4 sm:p-6 overflow-y-auto">
           {isLoadingExisting ? (
             <div className="flex flex-col items-center justify-center gap-4 text-center">
-              <div className="w-16 h-16 rounded-2xl bg-[#7c5cfc]/10 border border-[#7c5cfc]/30 flex items-center justify-center shadow-lg shadow-[#7c5cfc]/10">
-                <Loader2 className="w-8 h-8 text-[#7c5cfc] animate-spin" />
+              <div className="w-12 h-12 rounded-lg bg-[#161B23] border border-[#2B3547] flex items-center justify-center shadow-sm">
+                <Loader2 className="w-6 h-6 text-[#4B72C2] animate-spin" />
               </div>
               <div className="flex flex-col items-center gap-1">
-                <h2 className="text-white font-semibold text-base sm:text-lg">Retrieving Contract Analysis</h2>
-                <p className="text-[#666] text-xs max-w-sm px-4">
-                  Loading clause vectors, legal advisory cards, and historical chat context...
+                <h2 className="text-[#F1F4F8] font-medium text-sm sm:text-base">Retrieving Legal Contract Audit</h2>
+                <p className="text-[#636F83] text-xs max-w-sm px-4 font-mono">
+                  Loading clause vectors, statutory notes, and redlines...
                 </p>
               </div>
             </div>
@@ -299,36 +467,36 @@ export default function ContractWorkspacePage() {
 
       {/* State 3: Analysis Complete */}
       {uiState === 'complete' && analysisResult && (
-        <div className="h-full flex flex-col overflow-hidden relative">
+        <div className="h-full flex flex-col overflow-hidden relative bg-[#090B0E]">
           
-          {/* Mobile & Tablet Segmented View Switcher (Hidden on desktop lg) */}
-          <div className="lg:hidden flex items-center justify-between px-3 py-2 bg-[#0c0c0c] border-b border-[#222] shrink-0 z-20">
-            <div className="grid grid-cols-2 gap-1.5 w-full bg-[#141414] p-1 rounded-xl border border-[#222]">
+          {/* Mobile & Tablet Segmented View Switcher (Inspired by Reference 4 Segmented Control) */}
+          <div className="lg:hidden flex items-center justify-between px-3 py-2 bg-[#0B0E14] border-b border-[#1C222E] shrink-0 z-20">
+            <div className="grid grid-cols-2 gap-1 w-full bg-[#121620] p-1 rounded-lg border border-[#202736]">
               <button
                 type="button"
                 onClick={() => setMobileActiveTab('analysis')}
-                className={`flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#7c5cfc] ${
+                className={`flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium transition-colors outline-none focus-ring cursor-pointer ${
                   mobileActiveTab === 'analysis'
-                    ? 'bg-[#7c5cfc] text-white shadow-md shadow-[#7c5cfc]/20'
-                    : 'text-[#888] hover:text-white hover:bg-[#1a1a1a]'
+                    ? 'bg-[#18202E] text-[#F1F4F8] border border-[#2B3B54] shadow-sm'
+                    : 'text-[#9DA8B9] hover:text-[#F1F4F8]'
                 }`}
               >
-                <FileText size={15} />
+                <FileText size={14} />
                 <span>Document Analysis</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setMobileActiveTab('chat')}
-                className={`flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-all duration-200 outline-none focus-visible:ring-2 focus-visible:ring-[#7c5cfc] ${
+                className={`flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium transition-colors outline-none focus-ring cursor-pointer ${
                   mobileActiveTab === 'chat'
-                    ? 'bg-[#7c5cfc] text-white shadow-md shadow-[#7c5cfc]/20'
-                    : 'text-[#888] hover:text-white hover:bg-[#1a1a1a]'
+                    ? 'bg-[#18202E] text-[#F1F4F8] border border-[#2B3B54] shadow-sm'
+                    : 'text-[#9DA8B9] hover:text-[#F1F4F8]'
                 }`}
               >
-                <MessageSquare size={15} />
+                <MessageSquare size={14} />
                 <span>Ask LegalGPT</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A]" />
               </button>
             </div>
           </div>
@@ -336,20 +504,20 @@ export default function ContractWorkspacePage() {
           {/* Core Workspace Body */}
           <div ref={containerRef} className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-0 relative">
             
-            {/* Left Column - Main Workspace (Expands to 100% when chat is collapsed) */}
+            {/* Left Column - Main Legal Workspace (Expands when chat is collapsed) */}
             <div 
               className={`
-                flex-1 flex flex-col h-full overflow-y-auto p-3.5 sm:p-6 lg:p-8 
+                flex-1 flex flex-col h-full overflow-y-auto p-3.5 sm:p-5 lg:p-6 
                 border-b lg:border-b-0 min-w-0 transition-all duration-150
                 ${mobileActiveTab === 'analysis' ? 'flex' : 'hidden lg:flex'}
               `}
             >
               <DocumentMetadata 
-                clauseCount={analysisResult.clauses?.length || 0}
+                clauseCount={analysisResult.clauses?.length || analysisResult.riskCards?.length || 0}
                 riskScore={analysisResult.riskScore}
               />
 
-              <div className="flex-1 flex flex-col min-h-0 mt-2">
+              <div className="flex-1 flex flex-col min-h-0 mt-1">
                 <ExecutiveSummary 
                   summary={analysisResult.summary}
                   overallRisk={analysisResult.overallRisk}
@@ -359,8 +527,15 @@ export default function ContractWorkspacePage() {
                   missingClauses={analysisResult.missingClauses}
                 />
 
-                <div className="mb-6">
-                  <h3 className="text-white font-semibold mb-3 sm:mb-4 text-base sm:text-lg">Identified Risks</h3>
+                <div className="mb-5">
+                  <div className="flex items-center justify-between mb-3">
+                    <h3 className="text-[#F1F4F8] font-semibold text-xs sm:text-sm font-mono uppercase tracking-wider">
+                      Identified Liability & Risk Vectors
+                    </h3>
+                    <span className="text-[11px] font-mono text-[#636F83]">
+                      {analysisResult.riskCards?.length || 0} items flagged
+                    </span>
+                  </div>
                   <RiskList risks={analysisResult.riskCards || []} />
                 </div>
 
@@ -378,13 +553,13 @@ export default function ContractWorkspacePage() {
                   e.preventDefault();
                   setIsDragging(true);
                 }}
-                onDoubleClick={() => handleSetChatWidth(450)}
-                title="Drag to resize chat panel • Double-click to reset"
-                className={`hidden lg:flex w-1.5 hover:w-2 hover:bg-[#7c5cfc] cursor-col-resize relative group transition-all duration-150 z-20 items-center justify-center shrink-0 border-l border-r border-[#1a1a24] ${
-                  isDragging ? 'bg-[#7c5cfc] w-2' : 'bg-[#121218] hover:bg-[#7c5cfc]/60'
+                onDoubleClick={() => handleSetChatWidth(440)}
+                title="Drag to resize assistant • Double-click to reset"
+                className={`hidden lg:flex w-1.5 hover:w-2 hover:bg-[#2B5EA7] cursor-col-resize relative group transition-all duration-150 z-20 items-center justify-center shrink-0 border-l border-r border-[#1C222E] ${
+                  isDragging ? 'bg-[#2B5EA7] w-2' : 'bg-[#0E1218] hover:bg-[#2B5EA7]/50'
                 }`}
               >
-                <div className="w-0.5 h-8 rounded-full bg-[#444] group-hover:bg-white transition-colors" />
+                <div className="w-0.5 h-6 rounded-full bg-[#333E53] group-hover:bg-white transition-colors" />
               </div>
             )}
 
@@ -397,34 +572,39 @@ export default function ContractWorkspacePage() {
                 ${mobileActiveTab === 'chat' ? 'flex flex-col flex-1 w-full' : 'hidden lg:flex'}
               `}
             >
-              <ChatPanel contractId={contractId} onClose={toggleChat} />
+              <ChatPanel 
+                contractId={contractId} 
+                documentName={documentName}
+                onClose={toggleChat} 
+              />
             </div>
 
-            {/* Toggle Button when Chat is Collapsed (Desktop) */}
+            {/* Toggle Button when Chat is Collapsed on Desktop */}
             {!isChatOpen && (
               <button
                 type="button"
                 onClick={toggleChat}
-                title="Open Ask LegalGPT Chat (Cmd/Ctrl + K)"
-                className="hidden lg:flex items-center gap-2 absolute top-4 right-4 z-20 bg-[#121218] border border-[#2a2a38] hover:border-[#7c5cfc] text-white px-3.5 py-2 rounded-xl text-xs font-semibold shadow-xl hover:shadow-[0_0_20px_rgba(124,92,252,0.3)] transition-all cursor-pointer group"
+                title="Open Ask LegalGPT Assistant (Ctrl+K)"
+                className="hidden lg:flex items-center gap-2 absolute top-4 right-5 z-20 bg-[#121620] border border-[#242E40] hover:border-[#4B72C2] text-[#F1F4F8] px-3 py-1.5 rounded-md text-xs font-medium shadow-sm transition-colors cursor-pointer group focus-ring"
               >
-                <MessageSquare className="w-3.5 h-3.5 text-[#7c5cfc] group-hover:scale-110 transition-transform" />
+                <MessageSquare className="w-3.5 h-3.5 text-[#4B72C2]" />
                 <span>Ask LegalGPT</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A]" />
+                <span className="text-[10px] text-[#636F83] font-mono ml-1">Ctrl+K</span>
               </button>
             )}
 
-            {/* Mobile Floating Action Button to quickly jump to Chat when reviewing analysis */}
+            {/* Mobile Floating Action Button to quickly jump to Chat */}
             {mobileActiveTab === 'analysis' && (
               <button
                 type="button"
                 onClick={() => setMobileActiveTab('chat')}
-                aria-label="Open Chat with LegalGPT"
-                className="lg:hidden fixed bottom-5 right-5 z-30 flex items-center gap-2 bg-[#7c5cfc] hover:bg-[#6a4beb] text-white px-4 py-3 rounded-full shadow-2xl shadow-[#7c5cfc]/50 font-semibold text-xs tracking-wide transition-transform active:scale-95 focus-visible:ring-2 focus-visible:ring-white outline-none"
+                aria-label="Open Contract Assistant"
+                className="lg:hidden fixed bottom-5 right-5 z-30 flex items-center gap-2 bg-[#2B5EA7] hover:bg-[#356FBF] text-white px-3.5 py-2.5 rounded-full shadow-lg font-medium text-xs tracking-wide transition-transform active:scale-95 focus-ring"
               >
-                <MessageSquare size={17} />
+                <MessageSquare size={15} />
                 <span>Ask AI</span>
-                <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A]" />
               </button>
             )}
 
