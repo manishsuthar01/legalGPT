@@ -35,8 +35,8 @@ export default function SignupPage() {
 
   if (user) {
     return (
-      <div className="min-h-screen bg-obsidian flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-accent" />
+      <div className="min-h-screen bg-[#090B0E] flex items-center justify-center">
+        <Loader2 className="w-6 h-6 animate-spin text-[#4B72C2]" />
       </div>
     );
   }
@@ -46,7 +46,6 @@ export default function SignupPage() {
     setError('');
     setFieldErrors({});
 
-    // Client-side validation
     const emailResult = validateEmail(email);
     const passwordResult = validatePassword(password);
     const confirmResult = validateConfirmPassword(password, confirmPassword);
@@ -75,21 +74,18 @@ export default function SignupPage() {
         return;
       }
 
-      // If identities array is empty, the user already exists (Supabase behaviour)
       if (data.user && data.user.identities && data.user.identities.length === 0) {
         setError('An account with this email already exists. Try logging in instead.');
         setLoading(false);
         return;
       }
 
-      // If email confirmation is required, the session will be null
       if (!data.session) {
         setEmailConfirmation(true);
         setLoading(false);
         return;
       }
 
-      // If auto-confirmed (e.g. email confirmation disabled), store auth state and redirect
       if (data.user && data.session) {
         login(
           {
@@ -108,54 +104,51 @@ export default function SignupPage() {
     }
   }
 
-  // Password strength indicator
-  const getPasswordStrength = (pw: string): { level: 'weak' | 'fair' | 'strong'; label: string; width: string; color: string } => {
-    if (!pw) return { level: 'weak', label: '', width: '0%', color: '' };
-    if (pw.length < 6) return { level: 'weak', label: 'Weak', width: '33%', color: 'bg-risk-high' };
-    const hasUpper = /[A-Z]/.test(pw);
-    const hasNumber = /\d/.test(pw);
-    const hasSpecial = /[^A-Za-z0-9]/.test(pw);
-    const score = [pw.length >= 8, hasUpper, hasNumber, hasSpecial].filter(Boolean).length;
-    if (score >= 3) return { level: 'strong', label: 'Strong', width: '100%', color: 'bg-risk-low' };
-    if (score >= 2) return { level: 'fair', label: 'Fair', width: '66%', color: 'bg-risk-medium' };
-    return { level: 'weak', label: 'Weak', width: '33%', color: 'bg-risk-high' };
+  const getPasswordStrength = (pwd: string) => {
+    let score = 0;
+    if (pwd.length >= 8) score++;
+    if (/[A-Z]/.test(pwd)) score++;
+    if (/[0-9]/.test(pwd)) score++;
+    if (/[^A-Za-z0-9]/.test(pwd)) score++;
+
+    if (score >= 3) return { level: 'strong', label: 'Strong', width: '100%', color: 'bg-emerald-500' };
+    if (score >= 2) return { level: 'fair', label: 'Fair', width: '66%', color: 'bg-amber-500' };
+    return { level: 'weak', label: 'Weak', width: '33%', color: 'bg-rose-500' };
   };
 
   const strength = getPasswordStrength(password);
 
-  // Email confirmation success state
   if (emailConfirmation) {
     return (
-      <div className="min-h-screen bg-obsidian text-silver flex flex-col items-center justify-center relative overflow-hidden px-4 py-8">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] pointer-events-none radial-purple-glow opacity-60" />
+      <div className="min-h-screen bg-[#090B0E] text-[#9DA8B9] flex flex-col items-center justify-center relative px-4 py-8">
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full max-w-[420px] relative z-10"
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full max-w-[400px] relative z-10"
         >
-          <div className="bg-surface/60 backdrop-blur-xl border border-edge rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/40 text-center">
-            <div className="w-16 h-16 rounded-full bg-risk-low/10 border border-risk-low/20 flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 className="w-8 h-8 text-risk-low" />
+          <div className="bg-[#0F1218] border border-[#222938] rounded-xl p-6 sm:p-7 shadow-lg text-center select-text">
+            <div className="w-12 h-12 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto mb-4">
+              <CheckCircle2 className="w-6 h-6 text-emerald-400" />
             </div>
-            <h1 className="text-2xl font-bold text-white tracking-tight mb-3">
-              Check your email
+            <h1 className="text-xl font-semibold text-[#F1F4F8] tracking-tight mb-2">
+              Verification Email Sent
             </h1>
-            <p className="text-silver text-sm leading-relaxed mb-2">
+            <p className="text-[#9DA8B9] text-xs leading-relaxed mb-2">
               We&apos;ve sent a verification link to
             </p>
-            <p className="text-white font-semibold text-sm mb-6 bg-[#0a0a0a] border border-edge rounded-lg py-2 px-4 inline-block">
+            <p className="text-[#F1F4F8] font-mono text-xs mb-4 bg-[#0B0E14] border border-[#1E2533] rounded py-1.5 px-3 inline-block">
               {email}
             </p>
-            <p className="text-muted-dim text-xs leading-relaxed mb-6">
+            <p className="text-[#636F83] text-[11px] leading-relaxed mb-5">
               Click the link in the email to activate your account. If you don&apos;t see it, check your spam folder.
             </p>
             <Link
               href="/login"
-              className="group inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent/90 text-white font-semibold py-3 px-6 rounded-xl text-sm hover:scale-[1.01] transition-all duration-300 shadow-[0_0_25px_rgba(124,92,252,0.25)]"
+              className="inline-flex items-center justify-center gap-2 bg-[#2B5EA7] hover:bg-[#356FBF] text-white font-medium py-2 px-4 rounded-md text-xs transition-colors shadow-sm"
             >
-              <span>Go to Login</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              <span>Return to Login</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </motion.div>
@@ -164,86 +157,81 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen bg-obsidian text-silver flex flex-col items-center justify-center relative overflow-hidden px-4 py-8">
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] pointer-events-none radial-purple-glow opacity-60" />
-
-      {/* Floating orbs for depth */}
-      <div className="absolute top-1/4 left-1/3 w-72 h-72 bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/3 w-72 h-72 bg-accent/5 rounded-full blur-[120px] pointer-events-none" />
-
+    <div className="min-h-screen bg-[#090B0E] text-[#9DA8B9] flex flex-col items-center justify-center relative px-4 py-8 select-none">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-[420px] relative z-10"
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        className="w-full max-w-[400px] relative z-10"
       >
         {/* Logo */}
-        <Link href="/" className="flex items-center justify-center gap-2.5 mb-10 group">
-          <Image
-            src="/logo/legalGPT_logo.png"
-            alt="LegalGPT Logo"
-            width={36}
-            height={36}
-            className="group-hover:scale-105 transition-transform duration-300"
-          />
-          <span className="text-white font-bold text-xl tracking-tight">LegalGPT</span>
+        <Link href="/" className="flex items-center justify-center gap-2 mb-8 group">
+          <div className="w-8 h-8 rounded-md bg-[#161B23] border border-[#273244] flex items-center justify-center p-1">
+            <Image
+              src="/logo/legalGPT_logo.png"
+              alt="LegalGPT Logo"
+              width={26}
+              height={26}
+              className="object-contain"
+            />
+          </div>
+          <span className="text-[#F1F4F8] font-semibold text-lg tracking-tight">LegalGPT</span>
         </Link>
 
         {/* Card */}
-        <div className="bg-surface/60 backdrop-blur-xl border border-edge rounded-2xl p-6 sm:p-8 shadow-2xl shadow-black/40">
+        <div className="bg-[#0F1218] border border-[#222938] rounded-xl p-6 sm:p-7 shadow-lg select-text">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">
-              Create your account
+          <div className="text-center mb-6">
+            <h1 className="text-xl font-semibold text-[#F1F4F8] tracking-tight mb-1">
+              Create Counsel Account
             </h1>
-            <p className="text-silver text-sm">
-              Start analysing contracts with AI
+            <p className="text-[#636F83] text-xs">
+              Start auditing agreements with statutory intelligence
             </p>
           </div>
 
           {/* Error banner */}
           {error && (
             <motion.div
-              initial={{ opacity: 0, y: -8 }}
+              initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-start gap-2.5 bg-risk-high/10 border border-risk-high/20 text-risk-high rounded-xl px-4 py-3 mb-6 text-sm"
+              className="flex items-start gap-2 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-md px-3 py-2.5 mb-4 text-xs font-mono"
             >
               <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
               <span>{error}</span>
             </motion.div>
           )}
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             {/* Email field */}
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="signup-email" className="text-xs font-semibold uppercase tracking-wider text-silver/80">
-                Email
+              <label htmlFor="signup-email" className="text-[10px] font-bold uppercase tracking-wider text-[#7E8B9F]">
+                Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-dim pointer-events-none" />
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#636F83] pointer-events-none" />
                 <input
                   id="signup-email"
                   type="email"
                   autoComplete="email"
-                  placeholder="you@example.com"
+                  placeholder="counsel@firm.com"
                   value={email}
                   onChange={(e) => { setEmail(e.target.value); setFieldErrors(prev => ({ ...prev, email: undefined })); }}
-                  className={`w-full bg-[#0a0a0a] border ${fieldErrors.email ? 'border-risk-high/50' : 'border-edge'} rounded-xl pl-10 pr-4 py-3 text-white text-sm placeholder-muted-dim focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/30 transition-all duration-200`}
+                  className={`w-full bg-[#0B0E14] border ${fieldErrors.email ? 'border-rose-500/50' : 'border-[#222938]'} rounded-md pl-9 pr-3 py-2 text-[#F1F4F8] text-xs placeholder-[#636F83] focus:outline-none focus:border-[#4B72C2] focus:ring-1 focus:ring-[#4B72C2] transition-colors`}
                 />
               </div>
               {fieldErrors.email && (
-                <span className="text-risk-high text-xs mt-0.5">{fieldErrors.email}</span>
+                <span className="text-rose-400 text-[10px] font-mono mt-0.5">{fieldErrors.email}</span>
               )}
             </div>
 
             {/* Password field */}
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="signup-password" className="text-xs font-semibold uppercase tracking-wider text-silver/80">
+              <label htmlFor="signup-password" className="text-[10px] font-bold uppercase tracking-wider text-[#7E8B9F]">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-dim pointer-events-none" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#636F83] pointer-events-none" />
                 <input
                   id="signup-password"
                   type={showPassword ? 'text' : 'password'}
@@ -251,32 +239,32 @@ export default function SignupPage() {
                   placeholder="Create a strong password"
                   value={password}
                   onChange={(e) => { setPassword(e.target.value); setFieldErrors(prev => ({ ...prev, password: undefined })); }}
-                  className={`w-full bg-[#0a0a0a] border ${fieldErrors.password ? 'border-risk-high/50' : 'border-edge'} rounded-xl pl-10 pr-12 py-3 text-white text-sm placeholder-muted-dim focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/30 transition-all duration-200`}
+                  className={`w-full bg-[#0B0E14] border ${fieldErrors.password ? 'border-rose-500/50' : 'border-[#222938]'} rounded-md pl-9 pr-10 py-2 text-[#F1F4F8] text-xs placeholder-[#636F83] focus:outline-none focus:border-[#4B72C2] focus:ring-1 focus:ring-[#4B72C2] transition-colors`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-dim hover:text-silver transition-colors rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-[#636F83] hover:text-[#9DA8B9] transition-colors rounded cursor-pointer"
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                 </button>
               </div>
               {fieldErrors.password && (
-                <span className="text-risk-high text-xs mt-0.5">{fieldErrors.password}</span>
+                <span className="text-rose-400 text-[10px] font-mono mt-0.5">{fieldErrors.password}</span>
               )}
               {/* Password strength meter */}
               {password && (
                 <div className="flex items-center gap-2 mt-1">
-                  <div className="flex-1 h-1 bg-edge rounded-full overflow-hidden">
+                  <div className="flex-1 h-1 bg-[#141923] rounded-full overflow-hidden">
                     <div
                       className={`h-full rounded-full transition-all duration-300 ${strength.color}`}
                       style={{ width: strength.width }}
                     />
                   </div>
-                  <span className={`text-[11px] font-medium ${
-                    strength.level === 'strong' ? 'text-risk-low' :
-                    strength.level === 'fair' ? 'text-risk-medium' : 'text-risk-high'
+                  <span className={`text-[10px] font-mono ${
+                    strength.level === 'strong' ? 'text-emerald-400' :
+                    strength.level === 'fair' ? 'text-amber-400' : 'text-rose-400'
                   }`}>
                     {strength.label}
                   </span>
@@ -286,31 +274,31 @@ export default function SignupPage() {
 
             {/* Confirm password field */}
             <div className="flex flex-col gap-1.5">
-              <label htmlFor="signup-confirm-password" className="text-xs font-semibold uppercase tracking-wider text-silver/80">
+              <label htmlFor="signup-confirm-password" className="text-[10px] font-bold uppercase tracking-wider text-[#7E8B9F]">
                 Confirm Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-dim pointer-events-none" />
+                <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#636F83] pointer-events-none" />
                 <input
                   id="signup-confirm-password"
                   type={showConfirmPassword ? 'text' : 'password'}
                   autoComplete="new-password"
-                  placeholder="Re-enter your password"
+                  placeholder="Re-enter password"
                   value={confirmPassword}
                   onChange={(e) => { setConfirmPassword(e.target.value); setFieldErrors(prev => ({ ...prev, confirmPassword: undefined })); }}
-                  className={`w-full bg-[#0a0a0a] border ${fieldErrors.confirmPassword ? 'border-risk-high/50' : 'border-edge'} rounded-xl pl-10 pr-12 py-3 text-white text-sm placeholder-muted-dim focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/30 transition-all duration-200`}
+                  className={`w-full bg-[#0B0E14] border ${fieldErrors.confirmPassword ? 'border-rose-500/50' : 'border-[#222938]'} rounded-md pl-9 pr-10 py-2 text-[#F1F4F8] text-xs placeholder-[#636F83] focus:outline-none focus:border-[#4B72C2] focus:ring-1 focus:ring-[#4B72C2] transition-colors`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-dim hover:text-silver transition-colors rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 p-1 text-[#636F83] hover:text-[#9DA8B9] transition-colors rounded cursor-pointer"
                   aria-label={showConfirmPassword ? 'Hide password' : 'Show password'}
                 >
-                  {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showConfirmPassword ? <EyeOff className="w-3.5 h-3.5" /> : <Eye className="w-3.5 h-3.5" />}
                 </button>
               </div>
               {fieldErrors.confirmPassword && (
-                <span className="text-risk-high text-xs mt-0.5">{fieldErrors.confirmPassword}</span>
+                <span className="text-rose-400 text-[10px] font-mono mt-0.5">{fieldErrors.confirmPassword}</span>
               )}
             </div>
 
@@ -318,35 +306,35 @@ export default function SignupPage() {
             <button
               type="submit"
               disabled={loading}
-              className="group w-full flex items-center justify-center gap-2.5 bg-accent hover:bg-accent/90 disabled:opacity-60 disabled:cursor-not-allowed text-white font-semibold py-3.5 rounded-xl text-sm hover:scale-[1.01] transition-all duration-300 shadow-[0_0_25px_rgba(124,92,252,0.25)] hover:shadow-[0_0_35px_rgba(124,92,252,0.35)] mt-1"
+              className="w-full flex items-center justify-center gap-2 bg-[#2B5EA7] hover:bg-[#356FBF] disabled:opacity-40 disabled:cursor-not-allowed text-white font-medium py-2.5 rounded-md text-xs transition-colors shadow-sm mt-1 focus-ring cursor-pointer"
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  <span>Creating account…</span>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  <span>Creating Account…</span>
                 </>
               ) : (
                 <>
-                  <span>Create Account</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  <span>Create Counsel Account</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </>
               )}
             </button>
           </form>
 
           {/* Trust indicator */}
-          <div className="flex items-center justify-center gap-2 mt-6 text-[11px] text-muted-dim">
-            <ShieldCheck className="w-3.5 h-3.5 text-accent/60" />
-            <span>Your data is encrypted and secure</span>
+          <div className="flex items-center justify-center gap-1.5 mt-5 text-[11px] text-[#636F83]">
+            <ShieldCheck className="w-3.5 h-3.5 text-[#16A34A]" />
+            <span>Encrypted with TLS 1.3 • Attorney-Client Enclave</span>
           </div>
         </div>
 
         {/* Footer link */}
-        <p className="text-center text-sm text-silver mt-6">
+        <p className="text-center text-xs text-[#636F83] mt-5">
           Already have an account?{' '}
           <Link
             href="/login"
-            className="text-accent font-semibold hover:text-accent/80 transition-colors"
+            className="text-[#4B72C2] font-medium hover:underline transition-colors"
           >
             Sign in
           </Link>

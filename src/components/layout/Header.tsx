@@ -38,13 +38,11 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menus on route change
   useEffect(() => {
     setUserMenuOpen(false);
     setMobileMenuOpen(false);
   }, [pathname]);
 
-  // Click outside to close user menu
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -71,58 +69,69 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#050505]/85 backdrop-blur-xl border-b border-[#1f1f23] py-3.5 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
-          : "bg-transparent border-b border-transparent py-4 sm:py-5"
-      }`}
+      className={`sticky top-0 z-40 transition-all duration-200 select-none ${scrolled
+          ? "bg-white/90 backdrop-blur-md border-b border-[#E5E7EB] py-3 shadow-[0_2px_15px_rgba(0,0,0,0.03)]"
+          : "bg-white/70 backdrop-blur-xs border-b border-transparent py-4 sm:py-5"
+        }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-          <div className="relative w-8 h-8 rounded-xl bg-gradient-to-br from-[#7c5cfc]/20 to-[#7c5cfc]/5 border border-[#7c5cfc]/30 flex items-center justify-center p-1 group-hover:border-[#7c5cfc]/60 transition-colors">
-            <Image
-              src="/logo/legalGPT_logo.png"
-              alt="LegalGPT Logo"
-              width={26}
-              height={26}
-              className="group-hover:scale-105 transition-transform duration-300"
-            />
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between">
+
+        {/* Brand Logo */}
+        <Link href="/" className="flex items-center gap-2.5 group shrink-0 select-none">
+          <div className="w-8 h-8 rounded-xl bg-[#583AFE]/10 flex items-center justify-center p-1.5 group-hover:scale-105 transition-transform duration-200">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 100 100"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M50 8L82 22V50C82 70.5 68.5 87.5 50 93C31.5 87.5 18 70.5 18 50V22L50 8Z"
+                fill="#583AFE"
+              />
+              <path
+                d="M50 16L74 27V49C74 65.5 63.5 79.5 50 84.5C36.5 79.5 26 65.5 26 49V27L50 16Z"
+                fill="#FFFFFF"
+              />
+              <path
+                d="M43.5 68.5L29 54L34.5 48.5L43.5 57.5L68 33L73.5 38.5L43.5 68.5Z"
+                fill="#583AFE"
+              />
+            </svg>
           </div>
-          <span className="text-white font-bold text-lg tracking-tight">
-            Legal<span className="text-[#7c5cfc]">GPT</span>
+          <span className="text-[#0A0D14] font-bold text-xl sm:text-2xl tracking-tight">
+            legal<span className="text-[#583AFE]">gpt</span>
           </span>
         </Link>
 
-        {/* Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-xs font-semibold tracking-wider uppercase">
+        {/* Center Floating Pill Menu matching Wollo reference */}
+        <nav className="hidden md:flex items-center gap-7 bg-[#F3F4F6] rounded-full px-6 py-2 text-[13px] font-medium text-[#4B5565] border border-[#E5E7EB]/50">
           {[
             { name: "Features", href: "/#features" },
+            { name: "Analysis", href: "/#demo" },
             { name: "Pricing", href: "/pricing" },
-            { name: "Contracts", href: "/contracts" },
-            { name: "Clauses", href: "/clauses" },
             { name: "Security", href: "/security" },
+            { name: "Pipeline", href: "/#how-it-works" },
           ].map((item) => (
             <Link
               key={item.name}
               href={item.href}
-              className="text-[#888] hover:text-white transition-colors duration-200 relative group py-1"
+              className="hover:text-[#0A0D14] transition-colors duration-150 py-0.5"
             >
               {item.name}
-              <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#7c5cfc] rounded-full group-hover:w-full transition-all duration-200" />
             </Link>
           ))}
         </nav>
 
-        {/* Right CTA */}
-        <div className="hidden sm:flex items-center gap-3">
+        {/* Right CTA matching Wollo reference */}
+        <div className="hidden sm:flex items-center gap-5">
           {mounted && user ? (
             <>
               {/* Workspace CTA Button */}
               <Link
                 href="/app/contracts/new"
-                className="flex items-center gap-1.5 bg-[#7c5cfc] hover:bg-[#6b47fa] text-white px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 shadow-[0_0_20px_rgba(124,92,252,0.3)] hover:shadow-[0_0_25px_rgba(124,92,252,0.5)] hover:scale-[1.02] active:scale-[0.98]"
+                className="flex items-center gap-1.5 bg-[#0A0D14] hover:bg-[#1f242e] text-white px-5 py-2 rounded-full text-[13px] font-medium transition-all shadow-sm active:scale-95"
               >
                 <span>Workspace</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -140,15 +149,14 @@ export function Header() {
                   onClick={() => setUserMenuOpen((prev) => !prev)}
                   aria-label="User profile menu"
                   aria-expanded={userMenuOpen}
-                  className="flex items-center gap-1.5 p-1 pr-2 rounded-full bg-[#111115] border border-[#26262e] hover:border-[#7c5cfc]/50 hover:bg-[#16161d] transition-all cursor-pointer group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#7c5cfc]"
+                  className="flex items-center gap-1.5 p-1 pr-2 rounded-full bg-[#F3F4F6] border border-[#E5E7EB] hover:border-[#D1D5DB] transition-colors cursor-pointer group"
                 >
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-[#7c5cfc] to-[#9b7bfa] flex items-center justify-center text-xs font-bold text-white uppercase shadow-sm">
+                  <div className="w-6 h-6 rounded-full bg-[#0A0D14] flex items-center justify-center text-xs font-bold text-white uppercase">
                     {initial}
                   </div>
                   <ChevronDown
-                    className={`w-3.5 h-3.5 text-[#888] group-hover:text-white transition-transform duration-200 ${
-                      userMenuOpen ? "rotate-180 text-white" : ""
-                    }`}
+                    className={`w-3.5 h-3.5 text-[#6B7280] group-hover:text-[#0A0D14] transition-transform duration-150 ${userMenuOpen ? "rotate-180 text-[#0A0D14]" : ""
+                      }`}
                   />
                 </button>
 
@@ -156,50 +164,49 @@ export function Header() {
                 <AnimatePresence>
                   {userMenuOpen && (
                     <motion.div
-                      initial={{ opacity: 0, y: 8, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: 6, scale: 0.95 }}
-                      transition={{ duration: 0.15, ease: "easeOut" }}
-                      className="absolute right-0 mt-2 w-64 rounded-2xl bg-[#0c0c12]/95 backdrop-blur-2xl border border-white/[0.08] shadow-[0_20px_50px_rgba(0,0,0,0.8)] p-2 z-50"
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 4 }}
+                      transition={{ duration: 0.12 }}
+                      className="absolute right-0 mt-2 w-60 rounded-xl bg-white border border-[#E5E7EB] shadow-xl p-1.5 z-50 select-text"
                     >
                       {/* User Info Header */}
-                      <div className="px-3 py-2.5 flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#7c5cfc] to-[#9b7bfa] flex items-center justify-center text-sm font-bold text-white uppercase shrink-0 shadow-inner">
+                      <div className="px-3 py-2 flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-full bg-[#0A0D14] flex items-center justify-center text-xs font-bold text-white uppercase shrink-0">
                           {initial}
                         </div>
                         <div className="min-w-0 flex-1">
-                          <p className="text-white text-xs font-semibold truncate capitalize">
+                          <p className="text-[#0A0D14] text-xs font-semibold truncate capitalize">
                             {displayName}
                           </p>
-                          <p className="text-[#777] text-[11px] truncate">
+                          <p className="text-[#6B7280] text-[10px] truncate font-mono">
                             {user.email}
                           </p>
                         </div>
                       </div>
 
-                      <div className="h-px bg-white/[0.06] my-1" />
+                      <div className="h-px bg-[#F3F4F6] my-1" />
 
                       {/* Menu Items */}
                       <div className="flex flex-col gap-0.5">
                         <Link
                           href="/app/contracts/new"
-                          className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-[#aaa] hover:text-white hover:bg-white/[0.05] transition-colors group"
+                          className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[#4B5565] hover:text-[#0A0D14] hover:bg-[#F3F4F6] transition-colors group"
                         >
-                          <LayoutDashboard className="w-3.5 h-3.5 text-[#7c5cfc]" />
-                          <span className="font-medium">Open Workspace</span>
-                          <ArrowRight className="w-3 h-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-[#7c5cfc]" />
+                          <LayoutDashboard className="w-3.5 h-3.5 text-[#583AFE]" />
+                          <span>Audit Workspace</span>
                         </Link>
 
                         <Link
                           href="/security"
-                          className="flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-[#aaa] hover:text-white hover:bg-white/[0.05] transition-colors"
+                          className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-[#4B5565] hover:text-[#0A0D14] hover:bg-[#F3F4F6] transition-colors"
                         >
-                          <Shield className="w-3.5 h-3.5 text-[#888]" />
-                          <span className="font-medium">Security & Privacy</span>
+                          <Shield className="w-3.5 h-3.5 text-[#6B7280]" />
+                          <span>Security &amp; Encryption</span>
                         </Link>
                       </div>
 
-                      <div className="h-px bg-white/[0.06] my-1" />
+                      <div className="h-px bg-[#F3F4F6] my-1" />
 
                       {/* Logout Button */}
                       <button
@@ -208,9 +215,9 @@ export function Header() {
                           setUserMenuOpen(false);
                           logout();
                         }}
-                        className="w-full flex items-center gap-2.5 px-3 py-2 rounded-xl text-xs text-[#999] hover:text-red-400 hover:bg-red-500/10 transition-colors font-medium cursor-pointer text-left"
+                        className="w-full flex items-center gap-2 px-2.5 py-1.5 rounded-lg text-xs text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer text-left"
                       >
-                        <LogOut className="w-3.5 h-3.5 text-red-400" />
+                        <LogOut className="w-3.5 h-3.5 text-rose-500" />
                         <span>Sign Out</span>
                       </button>
                     </motion.div>
@@ -222,16 +229,15 @@ export function Header() {
             <>
               <Link
                 href="/login"
-                className="text-[#888] hover:text-white transition-colors font-medium text-xs tracking-wider uppercase px-3 py-2"
+                className="text-[#0A0D14] hover:text-black/70 transition-colors font-medium text-[13px] px-1 py-1"
               >
-                Login
+                Log in
               </Link>
               <Link
-                href="/signup"
-                className="flex items-center gap-1.5 bg-[#7c5cfc] hover:bg-[#6b47fa] text-white px-4 py-2 rounded-full text-xs font-semibold hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-[0_0_20px_rgba(124,92,252,0.3)] hover:shadow-[0_0_25px_rgba(124,92,252,0.5)]"
+                href="/app/contracts/new"
+                className="flex items-center gap-1.5 bg-[#0A0D14] hover:bg-[#1f242e] text-white px-5 py-2.5 rounded-full text-[13px] font-medium transition-all shadow-sm active:scale-95"
               >
-                <span>Get Started Free</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <span>Start Free Trial</span>
               </Link>
             </>
           )}
@@ -242,7 +248,7 @@ export function Header() {
           {mounted && user && (
             <Link
               href="/app/contracts/new"
-              className="bg-[#7c5cfc] text-white text-[11px] font-semibold px-3 py-1.5 rounded-full"
+              className="bg-[#0A0D14] text-white text-[11px] font-medium px-3 py-1.5 rounded-full"
             >
               Workspace
             </Link>
@@ -251,9 +257,9 @@ export function Header() {
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
             aria-label="Toggle mobile menu"
-            className="p-2 text-[#888] hover:text-white hover:bg-white/[0.05] rounded-xl transition-colors cursor-pointer"
+            className="p-2 text-[#0A0D14] bg-[#F3F4F6] hover:bg-[#E5E7EB] rounded-full transition-colors cursor-pointer"
           >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
 
@@ -266,36 +272,36 @@ export function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="sm:hidden bg-[#07070a]/95 backdrop-blur-2xl border-b border-[#1f1f23] px-6 py-4 flex flex-col gap-3"
+            transition={{ duration: 0.15 }}
+            className="sm:hidden bg-white border-b border-[#E5E7EB] px-5 py-4 flex flex-col gap-3 shadow-lg"
           >
-            <nav className="flex flex-col gap-2">
+            <nav className="flex flex-col gap-1.5">
               {[
                 { name: "Features", href: "/#features" },
+                { name: "Analysis", href: "/#demo" },
                 { name: "Pricing", href: "/pricing" },
-                { name: "Contracts", href: "/contracts" },
-                { name: "Clauses", href: "/clauses" },
                 { name: "Security", href: "/security" },
+                { name: "Pipeline", href: "/#how-it-works" },
               ].map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="text-[#aaa] hover:text-white text-sm font-medium py-1.5 transition-colors"
+                  className="text-[#4B5565] hover:text-[#0A0D14] text-sm font-medium py-1 transition-colors"
                 >
                   {item.name}
                 </Link>
               ))}
             </nav>
 
-            <div className="h-px bg-white/[0.06] my-1" />
+            <div className="h-px bg-[#F3F4F6] my-1" />
 
             {mounted && user ? (
               <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2.5 py-1">
-                  <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-[#7c5cfc] to-[#9b7bfa] flex items-center justify-center text-xs font-bold text-white uppercase">
+                <div className="flex items-center gap-2 py-1">
+                  <div className="w-6 h-6 rounded-full bg-[#0A0D14] flex items-center justify-center text-xs font-bold text-white uppercase">
                     {initial}
                   </div>
-                  <span className="text-white text-xs font-medium truncate">
+                  <span className="text-[#0A0D14] text-xs font-medium truncate">
                     {user.email}
                   </span>
                 </div>
@@ -305,7 +311,7 @@ export function Header() {
                     setMobileMenuOpen(false);
                     logout();
                   }}
-                  className="flex items-center gap-2 text-xs text-red-400 hover:text-red-300 py-1.5 text-left font-medium"
+                  className="flex items-center gap-2 text-xs text-rose-600 py-1 text-left font-medium"
                 >
                   <LogOut className="w-3.5 h-3.5" />
                   <span>Sign Out</span>
@@ -315,15 +321,15 @@ export function Header() {
               <div className="flex flex-col gap-2 pt-1">
                 <Link
                   href="/login"
-                  className="text-center text-xs text-[#aaa] hover:text-white py-2 border border-[#222] rounded-xl"
+                  className="text-center text-xs text-[#0A0D14] font-medium py-2.5 border border-[#E5E7EB] rounded-full"
                 >
-                  Login
+                  Log in
                 </Link>
                 <Link
-                  href="/signup"
-                  className="text-center text-xs bg-[#7c5cfc] text-white py-2 rounded-xl font-semibold"
+                  href="/app/contracts/new"
+                  className="text-center text-xs bg-[#0A0D14] text-white py-2.5 rounded-full font-medium"
                 >
-                  Sign Up
+                  Start Free Trial
                 </Link>
               </div>
             )}
