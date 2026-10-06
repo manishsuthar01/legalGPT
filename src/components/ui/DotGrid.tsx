@@ -21,11 +21,11 @@ interface Dot {
 }
 
 export const DotGrid: React.FC<DotGridProps> = ({
-  dotSize = 3,
-  gap = 24,
-  baseColor = "#523c7f",
-  activeColor = "#9d82fc",
-  proximity = 100,
+  dotSize = 1.5,
+  gap = 32,
+  baseColor = "#161B24",
+  activeColor = "#2D3B52",
+  proximity = 80,
   className = "",
 }) => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
