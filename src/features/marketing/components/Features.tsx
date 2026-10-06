@@ -6,46 +6,43 @@ import { Zap, Lock, Scale, CheckCircle2 } from "lucide-react";
 
 const features = [
   {
-    icon: <Scale className="w-6 h-6 text-accent" />,
-    title: "Deterministic Guardrails",
-    tagline: "Rule-based clause auditing",
+    icon: <Scale className="w-5 h-5 text-[#583AFE]" />,
+    title: "Automated Risk Detection",
+    tagline: "Liability protection",
     description:
-      "Cross-references jurisdictional standards, standard market definitions, and legal guidelines to ensure consistent risk detection without hallucinations.",
-    badge: "Rule-Based Engine",
+      "Instantly flags uncapped indemnities, one-sided termination windows, intellectual property traps, and non-standard clauses.",
   },
   {
-    icon: <Zap className="w-6 h-6 text-accent" />,
-    title: "Instant Redline Extraction",
-    tagline: "Granular clause breakdown",
+    icon: <Zap className="w-5 h-5 text-[#583AFE]" />,
+    title: "One-Click Smart Redlines",
+    tagline: "Actionable clause fixes",
     description:
-      "Deep semantic scanning flags uncapped indemnities, IP transfer traps, non-competes, and dangerous unilateral terminations in under 5 seconds.",
-    badge: "Inline Redlines",
+      "Receive attorney-grade replacement language for high-risk terms. Compare side-by-side and accept balanced revisions in seconds.",
   },
   {
-    icon: <Lock className="w-6 h-6 text-accent" />,
-    title: "In-Memory Session Processing",
-    tagline: "Ephemeral document handling",
+    icon: <Lock className="w-5 h-5 text-[#16A34A]" />,
+    title: "Strict Confidentiality",
+    tagline: "Zero retention guarantee",
     description:
-      "Contracts are analyzed dynamically in memory during your active session. Files are never used for public LLM training or long-term retention.",
-    badge: "Session Isolated",
+      "Contracts are analyzed ephemerally in memory during your active session. Your sensitive legal data is never stored or used for model training.",
   },
 ];
 
 export const Features = () => {
   return (
-    <section id="features" className="py-24 relative z-10">
-      <div className="max-w-[var(--width-container)] mx-auto px-6">
+    <section id="features" className="py-20 sm:py-28 relative z-10 bg-white border-t border-[#F0F2F5]">
+      <div className="max-w-[var(--width-container)] mx-auto px-4 sm:px-6">
         
         {/* Eyebrow and Headline Pattern */}
         <div className="text-center mb-16">
-          <span className="text-accent text-[11px] font-bold uppercase tracking-widest block mb-3">
-            BUILT FOR ACCURACY
+          <span className="text-[#583AFE] text-[11px] font-semibold uppercase tracking-wider block mb-3">
+            POWERFUL CAPABILITIES
           </span>
-          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4">
-            Engineered for <span className="text-accent">high-stakes</span> legal review
+          <h2 className="text-3xl sm:text-5xl font-normal tracking-[-0.03em] text-[#0A0D14] mb-4">
+            Everything you need to review contracts <span className="text-[#583AFE]">faster</span>
           </h2>
-          <p className="text-silver text-base md:text-lg max-w-2xl mx-auto">
-            Combining focused legal reasoning graphs with session privacy for attorneys, founders, and contract reviewers.
+          <p className="text-[#4B5565] text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+            Spot risks before you sign, avoid costly disputes, and negotiate agreements from a position of strength.
           </p>
         </div>
 
@@ -54,41 +51,33 @@ export const Features = () => {
           {features.map((feature, idx) => (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
+              viewport={{ once: true, margin: "-60px" }}
               transition={{
-                duration: 0.6,
-                delay: idx * 0.15,
+                duration: 0.5,
+                delay: idx * 0.1,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="group relative bg-[#111111] border border-edge p-8 rounded-2xl hover:border-accent/40 hover:scale-[1.02] transition-all duration-300 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex flex-col justify-between"
+              className="bg-[#F9FAFB] border border-[#E5E7EB] p-7 sm:p-8 rounded-2xl hover:border-[#D1D5DB] hover:bg-white hover:shadow-xs transition-all flex flex-col justify-between group"
             >
-              {/* Subtle hover gradient glow */}
-              <div className="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-
               <div>
                 {/* Icon Chip */}
-                <div className="w-12 h-12 rounded-xl bg-[#1a1a1f] border border-edge/80 flex items-center justify-center mb-6 group-hover:border-accent/30 group-hover:scale-110 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-white border border-[#E5E7EB] flex items-center justify-center mb-6 shadow-2xs group-hover:scale-105 transition-transform">
                   {feature.icon}
                 </div>
 
-                <div className="text-[11px] font-mono text-accent uppercase tracking-wider mb-2 font-medium">
+                <div className="text-[11px] font-semibold text-[#583AFE] uppercase tracking-wider mb-2">
                   {feature.tagline}
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-3">
+                <h3 className="text-base sm:text-lg font-semibold text-[#0A0D14] mb-2.5">
                   {feature.title}
                 </h3>
 
-                <p className="text-silver text-sm leading-relaxed mb-6">
+                <p className="text-[#4B5565] text-xs sm:text-sm leading-relaxed">
                   {feature.description}
                 </p>
-              </div>
-
-              <div className="pt-4 border-t border-edge/40 flex items-center gap-2 text-xs text-[#777] group-hover:text-silver transition-colors font-mono">
-                <CheckCircle2 className="w-3.5 h-3.5 text-accent" />
-                <span>{feature.badge}</span>
               </div>
             </motion.div>
           ))}

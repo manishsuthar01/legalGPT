@@ -3,95 +3,90 @@
 import React from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
-import { ArrowRight, ShieldCheck, Zap, Sparkles } from "lucide-react";
+import { ArrowRight, ShieldCheck, Scale, CheckCircle2 } from "lucide-react";
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-[85vh] flex flex-col items-center justify-center pt-24 pb-12 overflow-hidden">
-      {/* Soft Radial Purple Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] pointer-events-none radial-purple-glow opacity-80" />
-
-      <div className="max-w-[var(--width-container)] mx-auto px-6 relative z-10 text-center flex flex-col items-center">
-        {/* Pill Badge */}
+    <section className="relative pt-16 sm:pt-24 pb-12 sm:pb-16 overflow-hidden bg-white text-center">
+      <div className="max-w-[var(--width-container)] mx-auto px-4 sm:px-6 relative z-10 flex flex-col items-center">
+        
+        {/* Soft Pill Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 15 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-surface border border-edge mb-8 backdrop-blur-md shadow-[0_0_15px_rgba(124,92,252,0.1)] hover:border-accent/30 transition-colors"
+          transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F3F4F6] border border-[#E5E7EB] mb-8 select-none"
         >
-          <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-          <span className="text-[11px] font-semibold tracking-wider text-silver uppercase">
-            AI-Powered Contract Auditor
+          <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
+          <span className="text-xs font-medium text-[#4B5565]">
+            AI-Powered Contract Review &amp; Risk Detection
           </span>
-          <span className="text-accent text-xs">✦</span>
         </motion.div>
 
-        {/* Huge Headline with Enigma Accent Pattern */}
+        {/* Wollo Style Clean Large Headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 25 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-white mb-6 leading-[1.08] max-w-5xl"
+          transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          className="text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-normal tracking-[-0.03em] text-[#0A0D14] mb-6 leading-[1.08] max-w-4xl mx-auto"
         >
-          Review Contracts <br />
-          <span className="text-accent drop-shadow-[0_0_35px_rgba(124,92,252,0.3)]">
-            10x Faster
-          </span>
+          Maximize Your Contract <br className="hidden sm:inline" />
+          Intelligence
         </motion.h1>
 
-        {/* Subtext */}
+        {/* Clear, Natural Subtitle */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-base sm:text-lg md:text-xl text-silver max-w-2xl mx-auto mb-10 leading-relaxed font-normal"
+          transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          className="text-base sm:text-lg text-[#4B5565] max-w-2xl mx-auto mb-10 leading-relaxed font-normal"
         >
-          Upload your contracts, identify hidden risks instantly, and chat with your documents using advanced AI technology built for legal professionals.
+          Uncover hidden liabilities, one-sided indemnity terms, and missing protections before you sign. Get attorney-grade redlines in seconds.
         </motion.p>
 
-        {/* CTA Row */}
+        {/* CTA Buttons - Matching Wollo Style (Vibrant Violet + White Bordered Pill) */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
+          initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-14"
+          transition={{ duration: 0.4, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto mb-12"
         >
           <Link
-            href="/app/contracts/mock-id"
-            className="group flex items-center justify-center gap-2.5 bg-accent text-white font-semibold px-8 py-4 rounded-xl text-base hover:scale-[1.02] hover:bg-accent/90 transition-all duration-300 shadow-[0_0_25px_rgba(124,92,252,0.35)] w-full sm:w-auto"
+            href="/app/contracts/new"
+            className="flex items-center justify-center gap-2 bg-[#583AFE] hover:bg-[#4d32e6] text-white font-medium px-8 py-3.5 rounded-full text-[13px] transition-all shadow-sm hover:shadow-md active:scale-95 w-full sm:w-auto"
           >
-            <span>Scan Your Contract</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <span>Start Free Trial</span>
           </Link>
           <Link
             href="#demo"
-            className="flex items-center justify-center gap-2 bg-surface border border-edge text-white font-medium px-8 py-4 rounded-xl text-base hover:bg-[#181818] hover:border-[#333] hover:scale-[1.02] transition-all duration-300 w-full sm:w-auto"
+            className="flex items-center justify-center gap-2 bg-white border border-[#E5E7EB] hover:border-[#D1D5DB] hover:bg-[#F9FAFB] text-[#0A0D14] font-medium px-8 py-3.5 rounded-full text-[13px] transition-all active:scale-95 w-full sm:w-auto shadow-2xs"
           >
-            <Sparkles className="w-4 h-4 text-accent" />
-            <span>Interactive Demo</span>
+            <span>Explore Interactive Demo</span>
           </Link>
         </motion.div>
 
-        {/* Feasible Technical Badges Row */}
+        {/* Clean Trust Points */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-wrap items-center justify-center gap-y-2 gap-x-4 text-[11px] font-mono tracking-widest text-[#666] uppercase select-none"
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex flex-wrap items-center justify-center gap-y-2 gap-x-6 text-xs text-[#6B7280] select-none"
         >
           <span className="flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-accent/80" /> In-Memory Parsing
+            <ShieldCheck className="w-4 h-4 text-[#16A34A]" /> In-Memory Processing
           </span>
-          <span className="text-[#333]">•</span>
-          <span>Zero Persistent Storage</span>
-          <span className="text-[#333]">•</span>
+          <span className="text-[#D1D5DB]">•</span>
+          <span>Zero Data Retention</span>
+          <span className="text-[#D1D5DB]">•</span>
           <span className="flex items-center gap-1.5">
-            <Zap className="w-3 h-3 text-risk-low" /> Multi-Agent Verification
+            <CheckCircle2 className="w-4 h-4 text-[#583AFE]" /> Multi-Agent Verification
           </span>
-          <span className="text-[#333]">•</span>
+          <span className="text-[#D1D5DB]">•</span>
           <span>Instant Redlines</span>
         </motion.div>
+
       </div>
     </section>
   );
 };
+
