@@ -69,7 +69,7 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-40 transition-all duration-200 select-none ${scrolled
+      className={`sticky top-0 z-40 relative transition-all duration-200 select-none ${scrolled
           ? "bg-white/90 backdrop-blur-md border-b border-[#E5E7EB] py-3 shadow-[0_2px_15px_rgba(0,0,0,0.03)]"
           : "bg-white/70 backdrop-blur-xs border-b border-transparent py-4 sm:py-5"
         }`}
@@ -265,75 +265,91 @@ export function Header() {
 
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay - Floats over page without shifting hero */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.15 }}
-            className="sm:hidden bg-white border-b border-[#E5E7EB] px-5 py-4 flex flex-col gap-3 shadow-lg"
-          >
-            <nav className="flex flex-col gap-1.5">
-              {[
-                { name: "Features", href: "/#features" },
-                { name: "Analysis", href: "/#demo" },
-                { name: "Pricing", href: "/pricing" },
-                { name: "Security", href: "/security" },
-                { name: "Pipeline", href: "/#how-it-works" },
-              ].map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="text-[#4B5565] hover:text-[#0A0D14] text-sm font-medium py-1 transition-colors"
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
+          <>
+            {/* Backdrop Scrim */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="sm:hidden fixed inset-0 top-[60px] bg-black/25 backdrop-blur-[2px] z-40"
+            />
 
-            <div className="h-px bg-[#F3F4F6] my-1" />
+            {/* Dropdown Floating Panel */}
+            <motion.div
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.15, ease: "easeOut" }}
+              className="sm:hidden absolute top-full left-0 right-0 w-full bg-white/98 backdrop-blur-md border-b border-[#E5E7EB] px-5 py-4 flex flex-col gap-3 shadow-[0_12px_32px_rgba(0,0,0,0.12)] z-50"
+            >
+              <nav className="flex flex-col gap-1">
+                {[
+                  { name: "Features", href: "/#features" },
+                  { name: "Analysis", href: "/#demo" },
+                  { name: "Pricing", href: "/pricing" },
+                  { name: "Security", href: "/security" },
+                  { name: "Pipeline", href: "/#how-it-works" },
+                ].map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-[#4B5565] hover:text-[#0A0D14] hover:bg-gray-50 px-2 py-2 rounded-lg text-sm font-medium transition-colors"
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </nav>
 
-            {mounted && user ? (
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-2 py-1">
-                  <div className="w-6 h-6 rounded-full bg-[#0A0D14] flex items-center justify-center text-xs font-bold text-white uppercase">
-                    {initial}
+              <div className="h-px bg-[#F3F4F6] my-1" />
+
+              {mounted && user ? (
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2 py-1 px-2">
+                    <div className="w-6 h-6 rounded-full bg-[#0A0D14] flex items-center justify-center text-xs font-bold text-white uppercase">
+                      {initial}
+                    </div>
+                    <span className="text-[#0A0D14] text-xs font-medium truncate">
+                      {user.email}
+                    </span>
                   </div>
-                  <span className="text-[#0A0D14] text-xs font-medium truncate">
-                    {user.email}
-                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      logout();
+                    }}
+                    className="flex items-center gap-2 text-xs text-rose-600 py-1.5 px-2 rounded-lg hover:bg-rose-50 text-left font-medium cursor-pointer transition-colors"
+                  >
+                    <LogOut className="w-3.5 h-3.5 text-rose-500" />
+                    <span>Sign Out</span>
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    logout();
-                  }}
-                  className="flex items-center gap-2 text-xs text-rose-600 py-1 text-left font-medium"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                  <span>Sign Out</span>
-                </button>
-              </div>
-            ) : (
-              <div className="flex flex-col gap-2 pt-1">
-                <Link
-                  href="/login"
-                  className="text-center text-xs text-[#0A0D14] font-medium py-2.5 border border-[#E5E7EB] rounded-full"
-                >
-                  Log in
-                </Link>
-                <Link
-                  href="/app/contracts/new"
-                  className="text-center text-xs bg-[#0A0D14] text-white py-2.5 rounded-full font-medium"
-                >
-                  Start Free Trial
-                </Link>
-              </div>
-            )}
-          </motion.div>
+              ) : (
+                <div className="flex flex-col gap-2 pt-1">
+                  <Link
+                    href="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-center text-xs text-[#0A0D14] font-medium py-2.5 border border-[#E5E7EB] rounded-full hover:bg-gray-50 transition-colors"
+                  >
+                    Log in
+                  </Link>
+                  <Link
+                    href="/app/contracts/new"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-center text-xs bg-[#583AFE] hover:bg-[#4d32e6] text-white py-2.5 rounded-full font-medium transition-colors shadow-sm"
+                  >
+                    Start Free Trial
+                  </Link>
+                </div>
+              )}
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </header>

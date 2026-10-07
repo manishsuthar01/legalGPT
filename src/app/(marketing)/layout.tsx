@@ -7,11 +7,11 @@ export default function MarketingLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-[#E8EBF0] text-[#111827] p-2.5 sm:p-4 md:p-6 lg:p-8 flex flex-col font-sans">
-      {/* Pristine Inset Framed Canvas matching the reference visual style */}
-      <div className="marketing-canvas flex-1 bg-white rounded-[24px] sm:rounded-[32px] md:rounded-[40px] shadow-[0_4px_30px_rgba(0,0,0,0.03)] border border-[#DCE0E7] flex flex-col relative overflow-hidden">
+    <div className="min-h-screen bg-white sm:bg-[#E8EBF0] text-[#111827] p-0 sm:p-4 md:p-6 lg:p-8 flex flex-col font-sans">
+      {/* Inset framed canvas on sm+, 100% edge-to-edge viewport width on mobile */}
+      <div className="marketing-canvas w-full flex-1 bg-white rounded-none sm:rounded-[32px] md:rounded-[40px] shadow-none sm:shadow-[0_4px_30px_rgba(0,0,0,0.03)] border-0 sm:border sm:border-[#DCE0E7] flex flex-col relative overflow-visible sm:overflow-hidden">
         <Header />
-        <main className="flex-1">
+        <main className="flex-1 w-full">
           {children}
         </main>
         <Footer />

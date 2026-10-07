@@ -56,7 +56,7 @@ export const RiskDashboard = () => {
 
   return (
     <section id="demo" className="pb-16 sm:pb-24 relative z-10 bg-white">
-      <div className="max-w-[var(--width-container)] mx-auto px-4 sm:px-6">
+      <div className="max-w-[var(--width-container)] mx-auto px-3 sm:px-6">
         
         {/* Massive Curved Visual Showcase Container matching Wollo hero showcase */}
         <motion.div
@@ -64,7 +64,7 @@ export const RiskDashboard = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="rounded-[28px] sm:rounded-[36px] md:rounded-[44px] bg-gradient-to-b from-[#F4F6F9] via-[#ECEFF4] to-[#E2E6EC] p-2.5 sm:p-4 md:p-6 border border-[#DCE0E7] shadow-[0_20px_50px_rgba(10,13,20,0.05)] overflow-hidden"
+          className="rounded-2xl sm:rounded-[36px] md:rounded-[44px] bg-gradient-to-b from-[#F4F6F9] via-[#ECEFF4] to-[#E2E6EC] p-1.5 sm:p-4 md:p-6 border border-[#DCE0E7] shadow-[0_20px_50px_rgba(10,13,20,0.05)] overflow-hidden"
         >
           <MacWindow
             title="master_services_agreement.pdf"
