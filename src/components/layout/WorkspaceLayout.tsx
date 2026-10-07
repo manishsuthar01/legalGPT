@@ -17,7 +17,7 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
   children, 
   documentName, 
   status, 
-  overallRisk,
+  overallRisk, 
   activeContractId,
   onSelectContract
 }) => {
@@ -25,12 +25,12 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
   const [isDesktopCollapsed, setIsDesktopCollapsed] = useState(false);
 
   return (
-    <div className="flex h-[100dvh] bg-[#090B0E] text-[#9DA8B9] overflow-hidden relative selection:bg-[#2B5EA7]/35 selection:text-white">
+    <div className="flex h-[100dvh] bg-[#0A0D12] text-[#E2E8F0] overflow-hidden relative selection:bg-[#583AFE]/30 selection:text-white font-sans">
       {/* Sidebar - off-canvas on mobile, expandable/collapsible rail on desktop */}
       <div 
         className={`
           fixed inset-y-0 left-0 z-50 transform transition-all duration-200 ease-in-out
-          ${isMobileMenuOpen ? 'translate-x-0 shadow-2xl shadow-black/90' : '-translate-x-full'} 
+          ${isMobileMenuOpen ? 'translate-x-0 shadow-2xl shadow-black/80' : '-translate-x-full'} 
           md:relative md:translate-x-0
           ${isDesktopCollapsed ? 'md:w-[64px]' : 'md:w-[260px]'}
           w-[270px] sm:w-[280px] shrink-0
@@ -48,14 +48,14 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
       {/* Mobile overlay backdrop */}
       {isMobileMenuOpen && (
         <div 
-          className="fixed inset-0 bg-black/80 z-40 md:hidden backdrop-blur-sm transition-opacity duration-200"
+          className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-xs transition-opacity duration-200"
           onClick={() => setIsMobileMenuOpen(false)}
           aria-hidden="true"
         />
       )}
 
       {/* Main content container */}
-      <div className="flex-1 flex flex-col min-w-0 h-[100dvh] overflow-hidden bg-[#090B0E]">
+      <div className="flex-1 flex flex-col min-w-0 h-[100dvh] overflow-hidden bg-[#0A0D12]">
         <TopHeader 
           documentName={documentName} 
           status={status} 
@@ -64,10 +64,12 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
           isDesktopCollapsed={isDesktopCollapsed}
           onToggleDesktopCollapse={() => setIsDesktopCollapsed(prev => !prev)}
         />
-        <main className="flex-1 overflow-hidden relative h-full min-h-0 bg-[#090B0E]">
+        <main className="flex-1 overflow-hidden relative h-full min-h-0 bg-[#0A0D12]">
           {children}
         </main>
       </div>
     </div>
   );
 };
+
+

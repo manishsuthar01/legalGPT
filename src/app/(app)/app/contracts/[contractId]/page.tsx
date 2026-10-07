@@ -430,10 +430,10 @@ export default function ContractWorkspacePage() {
     >
       {/* State 1: Empty Intake */}
       {uiState === 'empty' && (
-        <div className="h-full w-full flex items-center justify-center relative overflow-y-auto p-4 sm:p-6 bg-[#090B0E]">
+        <div className="h-full w-full flex items-center justify-center relative overflow-y-auto p-4 sm:p-6 bg-[#0A0D12]">
           <UploadDropzone onUpload={handleUpload} />
           {(error || loadError) && (
-            <div className="absolute bottom-6 sm:bottom-10 bg-red-950/70 border border-red-500/30 text-red-300 text-xs sm:text-sm px-4 py-2.5 rounded-lg shadow-lg max-w-sm text-center font-mono">
+            <div className="absolute bottom-6 sm:bottom-10 bg-rose-950/60 border border-rose-500/30 text-rose-300 text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-lg max-w-sm text-center">
               {error || loadError}
             </div>
           )}
@@ -442,16 +442,16 @@ export default function ContractWorkspacePage() {
 
       {/* State 2: Analyzing or Loading Existing */}
       {uiState === 'analyzing' && (
-        <div className="h-full w-full flex items-center justify-center bg-[#090B0E] p-4 sm:p-6 overflow-y-auto">
+        <div className="h-full w-full flex items-center justify-center bg-[#0A0D12] p-4 sm:p-6 overflow-y-auto">
           {isLoadingExisting ? (
-            <div className="flex flex-col items-center justify-center gap-4 text-center">
-              <div className="w-12 h-12 rounded-lg bg-[#161B23] border border-[#2B3547] flex items-center justify-center shadow-sm">
-                <Loader2 className="w-6 h-6 text-[#4B72C2] animate-spin" />
+            <div className="flex flex-col items-center justify-center gap-3 text-center">
+              <div className="w-12 h-12 rounded-xl bg-[#141A24] border border-[#1E2532] flex items-center justify-center shadow-xs">
+                <Loader2 className="w-6 h-6 text-[#818CF8] animate-spin" />
               </div>
               <div className="flex flex-col items-center gap-1">
-                <h2 className="text-[#F1F4F8] font-medium text-sm sm:text-base">Retrieving Legal Contract Audit</h2>
-                <p className="text-[#636F83] text-xs max-w-sm px-4 font-mono">
-                  Loading clause vectors, statutory notes, and redlines...
+                <h2 className="text-[#F1F5F9] font-medium text-sm sm:text-base">Loading Contract</h2>
+                <p className="text-[#94A3B8] text-xs max-w-sm px-4">
+                  Fetching clauses and previous analysis report...
                 </p>
               </div>
             </div>
@@ -467,18 +467,18 @@ export default function ContractWorkspacePage() {
 
       {/* State 3: Analysis Complete */}
       {uiState === 'complete' && analysisResult && (
-        <div className="h-full flex flex-col overflow-hidden relative bg-[#090B0E]">
+        <div className="h-full flex flex-col overflow-hidden relative bg-[#0A0D12]">
           
-          {/* Mobile & Tablet Segmented View Switcher (Inspired by Reference 4 Segmented Control) */}
-          <div className="lg:hidden flex items-center justify-between px-3 py-2 bg-[#0B0E14] border-b border-[#1C222E] shrink-0 z-20">
-            <div className="grid grid-cols-2 gap-1 w-full bg-[#121620] p-1 rounded-lg border border-[#202736]">
+          {/* Mobile & Tablet Segmented View Switcher */}
+          <div className="lg:hidden flex items-center justify-between px-3 py-2 bg-[#0D1117] border-b border-[#1E2532] shrink-0 z-20">
+            <div className="grid grid-cols-2 gap-1 w-full bg-[#141A24] p-1 rounded-xl border border-[#1E2532]">
               <button
                 type="button"
                 onClick={() => setMobileActiveTab('analysis')}
-                className={`flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium transition-colors outline-none focus-ring cursor-pointer ${
+                className={`flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg text-xs font-medium transition-colors outline-none cursor-pointer ${
                   mobileActiveTab === 'analysis'
-                    ? 'bg-[#18202E] text-[#F1F4F8] border border-[#2B3B54] shadow-sm'
-                    : 'text-[#9DA8B9] hover:text-[#F1F4F8]'
+                    ? 'bg-[#1E2533] text-white border border-[#2D3C54] shadow-xs'
+                    : 'text-[#94A3B8] hover:text-[#F1F5F9]'
                 }`}
               >
                 <FileText size={14} />
@@ -488,15 +488,14 @@ export default function ContractWorkspacePage() {
               <button
                 type="button"
                 onClick={() => setMobileActiveTab('chat')}
-                className={`flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium transition-colors outline-none focus-ring cursor-pointer ${
+                className={`flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg text-xs font-medium transition-colors outline-none cursor-pointer ${
                   mobileActiveTab === 'chat'
-                    ? 'bg-[#18202E] text-[#F1F4F8] border border-[#2B3B54] shadow-sm'
-                    : 'text-[#9DA8B9] hover:text-[#F1F4F8]'
+                    ? 'bg-[#1E2533] text-white border border-[#2D3C54] shadow-xs'
+                    : 'text-[#94A3B8] hover:text-[#F1F5F9]'
                 }`}
               >
                 <MessageSquare size={14} />
-                <span>Ask LegalGPT</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A]" />
+                <span>Ask Assistant</span>
               </button>
             </div>
           </div>
@@ -529,11 +528,11 @@ export default function ContractWorkspacePage() {
 
                 <div className="mb-5">
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-[#F1F4F8] font-semibold text-xs sm:text-sm font-mono uppercase tracking-wider">
-                      Identified Liability & Risk Vectors
+                    <h3 className="text-[#F1F5F9] font-semibold text-xs sm:text-sm">
+                      Identified Risk Areas
                     </h3>
-                    <span className="text-[11px] font-mono text-[#636F83]">
-                      {analysisResult.riskCards?.length || 0} items flagged
+                    <span className="text-xs text-[#94A3B8]">
+                      {analysisResult.riskCards?.length || 0} flagged
                     </span>
                   </div>
                   <RiskList risks={analysisResult.riskCards || []} />
@@ -555,11 +554,11 @@ export default function ContractWorkspacePage() {
                 }}
                 onDoubleClick={() => handleSetChatWidth(440)}
                 title="Drag to resize assistant • Double-click to reset"
-                className={`hidden lg:flex w-1.5 hover:w-2 hover:bg-[#2B5EA7] cursor-col-resize relative group transition-all duration-150 z-20 items-center justify-center shrink-0 border-l border-r border-[#1C222E] ${
-                  isDragging ? 'bg-[#2B5EA7] w-2' : 'bg-[#0E1218] hover:bg-[#2B5EA7]/50'
+                className={`hidden lg:flex w-1.5 hover:w-2 hover:bg-[#583AFE] cursor-col-resize relative group transition-all duration-150 z-20 items-center justify-center shrink-0 border-l border-r border-[#1E2532] ${
+                  isDragging ? 'bg-[#583AFE] w-2' : 'bg-[#0D1117] hover:bg-[#583AFE]/50'
                 }`}
               >
-                <div className="w-0.5 h-6 rounded-full bg-[#333E53] group-hover:bg-white transition-colors" />
+                <div className="w-0.5 h-6 rounded-full bg-[#2E3B50] group-hover:bg-white transition-colors" />
               </div>
             )}
 
@@ -584,13 +583,12 @@ export default function ContractWorkspacePage() {
               <button
                 type="button"
                 onClick={toggleChat}
-                title="Open Ask LegalGPT Assistant (Ctrl+K)"
-                className="hidden lg:flex items-center gap-2 absolute top-4 right-5 z-20 bg-[#121620] border border-[#242E40] hover:border-[#4B72C2] text-[#F1F4F8] px-3 py-1.5 rounded-md text-xs font-medium shadow-sm transition-colors cursor-pointer group focus-ring"
+                title="Open Assistant"
+                className="hidden lg:flex items-center gap-2 absolute top-4 right-5 z-20 bg-[#141A24] border border-[#1E2532] hover:border-[#818CF8] text-[#F1F5F9] px-3 py-1.5 rounded-lg text-xs font-medium shadow-sm transition-colors cursor-pointer group"
               >
-                <MessageSquare className="w-3.5 h-3.5 text-[#4B72C2]" />
-                <span>Ask LegalGPT</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A]" />
-                <span className="text-[10px] text-[#636F83] font-mono ml-1">Ctrl+K</span>
+                <MessageSquare className="w-3.5 h-3.5 text-[#818CF8]" />
+                <span>Ask Assistant</span>
+                <span className="text-[10px] text-[#64748B] font-mono ml-1">Ctrl+K</span>
               </button>
             )}
 
@@ -600,17 +598,17 @@ export default function ContractWorkspacePage() {
                 type="button"
                 onClick={() => setMobileActiveTab('chat')}
                 aria-label="Open Contract Assistant"
-                className="lg:hidden fixed bottom-5 right-5 z-30 flex items-center gap-2 bg-[#2B5EA7] hover:bg-[#356FBF] text-white px-3.5 py-2.5 rounded-full shadow-lg font-medium text-xs tracking-wide transition-transform active:scale-95 focus-ring"
+                className="lg:hidden fixed bottom-5 right-5 z-30 flex items-center gap-2 bg-[#583AFE] hover:bg-[#4E32E8] text-white px-4 py-2.5 rounded-full shadow-lg font-medium text-xs tracking-wide transition-transform active:scale-95"
               >
                 <MessageSquare size={15} />
                 <span>Ask AI</span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A]" />
               </button>
             )}
 
           </div>
         </div>
       )}
+
     </WorkspaceLayout>
   );
 }

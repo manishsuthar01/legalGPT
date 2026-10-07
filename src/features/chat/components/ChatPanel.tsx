@@ -6,7 +6,7 @@ import { SuggestedPrompt } from './SuggestedPrompt';
 import { ChatInput } from './ChatInput';
 import { mockChatData } from '../mock/chatData';
 import useContractChat from '../hooks/useContractChat';
-import { Scale, PanelRightClose, MessageSquare, ShieldCheck, Loader2 } from 'lucide-react';
+import { PanelRightClose, MessageSquare, Loader2 } from 'lucide-react';
 
 interface ChatPanelProps {
   contractId?: string;
@@ -32,21 +32,15 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ contractId, documentName, 
   };
 
   return (
-    <div className="flex flex-col h-full bg-[#0B0E14] lg:border-l border-[#1C222E] min-h-0 relative select-text">
+    <div className="flex flex-col h-full bg-[#0D1117] lg:border-l border-[#1E2532] min-h-0 relative select-text">
       {/* Contract Chat Header */}
-      <div className="px-4 py-3 border-b border-[#1C222E] flex items-center justify-between bg-[#0F1218] shrink-0 select-none">
+      <div className="px-4 py-3 border-b border-[#1E2532] flex items-center justify-between bg-[#0D1117] shrink-0 select-none">
         <div className="flex items-center gap-2 min-w-0">
-          <div className="w-6 h-6 rounded bg-[#161B23] border border-[#263143] flex items-center justify-center shrink-0">
-            <Scale size={13} className="text-[#C49B55]" />
-          </div>
           <div className="flex flex-col min-w-0">
-            <div className="flex items-center gap-1.5">
-              <h3 className="text-[#F1F4F8] font-semibold text-xs tracking-tight">Contract Counsel Assistant</h3>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#16A34A]" />
-            </div>
+            <h3 className="text-[#F1F5F9] font-semibold text-xs sm:text-sm">Contract Assistant</h3>
             {documentName && (
-              <span className="text-[10px] text-[#636F83] font-mono truncate">
-                Context: {documentName}
+              <span className="text-[11px] text-[#94A3B8] truncate">
+                {documentName}
               </span>
             )}
           </div>
@@ -57,18 +51,18 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ contractId, documentName, 
             <button
               type="button"
               onClick={onClose}
-              title="Collapse assistant panel (Ctrl+K)"
-              aria-label="Collapse assistant panel"
-              className="p-1.5 text-[#636F83] hover:text-[#F1F4F8] hover:bg-[#161B23] rounded-md transition-colors cursor-pointer focus-ring"
+              title="Close panel"
+              aria-label="Close assistant panel"
+              className="p-1.5 text-[#64748B] hover:text-[#F1F5F9] hover:bg-[#1E2532] rounded-md transition-colors cursor-pointer"
             >
-              <PanelRightClose size={15} />
+              <PanelRightClose size={16} />
             </button>
           )}
         </div>
       </div>
 
       {/* Chat Messages Body */}
-      <div className="flex-1 min-h-0 overflow-y-auto p-3.5 sm:p-4 flex flex-col gap-3">
+      <div className="flex-1 min-h-0 overflow-y-auto p-3.5 sm:p-4 flex flex-col gap-3 bg-[#0A0D12]">
         {messages.map((msg) => (
           <ChatMessage
             key={msg.id}
@@ -78,13 +72,13 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ contractId, documentName, 
           />
         ))}
 
-        {/* Suggested Legal Inquiries when conversation is empty */}
+        {/* Suggested Inquiries when conversation is empty */}
         {messages.length === 0 && (
           <div className="my-auto flex flex-col gap-2.5 py-4">
             <div className="flex items-center gap-1.5 px-1">
-              <MessageSquare size={13} className="text-[#4B72C2]" />
-              <span className="text-[10px] text-[#7E8B9F] font-bold uppercase tracking-wider font-mono">
-                Suggested Legal Inquiries
+              <MessageSquare size={14} className="text-[#64748B]" />
+              <span className="text-xs font-semibold text-[#F1F5F9]">
+                Suggested Questions
               </span>
             </div>
             <div className="flex flex-col gap-1.5">
@@ -96,25 +90,20 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ contractId, documentName, 
                 />
               ))}
             </div>
-            <div className="mt-2 text-center">
-              <span className="text-[10px] text-[#636F83] font-mono">
-                Questions are grounded in retrieved contract clauses & statutory standards.
-              </span>
-            </div>
           </div>
         )}
 
-        {/* Legal Reasoning Indicator */}
+        {/* Loading Indicator */}
         {loading && (
-          <div className="flex items-center gap-2 text-xs text-[#9DA8B9] bg-[#10141E] border border-[#1C2536] rounded-md p-3 my-1">
-            <Loader2 size={14} className="text-[#4B72C2] animate-spin shrink-0" />
-            <span className="font-mono text-[11px]">Evaluating contract clauses & cross-referencing law...</span>
+          <div className="flex items-center gap-2 text-xs text-[#CBD5E1] bg-[#141A24] border border-[#1E2532] rounded-lg p-3 my-1 shadow-xs">
+            <Loader2 size={14} className="text-[#818CF8] animate-spin shrink-0" />
+            <span>Analyzing contract context...</span>
           </div>
         )}
 
         {/* Error message */}
         {error && (
-          <div className="text-xs text-red-400 bg-red-950/30 border border-red-500/20 rounded-md p-2.5 my-1 font-mono">
+          <div className="text-xs text-rose-300 bg-rose-500/15 border border-rose-500/30 rounded-lg p-2.5 my-1">
             {error}
           </div>
         )}
@@ -127,4 +116,6 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({ contractId, documentName, 
       <ChatInput onSubmit={handleSubmit} isLoading={loading} />
     </div>
   );
+
 };
+

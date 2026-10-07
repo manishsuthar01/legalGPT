@@ -12,33 +12,33 @@ interface StatusBadgeProps {
 
 const config: Record<RiskLevel, { bg: string; border: string; text: string; icon: React.FC<{ size?: number; className?: string }> }> = {
   critical: {
-    bg: 'bg-red-500/10',
-    border: 'border-red-500/25',
-    text: 'text-red-400',
+    bg: 'bg-red-500/15',
+    border: 'border-red-500/30',
+    text: 'text-red-300',
     icon: ShieldAlert,
   },
   high: {
-    bg: 'bg-rose-500/10',
-    border: 'border-rose-500/25',
-    text: 'text-rose-400',
+    bg: 'bg-rose-500/15',
+    border: 'border-rose-500/30',
+    text: 'text-rose-300',
     icon: AlertCircle,
   },
   medium: {
-    bg: 'bg-amber-500/10',
-    border: 'border-amber-500/25',
-    text: 'text-amber-400',
+    bg: 'bg-amber-500/15',
+    border: 'border-amber-500/30',
+    text: 'text-amber-300',
     icon: AlertTriangle,
   },
   low: {
-    bg: 'bg-emerald-500/10',
-    border: 'border-emerald-500/25',
-    text: 'text-emerald-400',
+    bg: 'bg-emerald-500/15',
+    border: 'border-emerald-500/30',
+    text: 'text-emerald-300',
     icon: CheckCircle2,
   },
   neutral: {
-    bg: 'bg-[#181D27]',
-    border: 'border-[#2A3446]',
-    text: 'text-[#9DA8B9]',
+    bg: 'bg-[#1E2533]',
+    border: 'border-[#2D384D]',
+    text: 'text-[#94A3B8]',
     icon: Info,
   },
 };
@@ -51,14 +51,14 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({
 }) => {
   const current = config[level] || config.neutral;
   const IconComponent = current.icon;
-  const iconSize = size === 'sm' ? 10 : 12;
+  const iconSize = size === 'sm' ? 11 : 13;
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full font-semibold uppercase tracking-wider border select-none ${current.bg} ${current.border} ${current.text} ${
+      className={`inline-flex items-center gap-1.5 rounded-full font-medium border select-none ${current.bg} ${current.border} ${current.text} ${
         size === 'sm' 
-          ? 'px-2 py-0.5 text-[9px]' 
-          : 'px-2.5 py-1 text-[10px]'
+          ? 'px-2 py-0.5 text-[10px]' 
+          : 'px-2.5 py-1 text-xs'
       }`}
     >
       {showIcon && <IconComponent size={iconSize} className="shrink-0" aria-hidden="true" />}
@@ -66,3 +66,5 @@ export const StatusBadge: React.FC<StatusBadgeProps> = ({
     </span>
   );
 };
+
+

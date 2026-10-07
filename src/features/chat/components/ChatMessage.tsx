@@ -52,33 +52,33 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ role, content, timesta
       >
         {/* Avatar */}
         {isAssistant ? (
-          <div className="w-6 h-6 rounded-md bg-[#161B23] border border-[#273244] shrink-0 flex items-center justify-center mt-1">
-            <Scale className="w-3.5 h-3.5 text-[#C49B55]" />
+          <div className="w-6 h-6 rounded-md bg-[#583AFE]/15 border border-[#583AFE]/30 shrink-0 flex items-center justify-center mt-1">
+            <Scale className="w-3.5 h-3.5 text-[#818CF8]" />
           </div>
         ) : (
-          <div className="w-6 h-6 rounded-md bg-[#161B23] border border-[#263143] shrink-0 flex items-center justify-center text-[#7E8B9F] mt-1">
+          <div className="w-6 h-6 rounded-md bg-[#1E2532] border border-[#2B3547] shrink-0 flex items-center justify-center text-[#94A3B8] mt-1">
             <User className="w-3.5 h-3.5" />
           </div>
         )}
 
         {/* Message Bubble */}
         <div
-          className={`flex-1 min-w-0 rounded-lg text-xs leading-relaxed ${
+          className={`flex-1 min-w-0 rounded-xl text-xs leading-relaxed ${
             isAssistant
-              ? 'bg-[#0F1218] border border-[#1E2533] text-[#D8DEE9] p-3.5 sm:p-4 shadow-sm'
-              : 'bg-[#182232] border border-[#2B3950] text-[#F1F4F8] px-3.5 py-2.5 shadow-sm'
+              ? 'bg-[#111722] border border-[#1E2532] text-[#E2E8F0] p-3.5 sm:p-4 shadow-xs'
+              : 'bg-[#1E2533] border border-[#2D3C54] text-white px-3.5 py-2.5 shadow-xs'
           }`}
         >
           {isAssistant ? (
             <div className="space-y-2">
-              <div className="flex items-center justify-between pb-1.5 border-b border-[#181F2C] mb-2 select-none">
-                <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-[#636F83]">
-                  LegalGPT Advisory Opinion
+              <div className="flex items-center justify-between pb-1.5 border-b border-[#1E2532] mb-2 select-none">
+                <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-[#94A3B8]">
+                  LegalGPT Analysis
                 </span>
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="flex items-center gap-1 text-[10px] font-mono text-[#636F83] hover:text-[#9DA8B9] transition-colors cursor-pointer"
+                  className="flex items-center gap-1 text-[10px] font-mono text-[#94A3B8] hover:text-white transition-colors cursor-pointer"
                   title="Copy response"
                 >
                   {copied ? (
@@ -100,42 +100,42 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ role, content, timesta
                   remarkPlugins={[remarkGfm]}
                   components={{
                     table: ({ ...props }) => (
-                      <div className="my-2.5 w-full overflow-x-auto rounded border border-[#202838] bg-[#090C10]">
+                      <div className="my-2.5 w-full overflow-x-auto rounded border border-[#1E2532] bg-[#0A0D12]">
                         <table className="w-full text-left text-xs border-collapse min-w-[320px]" {...props} />
                       </div>
                     ),
                     thead: ({ ...props }) => (
-                      <thead className="bg-[#121620] text-[#F1F4F8] font-semibold border-b border-[#202838]" {...props} />
+                      <thead className="bg-[#141A24] text-[#F1F5F9] font-semibold border-b border-[#1E2532]" {...props} />
                     ),
                     th: ({ ...props }) => (
-                      <th className="px-3 py-2 font-semibold text-[#F1F4F8] text-[10px] uppercase font-mono border-r border-[#1C222E] last:border-r-0" {...props} />
+                      <th className="px-3 py-2 font-semibold text-[#F1F5F9] text-[10px] uppercase font-mono border-r border-[#1E2532] last:border-r-0" {...props} />
                     ),
                     td: ({ ...props }) => (
-                      <td className="px-3 py-2 border-t border-[#181E29] border-r border-[#181E29] last:border-r-0 text-[#CCD3DE] align-top" {...props} />
+                      <td className="px-3 py-2 border-t border-[#1E2532] border-r border-[#1E2532] last:border-r-0 text-[#CBD5E1] align-top" {...props} />
                     ),
                     h1: ({ ...props }) => (
-                      <h4 className="text-xs font-semibold text-[#F1F4F8] mt-3 mb-1 first:mt-0 font-mono uppercase tracking-wider" {...props} />
+                      <h4 className="text-xs font-semibold text-[#F1F5F9] mt-3 mb-1 first:mt-0 font-mono uppercase tracking-wider" {...props} />
                     ),
                     h2: ({ ...props }) => (
-                      <h4 className="text-xs font-semibold text-[#F1F4F8] mt-2 mb-1 first:mt-0" {...props} />
+                      <h4 className="text-xs font-semibold text-[#F1F5F9] mt-2 mb-1 first:mt-0" {...props} />
                     ),
                     h3: ({ ...props }) => (
-                      <h5 className="text-[11px] font-semibold text-[#4B72C2] mt-2 mb-1 first:mt-0 font-mono" {...props} />
+                      <h5 className="text-[11px] font-semibold text-[#818CF8] mt-2 mb-1 first:mt-0 font-mono" {...props} />
                     ),
                     p: ({ ...props }) => (
-                      <p className="mb-1.5 last:mb-0 leading-relaxed text-[#CCD3DE]" {...props} />
+                      <p className="mb-1.5 last:mb-0 leading-relaxed text-[#CBD5E1]" {...props} />
                     ),
                     ul: ({ ...props }) => (
-                      <ul className="my-1.5 ml-3.5 list-disc space-y-1 text-[#CCD3DE]" {...props} />
+                      <ul className="my-1.5 ml-3.5 list-disc space-y-1 text-[#CBD5E1]" {...props} />
                     ),
                     ol: ({ ...props }) => (
-                      <ol className="my-1.5 ml-3.5 list-decimal space-y-1 text-[#CCD3DE]" {...props} />
+                      <ol className="my-1.5 ml-3.5 list-decimal space-y-1 text-[#CBD5E1]" {...props} />
                     ),
                     blockquote: ({ ...props }) => (
-                      <blockquote className="border-l-2 border-[#4B72C2] pl-3 my-2 text-[#9DA8B9] italic font-legal-clause bg-[#0B0E14] py-1 rounded-r" {...props} />
+                      <blockquote className="border-l-2 border-[#818CF8] pl-3 my-2 text-[#94A3B8] italic font-legal-clause bg-[#0A0D12] py-1 rounded-r" {...props} />
                     ),
                     code: ({ ...props }) => (
-                      <code className="bg-[#090C10] text-[#D8DEE9] px-1.5 py-0.5 rounded text-[11px] font-mono border border-[#181E29]" {...props} />
+                      <code className="bg-[#0A0D12] text-[#86EFAC] px-1.5 py-0.5 rounded text-[11px] font-mono border border-[#1E2532]" {...props} />
                     ),
                   }}
                 >
@@ -148,7 +148,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ role, content, timesta
           )}
 
           {formattedTime && (
-            <div className={`mt-1.5 text-[9px] font-mono ${isAssistant ? 'text-[#636F83]' : 'text-[#8EA5C9] text-right'}`}>
+            <div className={`mt-1.5 text-[9px] font-mono ${isAssistant ? 'text-[#64748B]' : 'text-slate-300 text-right'}`}>
               {formattedTime}
             </div>
           )}
@@ -156,4 +156,5 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ role, content, timesta
       </div>
     </div>
   );
+
 };
