@@ -19,7 +19,7 @@ import { Breadcrumbs } from "@/components/seo/InternalLinking";
 export const metadata = createMetadata({
   title: "LegalGPT vs Traditional Law Firms — Cost, Speed & Review Accuracy",
   description:
-    "Compare LegalGPT AI contract analysis with hiring an outside corporate law firm. Analyze turnaround velocity, hourly billable costs ($800/hr vs $29/mo), and discover the hybrid AI-first legal workflow.",
+    "Compare LegalGPT AI contract analysis with hiring an outside corporate law firm. Analyze turnaround velocity, hourly billable costs ($800/hr vs 100% Free AI), and discover the hybrid AI-first legal workflow.",
   path: "/compare/legalgpt-vs-lawyers",
   keywords: [
     "LegalGPT vs law firms",
@@ -99,9 +99,9 @@ export default function LegalGptVsLawyersPage() {
                 <DollarSign className="w-5 h-5 text-emerald-400" />
               </div>
               <h3 className="text-xs font-mono uppercase text-silver mb-1">Cost Per Review</h3>
-              <div className="text-2xl font-bold text-white mb-2">$0–$29 vs $2,500+</div>
+              <div className="text-2xl font-bold text-white mb-2">Free vs $2,500+</div>
               <p className="text-silver text-xs leading-relaxed">
-                Law firm reviews average 2–4 billable hours ($1,200–$3,500). LegalGPT offers free interactive tools and unlimited workspace plans from $29/mo.
+                Law firm reviews average 2–4 billable hours ($1,200–$3,500). LegalGPT is 100% free with unlimited workspace contract audits and interactive tools.
               </p>
             </div>
 

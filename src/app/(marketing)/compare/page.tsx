@@ -65,7 +65,7 @@ export default function CompareHubPage() {
                   LegalGPT vs Traditional Law Firms
                 </h2>
                 <p className="text-silver text-sm leading-relaxed mb-6">
-                  Law firms bill $500–$1,200/hr and take 3–7 business days to redline routine contracts. Discover how LegalGPT provides 90% of routine contract triage in 30 seconds for a fraction of the cost, reserving expensive attorney hours for high-stakes M&amp;A.
+                  Law firms bill $500–$1,200/hr and take 3–7 business days to redline routine contracts. Discover how LegalGPT provides 90% of routine contract triage in 30 seconds completely free of charge, reserving expensive attorney hours for high-stakes M&amp;A.
                 </p>
 
                 <div className="space-y-2.5 mb-8 text-xs text-silver font-mono">
@@ -75,7 +75,7 @@ export default function CompareHubPage() {
                   </div>
                   <div className="flex items-center gap-2 text-emerald-400">
                     <Check className="w-4 h-4 shrink-0" />
-                    <span>Predictable monthly plans vs $800/hr open-ended bills</span>
+                    <span>100% free access vs $800/hr open-ended attorney bills</span>
                   </div>
                   <div className="flex items-center gap-2 text-emerald-400">
                     <Check className="w-4 h-4 shrink-0" />
@@ -164,7 +164,7 @@ export default function CompareHubPage() {
                   <td className="py-3.5 px-4 text-white font-medium">Average Cost</td>
                   <td className="py-3.5 px-4">$500–$1,200 / hour</td>
                   <td className="py-3.5 px-4">$20 / month</td>
-                  <td className="py-3.5 px-4 text-emerald-400 font-semibold">$29/mo or Free Scanner</td>
+                  <td className="py-3.5 px-4 text-emerald-400 font-semibold">100% Free Forever</td>
                 </tr>
                 <tr>
                   <td className="py-3.5 px-4 text-white font-medium">Full Contract PDF Chunking</td>
