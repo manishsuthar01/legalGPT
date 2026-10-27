@@ -189,3 +189,8 @@ h1, h2, h3, h4, h5, h6 {
     scroll-behavior: auto !important;
   }
 }
+
+/* Hide dev overlay badge */
+nextjs-portal, [data-nextjs-toast], [data-next-badge], [data-nextjs-dialog-overlay] {
+  display: none !important;
+}
