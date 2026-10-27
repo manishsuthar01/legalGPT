@@ -21,6 +21,15 @@ const nextConfig: NextConfig = {
     ],
   },
   serverExternalPackages: ["pdf-parse", "pdfjs-dist", "@langchain/community"],
+  async redirects() {
+    return [
+      {
+        source: "/pricing",
+        destination: "/",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
