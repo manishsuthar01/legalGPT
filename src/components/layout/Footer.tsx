@@ -58,7 +58,7 @@ export function Footer() {
             </h3>
             <ul className="space-y-2.5 text-xs sm:text-sm">
               {[
-                { name: "Pricing & Plans", href: "/pricing" },
+                { name: "Platform Features", href: "/#features" },
                 { name: "Zero-Data Security", href: "/security" },
                 { name: "Free Tools Suite", href: "/tools" },
                 { name: "Document Workspace", href: "/app/contracts/new" },

@@ -110,7 +110,7 @@ export function Header() {
           {[
             { name: "Features", href: "/#features" },
             { name: "Analysis", href: "/#demo" },
-            { name: "Pricing", href: "/pricing" },
+            { name: "Tools", href: "/tools" },
             { name: "Security", href: "/security" },
             { name: "Pipeline", href: "/#how-it-works" },
           ].map((item) => (
@@ -237,7 +237,7 @@ export function Header() {
                 href="/app/contracts/new"
                 className="flex items-center gap-1.5 bg-[#0A0D14] hover:bg-[#1f242e] text-white px-5 py-2.5 rounded-full text-[13px] font-medium transition-all shadow-sm active:scale-95"
               >
-                <span>Start Free Trial</span>
+                <span>Get Started Free</span>
               </Link>
             </>
           )}
@@ -291,7 +291,7 @@ export function Header() {
                 {[
                   { name: "Features", href: "/#features" },
                   { name: "Analysis", href: "/#demo" },
-                  { name: "Pricing", href: "/pricing" },
+                  { name: "Tools", href: "/tools" },
                   { name: "Security", href: "/security" },
                   { name: "Pipeline", href: "/#how-it-works" },
                 ].map((item) => (
@@ -344,7 +344,7 @@ export function Header() {
                     onClick={() => setMobileMenuOpen(false)}
                     className="text-center text-xs bg-[#583AFE] hover:bg-[#4d32e6] text-white py-2.5 rounded-full font-medium transition-colors shadow-sm"
                   >
-                    Start Free Trial
+                    Get Started Free
                   </Link>
                 </div>
               )}

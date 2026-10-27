@@ -18,7 +18,7 @@ export const Hero = () => {
         >
           <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
           <span className="text-xs font-medium text-[#4B5565]">
-            AI-Powered Contract Review &amp; Risk Detection
+            100% Free AI Contract Review &amp; Risk Detection
           </span>
         </motion.div>
 
@@ -40,7 +40,7 @@ export const Hero = () => {
           transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           className="text-base sm:text-lg text-[#4B5565] max-w-2xl mx-auto mb-8 sm:mb-9 leading-relaxed font-normal"
         >
-          Uncover hidden liabilities, one-sided indemnity terms, and missing protections before you sign. Get attorney-grade redlines in seconds.
+          Uncover hidden liabilities, one-sided indemnity terms, and missing protections before you sign. Free, attorney-grade redlines in seconds.
         </motion.p>
 
         {/* CTA Buttons */}
@@ -54,7 +54,7 @@ export const Hero = () => {
             href="/app/contracts/new"
             className="flex items-center justify-center gap-2 bg-[#583AFE] hover:bg-[#4d32e6] text-white font-medium px-8 py-3.5 rounded-full text-[13px] transition-all shadow-sm hover:shadow-md active:scale-95 w-full sm:w-auto"
           >
-            <span>Start Free Trial</span>
+            <span>Analyze Contract Free</span>
           </Link>
           <Link
             href="#demo"
