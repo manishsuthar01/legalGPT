@@ -17,12 +17,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: getAbsoluteUrl("/pricing"),
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
       url: getAbsoluteUrl("/security"),
       lastModified: now,
       changeFrequency: "monthly",

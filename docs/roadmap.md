@@ -43,3 +43,8 @@ User Contract (Vectorized)
 3. **Enhance System Resilience:**
    - Error handling across LangGraph node transitions.
    - Retry logic for Research and LLM calls.
+
+4. **100% Free & Open Access Platform:**
+   - Platform is completely free to use with zero paywalls, tiers, or subscription fees.
+   - Unlimited contract risk audits and autonomous legal research for all users.
+   - In-memory privacy preservation with zero data retention.

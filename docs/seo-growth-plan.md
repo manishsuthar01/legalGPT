@@ -27,7 +27,7 @@ This roadmap outlines the complete 35-phase organic search engine optimization a
 |:--|:------|:---------|:-------|:---------------------------|
 | 0 | Strategy, Positioning & Baseline | 🔴 | ✅ | Keyword taxonomy, ICP targeting, seed entity modeling. |
 | 1 | Technical SEO Foundation | 🔴 | ✅ | `robots.ts`, `sitemap.ts`, `metadata.ts` engine, canonical tags, JSON-LD (`json-ld.tsx`), `trailingSlash: false`. |
-| 2 | Trust & Commercial Pages | 🔴 | ✅ | `/pricing`, `/security`, `/about`, `/terms`, `/privacy`, `/disclaimer` with full schema & E-E-A-T signals. |
+| 2 | Trust & Commercial Pages | 🔴 | ✅ | `/security`, `/about`, `/terms`, `/privacy`, `/disclaimer` with full schema & E-E-A-T signals (100% Free model). |
 | 3 | Information Architecture | 🔴 | ✅ | Private workspace namespaced to `/app/contracts/[contractId]` (disallowed in robots.txt); public hubs live at `/contracts`, `/clauses`, `/glossary`, `/tools`. |
 
 ---
