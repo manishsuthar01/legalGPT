@@ -14,9 +14,8 @@ export const Hero = () => {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F3F4F6] border border-[#E5E7EB] mb-6 sm:mb-8 select-none"
+          className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#F3F4F6] border border-[#E5E7EB] mb-6 sm:mb-8 select-none"
         >
-          <span className="w-2 h-2 rounded-full bg-[#16A34A]" />
           <span className="text-xs font-medium text-[#4B5565]">
             100% Free AI Contract Review &amp; Risk Detection
           </span>

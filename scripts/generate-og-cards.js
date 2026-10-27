@@ -78,10 +78,9 @@ async function createExactHomepageOgCard() {
     <!-- 2. Hero Headline Section -->
     <g transform="translate(600, 138)">
       <!-- 100% Free Badge -->
-      <g transform="translate(-160, 0)">
-        <rect x="0" y="0" width="320" height="26" rx="13" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
-        <circle cx="18" cy="13" r="4" fill="#16A34A"/>
-        <text x="170" y="17" class="font-sans" font-size="11" font-weight="600" fill="#4B5565" text-anchor="middle">100% Free AI Contract Review &amp; Risk Detection</text>
+      <g transform="translate(-155, 0)">
+        <rect x="0" y="0" width="310" height="26" rx="13" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1"/>
+        <text x="155" y="17" class="font-sans" font-size="11" font-weight="600" fill="#4B5565" text-anchor="middle">100% Free AI Contract Review &amp; Risk Detection</text>
       </g>
 
       <!-- Main Headline -->
