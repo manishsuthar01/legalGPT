@@ -51,6 +51,9 @@ export interface AnalysisResult {
     clauses: { text: string; source: string; chunk_index: number }[];
     positiveFindings: PositiveFinding[];
     missingClauses: MissingClause[];
+    isLegalDocument?: boolean;
+    documentType?: string;
+    documentTypeReason?: string;
 }
 
 export interface AnalysisState {
@@ -77,6 +80,9 @@ export interface AnalysisState {
     riskCards: RiskCard[];
     positiveFindings: PositiveFinding[];
     missingClauses: MissingClause[];
+    isLegalDocument?: boolean;
+    documentType?: string;
+    documentTypeReason?: string;
 }
 
 export interface TavilySource {
