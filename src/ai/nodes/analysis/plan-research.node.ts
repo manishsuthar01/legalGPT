@@ -7,7 +7,14 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const planResearchNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {
     const startTime = Date.now();
-    console.log(`[planResearchNode] PLANNING RESEARCH FOR ${state.flaggedClauses.length} CLAUSES`);
+    console.log(`[planResearchNode] PLANNING RESEARCH FOR ${state.flaggedClauses?.length || 0} CLAUSES`);
+    if (state.isLegalDocument === false || !state.flaggedClauses || state.flaggedClauses.length === 0) {
+        console.log(`[planResearchNode] Skipping research planning (isLegalDocument: ${state.isLegalDocument}, clauses: ${state.flaggedClauses?.length || 0})`);
+        return {
+            researchPlans: [],
+            status: "processing"
+        };
+    }
     try {
         const researchPlans: ResearchPlan[] = [];
         const { flaggedClauses, country } = state;

@@ -8,7 +8,14 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const legalReviewerNode = async (state: AnalysisState): Promise<Partial<AnalysisState>> => {
     const startTime = Date.now();
-    console.log(`[legal-reviewer.node.ts] REVIEWING ${state.flaggedClauses.length} CLAUSES FOR JURISDICTION: ${state.country}`);
+    console.log(`[legal-reviewer.node.ts] REVIEWING ${state.flaggedClauses?.length || 0} CLAUSES FOR JURISDICTION: ${state.country}`);
+    if (state.isLegalDocument === false || !state.flaggedClauses || state.flaggedClauses.length === 0) {
+        console.log(`[legal-reviewer.node.ts] Skipping clause review (isLegalDocument: ${state.isLegalDocument}, clauses: ${state.flaggedClauses?.length || 0})`);
+        return {
+            reviewerFeedback: [],
+            status: "processing"
+        };
+    }
 
     // Condense evidence sources so the prompt isn't overwhelmed by raw HTML or huge articles
     const cleanContext = (sources: any): string => {
