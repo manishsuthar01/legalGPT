@@ -73,6 +73,15 @@ const GraphState = Annotation.Root({
     }),
     riskScoreBreakdown: Annotation<any>({
         reducer: (oldState, newState) => newState || oldState,
+    }),
+    isLegalDocument: Annotation<boolean>({
+        reducer: (oldState, newState) => (newState !== undefined ? newState : oldState),
+    }),
+    documentType: Annotation<string>({
+        reducer: (oldState, newState) => newState || oldState,
+    }),
+    documentTypeReason: Annotation<string>({
+        reducer: (oldState, newState) => newState || oldState,
     })
 });
 
