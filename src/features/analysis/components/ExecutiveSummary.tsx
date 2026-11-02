@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle2, AlertTriangle, ShieldAlert, Copy, Check } from 'lucide-react';
+import { CheckCircle2, AlertTriangle, ShieldAlert, Copy, Check, Info, FileQuestion } from 'lucide-react';
 import { StatusBadge } from '../../../components/ui/StatusBadge';
 
 interface PositiveFinding {
@@ -27,6 +27,9 @@ interface ExecutiveSummaryProps {
   riskScoreBreakdown?: RiskScoreBreakdown;
   positiveFindings?: PositiveFinding[];
   missingClauses?: MissingClause[];
+  isLegalDocument?: boolean;
+  documentType?: string;
+  documentTypeReason?: string;
 }
 
 const BreakdownBar = ({ label, value, max = 100 }: { label: string; value: number; max?: number }) => {
@@ -60,7 +63,10 @@ export const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({
   riskScore, 
   riskScoreBreakdown, 
   positiveFindings, 
-  missingClauses 
+  missingClauses,
+  isLegalDocument = true,
+  documentType,
+  documentTypeReason
 }) => {
   const [copiedIdx, setCopiedIdx] = useState<number | null>(null);
 
@@ -88,47 +94,93 @@ export const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({
           <h3 className="text-[#F1F5F9] font-semibold text-sm sm:text-base">
             Executive Summary
           </h3>
-          <StatusBadge 
-            level={getRiskSeverityLevel(overallRisk)} 
-            label={`${overallRisk} Risk`} 
-            size="sm" 
-          />
-        </div>
-
-        <p className="text-[#CBD5E1] text-xs sm:text-sm leading-relaxed mb-5">
-          {summary}
-        </p>
-
-        {/* Risk Score and Breakdown Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 bg-[#141A24] border border-[#1E2532] rounded-xl p-3.5 sm:p-4">
-          <div className="flex flex-col justify-between">
-            <span className="text-[#94A3B8] text-xs font-medium mb-1">
-              Overall Risk Assessment
-            </span>
-            <div className="flex items-baseline gap-2">
-              <span className="text-[#F1F5F9] text-2xl font-bold font-mono">{riskScore}</span>
-              <span className="text-[#64748B] text-xs font-mono">/ 100</span>
-            </div>
-            <p className="text-xs text-[#94A3B8] mt-1">
-              {riskScore >= 70 ? 'Requires legal redlines before signing.' :
-               riskScore >= 40 ? 'Contains terms requiring review.' :
-               'Terms align with standard market terms.'}
-            </p>
-          </div>
-
-          {/* Breakdown Bars */}
-          {riskScoreBreakdown && (
-            <div className="flex flex-col justify-center space-y-2.5 border-t md:border-t-0 md:border-l border-[#1E2532] pt-3 md:pt-0 md:pl-4">
-              <BreakdownBar label="Drafting Quality" value={riskScoreBreakdown.contractQuality} />
-              <BreakdownBar label="Clause Exposure" value={riskScoreBreakdown.clauseRisk} />
-              <BreakdownBar label="Compliance" value={riskScoreBreakdown.jurisdictionCompliance} />
-            </div>
+          {isLegalDocument ? (
+            <StatusBadge 
+              level={getRiskSeverityLevel(overallRisk)} 
+              label={`${overallRisk} Risk`} 
+              size="sm" 
+            />
+          ) : (
+            <StatusBadge 
+              level="neutral" 
+              label={documentType || "Non-Legal Document"} 
+              size="sm" 
+            />
           )}
         </div>
+
+        {/* Non-Legal Document Notification Callout */}
+        {!isLegalDocument ? (
+          <div className="space-y-4">
+            <div className="flex items-start gap-3 bg-amber-500/10 border border-amber-500/25 rounded-xl p-4">
+              <FileQuestion className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-1">
+                  <h4 className="text-sm font-semibold text-amber-200">
+                    Non-Legal Document Detected
+                  </h4>
+                  {documentType && (
+                    <span className="text-[10px] font-mono font-medium px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                      {documentType}
+                    </span>
+                  )}
+                </div>
+                <p className="text-xs text-amber-100/90 leading-relaxed mb-2">
+                  {summary}
+                </p>
+                {documentTypeReason && (
+                  <p className="text-[11px] text-amber-200/70 italic">
+                    Reason: {documentTypeReason}
+                  </p>
+                )}
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2.5 bg-[#141A24] border border-[#1E2532] rounded-xl p-3.5 sm:p-4 text-xs text-[#94A3B8] leading-relaxed">
+              <Info className="w-4 h-4 text-[#818CF8] shrink-0 mt-0.5" />
+              <div>
+                <span className="font-medium text-[#E2E8F0]">Looking to audit an agreement?</span> Upload an enforceable contract (e.g., Non-Disclosure Agreement, Master Services Agreement, Commercial Lease, or Terms of Service) to evaluate liability exposure and redlines. You can also chat with the <span className="text-[#818CF8] font-medium">Contract Assistant</span> on the right to examine or summarize the text of this document.
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            <p className="text-[#CBD5E1] text-xs sm:text-sm leading-relaxed mb-5">
+              {summary}
+            </p>
+
+            {/* Risk Score and Breakdown Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 bg-[#141A24] border border-[#1E2532] rounded-xl p-3.5 sm:p-4">
+              <div className="flex flex-col justify-between">
+                <span className="text-[#94A3B8] text-xs font-medium mb-1">
+                  Overall Risk Assessment
+                </span>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-[#F1F5F9] text-2xl font-bold font-mono">{riskScore}</span>
+                  <span className="text-[#64748B] text-xs font-mono">/ 100</span>
+                </div>
+                <p className="text-xs text-[#94A3B8] mt-1">
+                  {riskScore >= 70 ? 'Requires legal redlines before signing.' :
+                   riskScore >= 40 ? 'Contains terms requiring review.' :
+                   'Terms align with standard market terms.'}
+                </p>
+              </div>
+
+              {/* Breakdown Bars */}
+              {riskScoreBreakdown && (
+                <div className="flex flex-col justify-center space-y-2.5 border-t md:border-t-0 md:border-l border-[#1E2532] pt-3 md:pt-0 md:pl-4">
+                  <BreakdownBar label="Drafting Quality" value={riskScoreBreakdown.contractQuality} />
+                  <BreakdownBar label="Clause Exposure" value={riskScoreBreakdown.clauseRisk} />
+                  <BreakdownBar label="Compliance" value={riskScoreBreakdown.jurisdictionCompliance} />
+                </div>
+              )}
+            </div>
+          </>
+        )}
       </div>
 
       {/* Missing Clauses Section */}
-      {missingClauses && missingClauses.length > 0 && (
+      {isLegalDocument && missingClauses && missingClauses.length > 0 && (
         <div className="bg-[#0F1319] border border-[#1E2532] rounded-xl p-4 sm:p-6 shadow-sm">
           <div className="flex items-center gap-2 pb-3 border-b border-[#1E2532] mb-4">
             <ShieldAlert size={16} className="text-amber-400" />
@@ -204,7 +256,7 @@ export const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({
       )}
 
       {/* Positive Findings Section */}
-      {positiveFindings && positiveFindings.length > 0 && (
+      {isLegalDocument && positiveFindings && positiveFindings.length > 0 && (
         <div className="bg-[#0F1319] border border-[#1E2532] rounded-xl p-4 sm:p-6 shadow-sm">
           <div className="flex items-center gap-2 pb-3 border-b border-[#1E2532] mb-4">
             <CheckCircle2 size={16} className="text-emerald-400" />
@@ -235,5 +287,3 @@ export const ExecutiveSummary: React.FC<ExecutiveSummaryProps> = ({
     </div>
   );
 };
-
-

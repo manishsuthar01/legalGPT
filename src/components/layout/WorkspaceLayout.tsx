@@ -9,6 +9,8 @@ interface WorkspaceLayoutProps {
   documentName: string;
   status: 'analyzing' | 'complete' | 'empty';
   overallRisk?: 'LOW' | 'MEDIUM' | 'HIGH' | null;
+  isLegalDocument?: boolean;
+  documentType?: string;
   activeContractId?: string;
   onSelectContract?: (contractId: string) => void;
 }
@@ -18,6 +20,8 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
   documentName, 
   status, 
   overallRisk, 
+  isLegalDocument = true,
+  documentType,
   activeContractId,
   onSelectContract
 }) => {
@@ -33,19 +37,19 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
           ${isMobileMenuOpen ? 'translate-x-0 shadow-2xl shadow-black/80' : '-translate-x-full'} 
           md:relative md:translate-x-0
           ${isDesktopCollapsed ? 'md:w-[64px]' : 'md:w-[260px]'}
-          w-[270px] sm:w-[280px] shrink-0
         `}
       >
-        <LeftSidebar 
-          isCollapsed={isDesktopCollapsed}
-          onToggleCollapse={() => setIsDesktopCollapsed(prev => !prev)}
-          onCloseMobile={() => setIsMobileMenuOpen(false)} 
+        <LeftSidebar
           activeContractId={activeContractId}
-          onSelectContract={onSelectContract}
+          onSelectContract={(id) => {
+            setIsMobileMenuOpen(false);
+            onSelectContract?.(id);
+          }}
+          isCollapsed={isDesktopCollapsed}
         />
       </div>
 
-      {/* Mobile overlay backdrop */}
+      {/* Mobile backdrop */}
       {isMobileMenuOpen && (
         <div 
           className="fixed inset-0 bg-black/60 z-40 md:hidden backdrop-blur-xs transition-opacity duration-200"
@@ -60,6 +64,8 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
           documentName={documentName} 
           status={status} 
           overallRisk={overallRisk}
+          isLegalDocument={isLegalDocument}
+          documentType={documentType}
           onMenuToggle={() => setIsMobileMenuOpen(true)}
           isDesktopCollapsed={isDesktopCollapsed}
           onToggleDesktopCollapse={() => setIsDesktopCollapsed(prev => !prev)}
@@ -71,5 +77,3 @@ export const WorkspaceLayout: React.FC<WorkspaceLayoutProps> = ({
     </div>
   );
 };
-
-

@@ -424,7 +424,9 @@ export default function ContractWorkspacePage() {
     <WorkspaceLayout
       documentName={documentName}
       status={uiState}
-      overallRisk={analysisResult?.overallRisk || null}
+      overallRisk={analysisResult?.isLegalDocument === false ? null : (analysisResult?.overallRisk || null)}
+      isLegalDocument={analysisResult?.isLegalDocument !== false}
+      documentType={analysisResult?.documentType}
       activeContractId={contractId || params?.contractId}
       onSelectContract={handleSelectContract}
     >
@@ -512,8 +514,10 @@ export default function ContractWorkspacePage() {
               `}
             >
               <DocumentMetadata 
-                clauseCount={analysisResult.clauses?.length || analysisResult.riskCards?.length || 0}
+                clauseCount={analysisResult.clauses?.length || 0}
                 riskScore={analysisResult.riskScore}
+                isLegalDocument={analysisResult.isLegalDocument !== false}
+                documentType={analysisResult.documentType}
               />
 
               <div className="flex-1 flex flex-col min-h-0 mt-1">
@@ -524,24 +528,31 @@ export default function ContractWorkspacePage() {
                   riskScoreBreakdown={analysisResult.riskScoreBreakdown}
                   positiveFindings={analysisResult.positiveFindings}
                   missingClauses={analysisResult.missingClauses}
+                  isLegalDocument={analysisResult.isLegalDocument !== false}
+                  documentType={analysisResult.documentType}
+                  documentTypeReason={analysisResult.documentTypeReason}
                 />
 
-                <div className="mb-5">
-                  <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-[#F1F5F9] font-semibold text-xs sm:text-sm">
-                      Identified Risk Areas
-                    </h3>
-                    <span className="text-xs text-[#94A3B8]">
-                      {analysisResult.riskCards?.length || 0} flagged
-                    </span>
-                  </div>
-                  <RiskList risks={analysisResult.riskCards || []} />
-                </div>
+                {analysisResult.isLegalDocument !== false ? (
+                  <>
+                    <div className="mb-5">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="text-[#F1F5F9] font-semibold text-xs sm:text-sm">
+                          Identified Risk Areas
+                        </h3>
+                        <span className="text-xs text-[#94A3B8]">
+                          {analysisResult.riskCards?.length || 0} flagged
+                        </span>
+                      </div>
+                      <RiskList risks={analysisResult.riskCards || []} />
+                    </div>
 
-                <ClauseViewer 
-                  advisorFeedback={analysisResult.advisorFeedback || []}
-                  reviewerFeedback={analysisResult.reviewerFeedback || []}
-                />
+                    <ClauseViewer 
+                      advisorFeedback={analysisResult.advisorFeedback || []}
+                      reviewerFeedback={analysisResult.reviewerFeedback || []}
+                    />
+                  </>
+                ) : null}
               </div>
             </div>
 

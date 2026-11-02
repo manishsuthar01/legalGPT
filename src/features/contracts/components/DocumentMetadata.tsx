@@ -1,12 +1,19 @@
 import React from 'react';
-import { FileText, ShieldAlert } from 'lucide-react';
+import { FileText, ShieldAlert, FileQuestion } from 'lucide-react';
 
 interface DocumentMetadataProps {
   clauseCount: number;
   riskScore: number;
+  isLegalDocument?: boolean;
+  documentType?: string;
 }
 
-export const DocumentMetadata: React.FC<DocumentMetadataProps> = ({ clauseCount, riskScore }) => {
+export const DocumentMetadata: React.FC<DocumentMetadataProps> = ({ 
+  clauseCount, 
+  riskScore,
+  isLegalDocument = true,
+  documentType
+}) => {
   const getRiskStatus = (score: number) => {
     if (score >= 70) return { label: 'High Risk', color: 'text-rose-300 bg-rose-500/15 border-rose-500/30' };
     if (score >= 40) return { label: 'Medium Risk', color: 'text-amber-300 bg-amber-500/15 border-amber-500/30' };
@@ -27,9 +34,11 @@ export const DocumentMetadata: React.FC<DocumentMetadataProps> = ({ clauseCount,
         </div>
         <div className="flex items-baseline gap-1.5 mt-1">
           <span className="text-[#F1F5F9] text-xl font-bold font-mono">
-            {clauseCount}
+            {isLegalDocument ? clauseCount : 0}
           </span>
-          <span className="text-[#64748B] text-xs">clauses</span>
+          <span className="text-[#64748B] text-xs">
+            {isLegalDocument ? 'clauses' : 'legal clauses'}
+          </span>
         </div>
       </div>
 
@@ -39,20 +48,37 @@ export const DocumentMetadata: React.FC<DocumentMetadataProps> = ({ clauseCount,
           <span className="text-[#94A3B8] text-xs font-medium">
             Risk Score
           </span>
-          <ShieldAlert 
-            size={15} 
-            className={riskScore >= 70 ? 'text-rose-400' : riskScore >= 40 ? 'text-amber-400' : 'text-emerald-400'} 
-            aria-hidden="true" 
-          />
+          {isLegalDocument ? (
+            <ShieldAlert 
+              size={15} 
+              className={riskScore >= 70 ? 'text-rose-400' : riskScore >= 40 ? 'text-amber-400' : 'text-emerald-400'} 
+              aria-hidden="true" 
+            />
+          ) : (
+            <FileQuestion size={15} className="text-amber-400/80" aria-hidden="true" />
+          )}
         </div>
         <div className="flex items-center gap-2 mt-1">
-          <span className="text-[#F1F5F9] text-xl font-bold font-mono">
-            {riskScore}
-          </span>
-          <span className="text-[#64748B] text-xs font-mono">/ 100</span>
-          <span className={`ml-auto inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${riskStatus.color}`}>
-            {riskStatus.label}
-          </span>
+          {isLegalDocument ? (
+            <>
+              <span className="text-[#F1F5F9] text-xl font-bold font-mono">
+                {riskScore}
+              </span>
+              <span className="text-[#64748B] text-xs font-mono">/ 100</span>
+              <span className={`ml-auto inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border ${riskStatus.color}`}>
+                {riskStatus.label}
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="text-[#94A3B8] text-xl font-bold font-mono">
+                N/A
+              </span>
+              <span className="ml-auto inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border text-amber-300/90 bg-amber-500/10 border-amber-500/25">
+                Non-Legal File
+              </span>
+            </>
+          )}
         </div>
       </div>
 
@@ -64,13 +90,15 @@ export const DocumentMetadata: React.FC<DocumentMetadataProps> = ({ clauseCount,
           </span>
         </div>
         <div className="flex items-center gap-1.5 mt-1">
-          <span className="text-xs font-medium text-[#E2E8F0]">
-            {riskScore >= 70 ? 'Requires Redlines' : riskScore >= 40 ? 'Review Recommended' : 'Standard Terms'}
+          <span className="text-xs font-medium text-[#E2E8F0] truncate">
+            {isLegalDocument ? (
+              riskScore >= 70 ? 'Requires Redlines' : riskScore >= 40 ? 'Review Recommended' : 'Standard Terms'
+            ) : (
+              documentType || 'Non-Contract Document'
+            )}
           </span>
         </div>
       </div>
     </div>
   );
 };
-
-
