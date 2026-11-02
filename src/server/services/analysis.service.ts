@@ -44,7 +44,10 @@ export class AnalysisService {
                 riskCards: [],
                 positiveFindings: [],
                 missingClauses: [],
-                riskScoreBreakdown: { contractQuality: 50, clauseRisk: 50, jurisdictionCompliance: 50 }
+                riskScoreBreakdown: { contractQuality: 50, clauseRisk: 50, jurisdictionCompliance: 50 },
+                isLegalDocument: true,
+                documentType: "Legal Contract",
+                documentTypeReason: ""
             };
 
             const stream = await analysisGraph.stream(initialState);
@@ -72,6 +75,9 @@ export class AnalysisService {
                 clauses: currentState.clauses,
                 positiveFindings: currentState.positiveFindings,
                 missingClauses: currentState.missingClauses,
+                isLegalDocument: currentState.isLegalDocument,
+                documentType: currentState.documentType,
+                documentTypeReason: currentState.documentTypeReason,
             };
 
             return {

@@ -1,7 +1,7 @@
 import { chatGraph } from "@/ai/graph/chat.graph";
 import { ChatState } from "@/ai/types/chat";
 import { supabaseAdmin } from "@/utils/supabase/admin";
-import { HumanMessage } from "@langchain/core/messages";
+import { HumanMessage, AIMessage, BaseMessage } from "@langchain/core/messages";
 
 export interface ChatContractInput {
     contractId: string;
@@ -62,7 +62,22 @@ export class chatService {
                 targetSessionId = newSession.id;
             }
 
-            // 2. Persist the User Message to Supabase
+            // 2. Fetch past conversation history from Supabase for multi-turn context
+            const { data: pastMessages } = await supabaseAdmin
+                .from("chat_messages")
+                .select("role, content")
+                .eq("session_id", targetSessionId)
+                .order("created_at", { ascending: true })
+                .limit(10);
+
+            const historyMessages: BaseMessage[] = (pastMessages || []).map((msg: any) => {
+                if (msg.role === "assistant") {
+                    return new AIMessage(msg.content);
+                }
+                return new HumanMessage(msg.content);
+            });
+
+            // 3. Persist the current User Message to Supabase
             const { error: userMsgError } = await supabaseAdmin
                 .from("chat_messages")
                 .insert({
@@ -76,20 +91,78 @@ export class chatService {
                 console.error("Failed to record user message:", userMsgError);
             }
 
-            // 3. Prepare LangGraph Initial State & Execute
+            // 4. Fetch Contract Metadata and Analysis Report to ground the assistant
+            const [contractRes, reportRes] = await Promise.all([
+                supabaseAdmin
+                    .from("contracts")
+                    .select("file_name, country, status, risk_score, overall_risk")
+                    .eq("id", contractId)
+                    .maybeSingle(),
+                supabaseAdmin
+                    .from("analysis_reports")
+                    .select("summary, overall_risk, risk_score, risk_score_breakdown, risk_cards, positive_findings, missing_clauses")
+                    .eq("contract_id", contractId)
+                    .maybeSingle()
+            ]);
+
+            const contract = contractRes.data;
+            const report = reportRes.data;
+            const breakdown = report?.risk_score_breakdown || {};
+            const isLegal = breakdown.isLegalDocument !== undefined
+                ? Boolean(breakdown.isLegalDocument)
+                : !(report?.summary && report.summary.toLowerCase().includes("non-legal document"));
+            const docType = breakdown.documentType || (isLegal ? "Legal Contract" : "Non-Legal Document");
+
+            // Format comprehensive analysis overview for prompt context
+            let analysisSummaryText = `DOCUMENT INFORMATION:
+- File Name: ${contract?.file_name || "Uploaded Document"}
+- Jurisdiction: ${contract?.country || "US"}
+- Document Classification: ${docType} (${isLegal ? "Legal Agreement" : "Non-Legal Document"})`;
+
+            if (report) {
+                analysisSummaryText += `\n\nEXECUTIVE AUDIT SUMMARY:
+${report.summary || "No executive summary available."}
+
+RISK METRICS:
+- Overall Risk: ${report.overall_risk || "N/A"}
+- Risk Score: ${report.risk_score !== undefined ? `${report.risk_score} / 100` : "N/A"}`;
+
+                if (Array.isArray(report.risk_cards) && report.risk_cards.length > 0) {
+                    analysisSummaryText += `\n\nIDENTIFIED RISK AREAS:\n` + report.risk_cards.map((c: any, i: number) => 
+                        `${i + 1}. [${(c.severity || "medium").toUpperCase()}] ${c.clauseTitle}: ${c.explanation} (Why it matters: ${c.whyItMatters || "Potential liability"})`
+                    ).join("\n");
+                }
+
+                if (Array.isArray(report.positive_findings) && report.positive_findings.length > 0) {
+                    analysisSummaryText += `\n\nPOSITIVE FINDINGS:\n` + report.positive_findings.map((p: any) => 
+                        `- ${p.clauseTitle}: ${p.explanation}`
+                    ).join("\n");
+                }
+
+                if (Array.isArray(report.missing_clauses) && report.missing_clauses.length > 0) {
+                    analysisSummaryText += `\n\nMISSING PROTECTIVE CLAUSES:\n` + report.missing_clauses.map((m: any) => 
+                        `- ${m.title}: ${m.explanation} (Severity: ${m.severity || "medium"})`
+                    ).join("\n");
+                }
+            }
+
+            // 5. Prepare LangGraph Initial State & Execute
             const initialState: ChatState = {
                 contractId,
-                analysisSummary: "",
+                analysisSummary: analysisSummaryText,
                 retrievedContext: "",
-                messages: [new HumanMessage(message)],
+                messages: [
+                    ...historyMessages,
+                    new HumanMessage(message)
+                ],
                 status: "unknown",
             };
 
             const result = await chatGraph.invoke(initialState);
             const aiMessage = result?.messages?.[result.messages.length - 1];
-            const aiResponse = String(aiMessage?.content || "I was unable to analyze the contract for this question.");
+            const aiResponse = String(aiMessage?.content || "I was unable to analyze the document for this question.");
 
-            // 4. Persist the Assistant Message to Supabase
+            // 6. Persist the Assistant Message to Supabase
             const { data: savedAiMessage, error: aiMsgError } = await supabaseAdmin
                 .from("chat_messages")
                 .insert({
@@ -98,7 +171,7 @@ export class chatService {
                     content: aiResponse,
                     status: "completed",
                     metadata: {
-                        retrievedContext: result?.retrievedContext || "",
+                        retrievedContext: result?.retrievedContext ? result.retrievedContext.slice(0, 1000) : "",
                     },
                 })
                 .select("id, created_at")
@@ -110,7 +183,6 @@ export class chatService {
             if (!targetSessionId) {
                 throw new Error("Session ID could not be resolved");
             }
-
 
             return {
                 sessionId: targetSessionId,
